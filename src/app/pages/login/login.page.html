@@ -1,9 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="container">
 
-<ion-content>
+    <div class="content">
+      <img src="../../../assets/images/logo_blue.svg" alt="">
+      <h2>تطبيق عقارك</h2>
+      <h5>أهلا بك</h5>
+    </div>
+    <!-- <ion-footer> -->
 
+
+    <ion-item>
+      <ion-label>
+        <img src="../../../assets/images/user.svg" alt="">
+      </ion-label>
+      <ion-input type="text" placeholder="رقم الهاتف"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <img src="../../../assets/images/pass.svg" alt="">
+      </ion-label>
+      <ion-input type="text" placeholder="كلمة المرور"></ion-input>
+    </ion-item>
+
+
+    <ion-button class="submit" expand="block" fill="solid" (click)="navigate('home')">
+      تسجيل الدخول
+    </ion-button>
+
+
+
+    <!-- </ion-footer> -->
+  </div>
 </ion-content>
