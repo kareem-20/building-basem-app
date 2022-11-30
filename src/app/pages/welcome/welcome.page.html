@@ -1,0 +1,25 @@
+<ion-content [fullscreen]="true">
+  <div class="container">
+
+    <div class="content">
+      <img src="../../../assets/images/logo_b.svg" alt="">
+      <h3>تطبيق عقارك</h3>
+      <p>تصفح كل من المنازل , الشقق , الأراضي..إلخ المجاورة لك بسرعة وبسهولة</p>
+    </div>
+    <ion-footer>
+      <div class="sign-btns">
+        <ion-button expand="block" fill="clear" (click)="navigate('login')">
+          تسجيل الدخول
+        </ion-button>
+        <ion-button expand="block" fill="solid" (click)="navigate('register')">
+          حساب جديد
+        </ion-button>
+
+        <p class="guest" (click)="navigate('home')">
+          الدخول كزائر
+        </p>
+      </div>
+
+    </ion-footer>
+  </div>
+</ion-content>
