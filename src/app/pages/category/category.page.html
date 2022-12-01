@@ -1,0 +1,184 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-button slot="start" fill="clear" (click)="back()">
+      <img src="../../assets/images/back.svg">
+    </ion-button>
+
+    <ion-button slot="end" fill="clear">
+      <img src="../../assets/images/search.png">
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container">
+    <h1 class="title_category animate__animated animate__fadeInUp duration">الشقق</h1>
+    <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p>
+
+    <div class="add_box_item item_head animate__animated animate__fadeInUp duration">
+      <div class="head_box">
+        <span>مميز</span>
+        <img src="../../assets/images/img_card1.png" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            بغداد/شارع التحرير
+          </p>
+          <p>يناير 2021</p>
+        </div>
+        <div class="center_content">
+          <p class="body_title">
+            شقة مفروشة بحي بغداد
+          </p>
+          <div class="price">
+            1315 د.ع
+          </div>
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            210م2
+          </p>
+          <p>
+            <img src="../../assets/images/bed.svg" alt="">
+            3
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            2
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="add_box_item  animate__animated animate__fadeInUp duration">
+      <div class="head_box">
+        <span>مميز</span>
+        <img src="../../assets/images/img_card1.png" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            بغداد/شارع التحرير
+          </p>
+          <p>يناير 2021</p>
+        </div>
+        <div class="center_content">
+          <p class="body_title">
+            شقة مفروشة بحي بغداد
+          </p>
+          <div class="price">
+            1315 د.ع
+          </div>
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            210م2
+          </p>
+          <p>
+            <img src="../../assets/images/bed.svg" alt="">
+            3
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            2
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="add_box_item animate__animated animate__fadeInUp duration">
+      <div class="head_box">
+        <span>مميز</span>
+        <img src="../../assets/images/img_card1.png" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            بغداد/شارع التحرير
+          </p>
+          <p>يناير 2021</p>
+        </div>
+        <div class="center_content">
+          <p class="body_title">
+            شقة مفروشة بحي بغداد
+          </p>
+          <div class="price">
+            1315 د.ع
+          </div>
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            210م2
+          </p>
+          <p>
+            <img src="../../assets/images/bed.svg" alt="">
+            3
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            2
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" dir="rtl" horizontal="end" slot="fixed">
+    <ion-fab-button id="open-modal" mode="ios">
+      <ion-icon name="options"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+  <ion-modal #modal mode="ios" trigger="open-modal" [initialBreakpoint]="0.35" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+    <ng-template>
+      <ion-content>
+        <h1 class="title_category animate__animated animate__fadeInUp duration">التصنيف</h1>
+
+        <div class="filter_body">
+          <p>النوع</p>
+          <div class="item_box">
+            <ion-select interface="popover" placeholder="الشقق">
+              <ion-select-option value="peperoni">Peperoni</ion-select-option>
+              <ion-select-option value="hawaii">Hawaii</ion-select-option>
+            </ion-select>
+          </div>
+
+          <p>الموقع /المدينة</p>
+          <div class="item_box">
+            <ion-select interface="popover" placeholder="الشقق">
+              <ion-select-option value="peperoni">Peperoni</ion-select-option>
+              <ion-select-option value="hawaii">Hawaii</ion-select-option>
+            </ion-select>
+          </div>
+
+          <p>الغرف</p>
+          <div class="item_box">
+            <ion-select interface="popover" placeholder="الشقق">
+              <ion-select-option value="peperoni">Peperoni</ion-select-option>
+              <ion-select-option value="hawaii">Hawaii</ion-select-option>
+            </ion-select>
+          </div>
+
+          <p>سنة البناء</p>
+          <div class="item_box">
+            <ion-select interface="popover" placeholder="الشقق">
+              <ion-select-option value="peperoni">Peperoni</ion-select-option>
+              <ion-select-option value="hawaii">Hawaii</ion-select-option>
+            </ion-select>
+          </div>
+
+          <ion-button expand="block" fill="solid">
+            تصنيف
+          </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

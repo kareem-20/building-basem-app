@@ -1,20 +1,340 @@
-<ion-header [translucent]="true">
+<ion-header mode="md">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-button slot="start" fill="clear">
+      <img src="../../assets/images/menue.png">
+    </ion-button>
+
+    <ion-avatar slot="end">
+      <img src="../../assets/images/1.jpeg" />
+    </ion-avatar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="container">
+    <h1 class="animate__animated animate__fadeInBottomLeft fast">
+      أهلا بك <br>
+      في تطبيق عقارك
+    </h1>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <div class="search animate__animated animate__fadeInBottomLeft fast">
+      <img slot="start" src="../../assets/images/search.png">
+      <input type="search" name="search" id="" placeholder="المدينة , الحي أو الشارع">
+      <img slot="end" class="filter" src="../../assets/images/filter_.png" alt="">
+    </div>
+
+    <div class="categories">
+      <div class="row">
+        <div class="category animate__animated animate__fadeInBottomLeft duration" (click)="navigate('category')">
+          <div class="overflow"></div>
+          <img src="../../assets/images/img2.png" alt="">
+          <div class="content">
+            <h4>الشقق</h4>
+            <p>546 شقة</p>
+          </div>
+        </div>
+        <div class="category animate__animated animate__fadeInBottomLeft duration" (click)="navigate('category')">
+          <div class="overflow"></div>
+          <img src="../../assets/images/img.png" alt="">
+          <div class="content">
+            <h4>مباني</h4>
+            <p>546 مبني</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+
+        <div class="category animate__animated animate__fadeInBottomLeft duration">
+          <div class="overflow"></div>
+          <img src="../../assets/images/img3.png" alt="">
+          <div class="content">
+            <h4>أراضي</h4>
+            <p>546 أرض</p>
+          </div>
+        </div>
+        <div class="category animate__animated animate__fadeInBottomLeft duration">
+          <div class="overflow"></div>
+          <img src="../../assets/images/img4.png" alt="">
+          <div class="content">
+            <h4>شاليه</h4>
+            <p>546 شاليه</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item_head animate__animated animate__fadeInBottomLeft fast">
+      <h2>عقارات مميزة</h2>
+      <div class="end_head">
+        <p> المزيد</p>
+        <img src="../../assets/images/arrow_more.svg" alt="">
+      </div>
+    </div>
+    <swiper dir="rtl" [slidesPerView]="4/3" [spaceBetween]="20" [freeMode]="true" [breakpoints]="{
+      '640': {
+        slidesPerView: 2.5,
+        spaceBetween: 20
+      },
+      '768': {
+        slidesPerView: 3.2,
+        spaceBetween: 40
+      },
+      '1024': {
+        slidesPerView: 4.2,
+        spaceBetween: 50
+      }
+    }" class="mySwiper animate__animated animate__fadeInLeft duration">
+      <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
+        <div class="head_box">
+          <span>مميز</span>
+          <img src="../../assets/images/img_card.png" alt="">
+        </div>
+        <div class="body_content">
+          <div class="body_head">
+            <p>
+              <ion-icon slot="start" name="location"></ion-icon>
+              بغداد/شارع التحرير
+            </p>
+            <p>يناير 2021</p>
+          </div>
+          <p class="body_title">
+            شقة مفروشة بحي بغداد
+          </p>
+          <div class="price">
+            1315 د.ع
+          </div>
+          <div class="footer_content">
+            <p>
+              <img src="../../assets/images/size.svg" alt="">
+              210م2
+            </p>
+            <p>
+              <img src="../../assets/images/bed.svg" alt="">
+              3
+            </p>
+            <p>
+              <img src="../../assets/images/bath_room.svg" alt="">
+              2
+            </p>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
+        <div class="head_box">
+          <span>مميز</span>
+          <img src="../../assets/images/img_card.png" alt="">
+        </div>
+        <div class="body_content">
+          <div class="body_head">
+            <p>
+              <ion-icon slot="start" name="location"></ion-icon>
+              بغداد/شارع التحرير
+            </p>
+            <p>يناير 2021</p>
+          </div>
+          <p class="body_title">
+            شقة مفروشة بحي بغداد
+          </p>
+          <div class="price">
+            1315 د.ع
+          </div>
+          <div class="footer_content">
+            <p>
+              <img src="../../assets/images/size.svg" alt="">
+              210م2
+            </p>
+            <p>
+              <img src="../../assets/images/bed.svg" alt="">
+              3
+            </p>
+            <p>
+              <img src="../../assets/images/bath_room.svg" alt="">
+              2
+            </p>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
+        <div class="head_box">
+          <span>مميز</span>
+          <img src="../../assets/images/img_card.png" alt="">
+        </div>
+        <div class="body_content">
+          <div class="body_head">
+            <p>
+              <ion-icon slot="start" name="location"></ion-icon>
+              بغداد/شارع التحرير
+            </p>
+            <p>يناير 2021</p>
+          </div>
+          <p class="body_title">
+            شقة مفروشة بحي بغداد
+          </p>
+          <div class="price">
+            1315 د.ع
+          </div>
+          <div class="footer_content">
+            <p>
+              <img src="../../assets/images/size.svg" alt="">
+              210م2
+            </p>
+            <p>
+              <img src="../../assets/images/bed.svg" alt="">
+              3
+            </p>
+            <p>
+              <img src="../../assets/images/bath_room.svg" alt="">
+              2
+            </p>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
+        <div class="head_box">
+          <span>مميز</span>
+          <img src="../../assets/images/img_card.png" alt="">
+        </div>
+        <div class="body_content">
+          <div class="body_head">
+            <p>
+              <ion-icon slot="start" name="location"></ion-icon>
+              بغداد/شارع التحرير
+            </p>
+            <p>يناير 2021</p>
+          </div>
+          <p class="body_title">
+            شقة مفروشة بحي بغداد
+          </p>
+          <div class="price">
+            1315 د.ع
+          </div>
+          <div class="footer_content">
+            <p>
+              <img src="../../assets/images/size.svg" alt="">
+              210م2
+            </p>
+            <p>
+              <img src="../../assets/images/bed.svg" alt="">
+              3
+            </p>
+            <p>
+              <img src="../../assets/images/bath_room.svg" alt="">
+              2
+            </p>
+          </div>
+        </div>
+      </ng-template>
+    </swiper>
+
+    <div class="item_head animate__animated animate__fadeInUp fast">
+      <h2>مضاف حديثا</h2>
+    </div>
+
+    <div class="add_box_item item_head animate__animated animate__fadeInUp duration">
+      <div class="head_box">
+        <span>مميز</span>
+        <img src="../../assets/images/img_card1.png" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            بغداد/شارع التحرير
+          </p>
+          <p>يناير 2021</p>
+        </div>
+        <p class="body_title">
+          شقة مفروشة بحي بغداد
+        </p>
+        <div class="price">
+          1315 د.ع
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            210م2
+          </p>
+          <p>
+            <img src="../../assets/images/bed.svg" alt="">
+            3
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            2
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="add_box_item  animate__animated animate__fadeInUp duration">
+      <div class="head_box">
+        <span>مميز</span>
+        <img src="../../assets/images/img_card1.png" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            بغداد/شارع التحرير
+          </p>
+          <p>يناير 2021</p>
+        </div>
+        <p class="body_title">
+          شقة مفروشة بحي بغداد
+        </p>
+        <div class="price">
+          1315 د.ع
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            210م2
+          </p>
+          <p>
+            <img src="../../assets/images/bed.svg" alt="">
+            3
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            2
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="add_box_item animate__animated animate__fadeInUp duration">
+      <div class="head_box">
+        <span>مميز</span>
+        <img src="../../assets/images/img_card1.png" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            بغداد/شارع التحرير
+          </p>
+          <p>يناير 2021</p>
+        </div>
+        <p class="body_title">
+          شقة مفروشة بحي بغداد
+        </p>
+        <div class="price">
+          1315 د.ع
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            210م2
+          </p>
+          <p>
+            <img src="../../assets/images/bed.svg" alt="">
+            3
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            2
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>
