@@ -1,0 +1,70 @@
+<ion-content>
+  <div class="header-image">
+    <ion-button slot="start" (click)="back()">
+      <img src="../../../assets/images/back2.svg" alt="">
+    </ion-button>
+    <ion-button slot="end">
+      <img src="../../../assets/images/share.svg" alt="">
+    </ion-button>
+  </div>
+  <swiper #mySlide dir="rtl" [pagination]="{
+    type: 'fraction'
+  }" [navigation]="false" class="mySwiper">
+    <ng-template swiperSlide>
+      <img src="../../../assets/images/add-img.svg" alt="">
+    </ng-template>
+  </swiper>
+
+  <div class="container">
+    <p>اسم / عنوان الرئيسي</p>
+    <div class="item_box">
+      <ion-input placeholder="ادخل العنوان">
+      </ion-input>
+    </div>
+
+    <p>النوع</p>
+    <div class="item_box">
+      <ion-select interface="popover" placeholder="الشقق">
+        <ion-select-option value="peperoni">Peperoni</ion-select-option>
+        <ion-select-option value="hawaii">Hawaii</ion-select-option>
+      </ion-select>
+    </div>
+
+    <p>السعر</p>
+    <div class="item_box">
+      <ion-input placeholder="ادخل السعر">
+      </ion-input>
+    </div>
+
+    <p>العنوان</p>
+    <div class="item_box">
+      <ion-input placeholder="ادخل العنوان">
+      </ion-input>
+    </div>
+
+
+    <p>الغرف</p>
+    <div class="item_box">
+      <ion-input placeholder="ادخل العنوان">
+      </ion-input>
+    </div>
+
+
+    <p>الغرف</p>
+    <div class="item_box">
+      <ion-input placeholder="ادخل العنوان">
+      </ion-input>
+    </div>
+
+
+
+  </div>
+</ion-content>
+
+<ion-footer mode="ios">
+  <ion-toolbar>
+    <ion-button expand="block" fill="solid">
+      نشر الإعلان
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
