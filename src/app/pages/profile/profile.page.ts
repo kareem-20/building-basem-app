@@ -19,7 +19,9 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
   }
 
-
+  navigate() {
+    this.helper.navigateForward('myadds')
+  }
   back() {
     this.navCtrl.back()
   }

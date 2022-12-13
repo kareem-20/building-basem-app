@@ -1,6 +1,6 @@
 import { DataService } from './../../services/data/data.service';
 import { IonModal, NavController } from '@ionic/angular';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -8,7 +8,7 @@ import { forkJoin } from 'rxjs';
   templateUrl: './category.page.html',
   styleUrls: ['./category.page.scss'],
 })
-export class CategoryPage implements OnInit {
+export class CategoryPage implements OnInit, OnDestroy {
 
   @ViewChild('modal') filterModal: IonModal;
   typeBuild: any;
@@ -95,13 +95,11 @@ export class CategoryPage implements OnInit {
     if (this.roomsNumber) url += `&roomsNumber=${this.roomsNumber}`;
     if (this.bathroomNumber) url += `&bathroomNumber=${this.bathroomNumber}`;
     if (this.buildYear) url += `&buildYear=${this.buildYear}`;
-    // if (this.from) url += `&from=${new Date(this.from).getTime()}`;
-    // if (this.from && this.to) url += `&to=${new Date(this.to).getTime()}`;
-    // url
+    if (this.searchQuery) url += `&searchText=${this.searchQuery}`;
+
     return url.replace('&', '?');
   }
   onSearchChange(ev?: Event) {
-    console.log(ev);
     console.log(this.searchQuery);
     this.getBuilds()
   }
@@ -145,7 +143,10 @@ export class CategoryPage implements OnInit {
     this.emptyView = true;
     if (ev) ev.target.complete();
   }
-
+  details(build: any) {
+    this.dataService.addParams = { build }
+    this.navCtrl.navigateForward('details')
+  }
   clearFilter() {
     this.adGender = null;
     this.adStatus = null;
@@ -156,7 +157,8 @@ export class CategoryPage implements OnInit {
     this.filterModal.dismiss();
     this.getBuilds();
   }
-  ionViewDidLeave() {
+
+  ngOnDestroy() {
     this.dataService.addParams = {}
   }
 }

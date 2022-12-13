@@ -1,3 +1,4 @@
+import { DataService } from 'src/app/services/data/data.service';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SwiperComponent } from "swiper/angular";
@@ -12,11 +13,14 @@ SwiperCore.use([Pagination, Navigation]);
   encapsulation: ViewEncapsulation.None,
 })
 export class DetailsPage implements OnInit {
+  build: any;
   constructor(
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private dataService: DataService
   ) { }
 
   ngOnInit() {
+    this.build = this.dataService.myParams.build
   }
 
   back() {

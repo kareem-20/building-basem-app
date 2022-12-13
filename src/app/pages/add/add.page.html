@@ -19,8 +19,18 @@
   </swiper>
 
   <div class="container">
-    <form [formGroup]="form">
 
+    <form [formGroup]="form" class="addForm">
+      <p>الموقع</p>
+      <div class="item_boxLocation">
+        <div class="selectionBox" [ngClass]="{'active': locationType == 'current' }" (click)="getCurrentLocation()">
+          الموقع الحالي
+        </div>
+        <div (click)="openMap()" class="selectionBox" [ngClass]="{'active': locationType == 'map' }"
+          (click)="getMapLocation()">
+          تحديد من الخريطة
+        </div>
+      </div>
       <p>اسم / عنوان الرئيسي</p>
       <div class="item_box">
         <ion-input formControlName="title" placeholder="ادخل العنوان">
@@ -127,6 +137,27 @@
       </div>
     </form>
   </div>
+
+  <!-- <ion-modal #modal trigger="open-modal" [backdropDismiss]="false" [enterAnimation]="enterAnimation"
+    [leaveAnimation]="leaveAnimation">
+    <ng-template>
+      <ion-content>
+        <ion-toolbar>
+          <ion-title>الخريطة</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="light" (click)="closeModel()">الغاء</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+
+        <capacitor-google-map #map id="map"></capacitor-google-map>
+
+        <ion-button expand="block" fill="clear">
+          حفظ
+        </ion-button>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal> -->
 </ion-content>
 
 <ion-footer mode="ios">

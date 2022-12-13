@@ -4,51 +4,51 @@
   height: 300px;
 
   .swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
 
-  /* Center slide text vertically */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  height: 100%;
-}
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    height: 100%;
+  }
 
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-.swiper-pagination.swiper-pagination-fraction.swiper-pagination-horizontal {
-  position: absolute;
-  z-index: 9;
-  bottom: 16px;
-  left: 24px;
-  color: #fff;
-  font-family: 'bold';
-  background: rgba(0, 0, 0, .5);
-  padding: 0px 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px;
-  font-size: 14px;
-  height: 24px;
-  direction: ltr;
-  width: fit-content;
-}
+  .swiper-pagination.swiper-pagination-fraction.swiper-pagination-horizontal {
+    position: absolute;
+    z-index: 9;
+    bottom: 16px;
+    left: 24px;
+    color: #fff;
+    font-family: 'bold';
+    background: rgba(0, 0, 0, .5);
+    padding: 0px 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    font-size: 14px;
+    height: 24px;
+    direction: ltr;
+    width: fit-content;
+  }
 }
 
 
@@ -133,6 +133,13 @@
       width: 56px;
       // height: 48px;
       display: flex;
+
+      img {
+        object-fit: contain;
+        display: block;
+        text-align: center;
+        margin: auto;
+      }
     }
   }
 

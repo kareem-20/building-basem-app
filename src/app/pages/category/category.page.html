@@ -3,9 +3,9 @@
     <ion-button slot="start" fill="clear" (click)="back()">
       <img src="../../assets/images/back.svg">
     </ion-button>
-    <ion-searchbar class="animate__animated animate__fadeInLeft" style="padding-bottom: 0;" [hidden]="searchbarShow"
-      mode="ios" placeholder="Filter Pizza" inputmode="decimal" type="decimal" (ionChange)="onSearchChange($event)"
-      (ionBlur)="searchbarShow=true" [debounce]="250"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchQuery" class="animate__animated animate__fadeInLeft" style="padding-bottom: 0;"
+      [hidden]="searchbarShow" mode="ios" placeholder="بحث بالاسم" inputmode="decimal" type="text"
+      (ionChange)="onSearchChange($event)" (ionBlur)="searchbarShow=true" [debounce]="250"></ion-searchbar>
     <ion-button slot="end" fill="clear" (click)="searchbarShow = !searchbarShow">
       <img src="../../assets/images/search.png">
     </ion-button>
@@ -20,9 +20,10 @@
     <h1 class="title_category animate__animated animate__fadeInUp duration">{{typeBuild?.name}}</h1>
     <!-- <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p> -->
 
-    <div *ngFor="let build of building" class="add_box_item animate__animated animate__fadeInUp duration">
+    <div *ngFor="let build of building;let i = index;trackBy:trackFu"
+      class="add_box_item animate__animated animate__fadeInUp duration" (click)="details(build)">
       <div class="head_box">
-        <span>مميز</span>
+        <span>{{build?.adType?.name}}</span>
         <img [src]="build?.images[0] ?? '../../../assets/images/buildplaceholder.png'" alt="">
       </div>
       <div class="body_content">
@@ -57,7 +58,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
 
@@ -90,7 +90,10 @@
       <ion-icon name="options"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
+  <ion-infinite-scroll threshold="25%" [disabled]="disableInfinity" position="bottom" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
   <ion-modal #modal mode="ios" trigger="open-modal" [initialBreakpoint]="0.35"
     [breakpoints]="[0, 0.25,0.35, 0.5, 0.75,1]">
     <ng-template>

@@ -26,17 +26,17 @@
 
   <div class="body_details">
     <div class="title_headbox">
-      <h1>شقة مفروشة بحي بغداد</h1>
-      <p slot="end">12 يناير 2021</p>
+      <h1>{{build?.title}}</h1>
+      <p slot="end">{{build?.createdAt |date}}</p>
     </div>
-    <p class="price">1315 د.ع</p>
+    <p class="price">{{build?.price}} د.ع</p>
     <div class="location">
       <div class="img">
         <img src="../../../assets/images/map_i.svg" alt="">
       </div>
       <div class="content_location">
         <p>الموقع</p>
-        <p>بغداد/شارع التحرير</p>
+        <p>{{build?.address}}</p>
       </div>
       <div class="map">
         <img src="../../../assets/images/map_i.svg" alt="">
@@ -47,21 +47,21 @@
         <img src="../../../assets/images/size.svg" alt="">
         <div class="content">
           <p>المساحة</p>
-          <p>165 م2</p>
+          <p>{{build?.area}} م2</p>
         </div>
       </div>
       <div class="option">
         <img src="../../../assets/images/bed.svg" alt="">
         <div class="content">
           <p>الغرف</p>
-          <p>4 غرف</p>
+          <p>{{build?.roomsNumber}} غرف</p>
         </div>
       </div>
       <div class="option">
         <img src="../../../assets/images/bath_room.svg" alt="">
         <div class="content">
           <p>الحمامات</p>
-          <p>2 حمام</p>
+          <p>{{build?.bathroomNumber ?build?.bathroomNumber+ ' حمام':'....' }}</p>
         </div>
       </div>
     </div>
@@ -81,8 +81,7 @@
     </div>
     <div class="description">
       <h6>الوصف</h6>
-      <p>شقة مفروشة بحي بغداد...شقة مفروشة بحي بغداد..شقة مفروشة بحي بغداد..شقة مفروشة بحي بغداد..شقة مفروشة بحي
-        بغداد.شقة مفروشة بحي بغداد</p>
+      <p>{{build?.description}}</p>
     </div>
   </div>
 </ion-content>

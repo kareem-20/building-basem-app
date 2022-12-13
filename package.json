@@ -26,6 +26,7 @@
     "@capacitor/device": "^4.1.0",
     "@capacitor/filesystem": "^4.1.4",
     "@capacitor/geolocation": "^4.1.0",
+    "@capacitor/google-maps": "^4.3.2",
     "@capacitor/haptics": "4.1.0",
     "@capacitor/keyboard": "4.1.0",
     "@capacitor/splash-screen": "^4.1.2",

@@ -23,7 +23,7 @@ export class LocationService {
 
 
   async getCurrentLocation() {
-    if (Capacitor.getPlatform() == 'web') return this.location
+    // if (Capacitor.getPlatform() == 'web') return this.location
     await this.checkPermission();
     const coordinates = await Geolocation.getCurrentPosition();
     if (coordinates.coords) {

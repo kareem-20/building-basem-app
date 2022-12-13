@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { AddPageRoutingModule } from './add-routing.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AddPage } from './add.page';
 import { SwiperModule } from 'swiper/angular';
@@ -18,6 +19,8 @@ import { SwiperModule } from 'swiper/angular';
     AddPageRoutingModule,
     SwiperModule
   ],
-  declarations: [AddPage]
+  declarations: [AddPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class AddPageModule { }
