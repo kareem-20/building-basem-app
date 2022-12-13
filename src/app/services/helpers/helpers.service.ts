@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ export class HelpersService {
   constructor(
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
+    private navCtrl: NavController
   ) { }
 
   async showLoading(message = '') {
@@ -30,7 +31,7 @@ export class HelpersService {
     this.loadingCtrl.dismiss().catch((e) => console.log('dismissed'));
   }
 
-  async presentToast(message) {
+  async presentToast(message: string) {
     let toast = await this.toastCtrl.create({
       message,
       duration: 3000,
@@ -44,5 +45,17 @@ export class HelpersService {
     });
 
     await toast.present();
+  }
+
+  navigateForward(route: string) {
+    this.navCtrl.navigateForward(route)
+  }
+
+  navigateBack(route: string) {
+    this.navCtrl.navigateBack(route)
+  }
+
+  navigateRoot(route: string) {
+    this.navCtrl.navigateRoot(route)
   }
 }

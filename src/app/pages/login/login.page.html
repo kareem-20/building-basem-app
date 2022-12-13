@@ -1,35 +1,37 @@
 <ion-content [fullscreen]="true">
   <div class="container">
 
-    <div class="content">
-      <img src="../../../assets/images/logo_blue.svg" alt="">
+    <div class="content animate__animated animate__fadeInBottomLeft duration">
+      <ion-button class="backBtn" fill="clear" (click)="back()">
+        <img src="../../../assets/images/back.svg" alt="">
+      </ion-button>
+      <img class="logo" src="../../../assets/images/logo_blue.svg" alt="">
       <h2>تطبيق عقارك</h2>
       <h5>أهلا بك</h5>
     </div>
-    <!-- <ion-footer> -->
 
-
-    <ion-item>
-      <ion-label>
-        <img src="../../../assets/images/user.svg" alt="">
-      </ion-label>
-      <ion-input type="text" placeholder="رقم الهاتف"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>
-        <img src="../../../assets/images/pass.svg" alt="">
-      </ion-label>
-      <ion-input type="text" placeholder="كلمة المرور"></ion-input>
-    </ion-item>
-
-
-    <ion-button class="submit" expand="block" fill="solid" (click)="navigate('home')">
+    <form [formGroup]="form">
+      <ion-item class="animate__animated animate__fadeInBottomLeft duration">
+        <ion-label>
+          <img src="../../../assets/images/user.svg" alt="">
+        </ion-label>
+        <ion-input formControlName="username" type="text" placeholder="رقم الهاتف"></ion-input>
+      </ion-item>
+      <ion-item class="animate__animated animate__fadeInBottomLeft duration">
+        <ion-label>
+          <img src="../../../assets/images/pass.svg" alt="">
+        </ion-label>
+        <ion-input formControlName="password" type="password" placeholder="كلمة المرور"></ion-input>
+      </ion-item>
+    </form>
+    <ion-button mode="ios" class="submit animate__animated animate__fadeInBottomLeft duration" expand="block"
+      fill="solid" [disabled]="!form.valid" (click)="submit()">
       تسجيل الدخول
     </ion-button>
-
-
-
-    <!-- </ion-footer> -->
+    <ion-footer mode="ios">
+      <!-- <ion-toolbar> -->
+      <p class="register">ليس لدي حساب ؟<a href="register">حساب جديد</a></p>
+      <!-- </ion-toolbar> -->
+    </ion-footer>
   </div>
 </ion-content>

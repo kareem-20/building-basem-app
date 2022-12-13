@@ -10,7 +10,7 @@ const BASE_URL = 'taboor_url'
 export class DataService {
 
   private params: any = {};
-  baseURL: string = 'https://q-tabor.iraqsapp.com';
+  baseURL: string = 'http://localhost:5600';
 
   constructor(
     private http: HttpClient,

@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth/auth.service';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class WelcomePage implements OnInit {
 
   constructor(
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -20,4 +22,7 @@ export class WelcomePage implements OnInit {
     this.navCtrl.navigateForward(route)
   }
 
+  loginAsVisitor() {
+    this.authService.loginVisitor()
+  }
 }

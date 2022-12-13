@@ -16,12 +16,25 @@
 }
 
 .content {
-  width: 50%;
+  width: 100%;
   margin: auto;
   text-align: center;
-  margin-top: 20%;
+  padding-top: 20%;
 
-  img {
+  .backBtn {
+    position: absolute;
+    right: 0;
+    top: 0px;
+    border: 1px solid;
+    --border-radius: 50%;
+    border-radius: 50%;
+    --padding-end: 0;
+    --padding-start: 0;
+    height: 40px;
+    width: 40px;
+  }
+
+  img.logo {
     display: block;
     margin: auto;
     background-color: rgba(255, 255, 255, .35);
@@ -69,38 +82,10 @@ ion-button.submit {
 }
 
 ion-footer {
-  margin-top: 60%;
+  margin-top: 50%;
 
-  .sign-btns {
-    ion-button {
-      margin-top: 24px;
-      border-radius: 32px;
-      --border-radius: 32px;
-      height: 60px;
-      color: #fff;
-      font-family: 'bold';
-      font-size: 17px;
-    }
-
-    ion-button:first-of-type {
-      border: 1px solid #fff;
-    }
-
-    .guest {
-      color: #2A6FDB;
-      text-decoration: underline;
-      font-size: 17px;
-      margin-block: 24px;
-      text-align: center;
-      font-family: 'bold';
-
-    }
+  .register {
+    text-align: center;
+    font-family: 'bold';
   }
 }
-
-// .sign-btns {
-//   margin-top: auto;
-//   position: absolute;
-//   bottom: 0;
-//   width: auto;
-// }

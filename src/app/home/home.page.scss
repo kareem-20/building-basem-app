@@ -22,7 +22,7 @@ ion-content {
 }
 
 .container {
-  padding: 0px 16px 32px;
+  padding: 0px 16px 0px;
   margin: auto;
   max-width: 1024px;
 }
@@ -70,12 +70,14 @@ h1 {
 .categories {
 
   .row {
-    margin-bottom: 24px;
+    margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
     gap: 16px;
+    flex-wrap: wrap;
 
     .category {
+      flex-basis: 47%;
       background: #fff;
       width: 100%;
       height: 80px;
@@ -148,8 +150,29 @@ h1 {
   }
 }
 
-.swiper {
+.swiper.homeSlider {
   height: 270px;
+  margin-inline-start: 10px;
+
+  .swiper-slide {
+
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+
+  }
 }
 
 .swiper-slide {

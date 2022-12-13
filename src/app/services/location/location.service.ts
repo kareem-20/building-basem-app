@@ -8,7 +8,14 @@ import { Capacitor } from '@capacitor/core';
   providedIn: 'root'
 })
 export class LocationService {
-  private location = { lat: null, lng: null };
+  private location:
+    {
+      lat: number | null,
+      lng: number | null
+    } = {
+      lat: null,
+      lng: null
+    };
   private allow: boolean = false;
   constructor(
     private helper: HelpersService

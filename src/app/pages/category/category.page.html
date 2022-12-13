@@ -3,138 +3,93 @@
     <ion-button slot="start" fill="clear" (click)="back()">
       <img src="../../assets/images/back.svg">
     </ion-button>
-
-    <ion-button slot="end" fill="clear">
+    <ion-searchbar class="animate__animated animate__fadeInLeft" style="padding-bottom: 0;" [hidden]="searchbarShow"
+      mode="ios" placeholder="Filter Pizza" inputmode="decimal" type="decimal" (ionChange)="onSearchChange($event)"
+      (ionBlur)="searchbarShow=true" [debounce]="250"></ion-searchbar>
+    <ion-button slot="end" fill="clear" (click)="searchbarShow = !searchbarShow">
       <img src="../../assets/images/search.png">
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="container">
-    <h1 class="title_category animate__animated animate__fadeInUp duration">الشقق</h1>
-    <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p>
+    <h1 class="title_category animate__animated animate__fadeInUp duration">{{typeBuild?.name}}</h1>
+    <!-- <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p> -->
 
-    <div class="add_box_item item_head animate__animated animate__fadeInUp duration">
+    <div *ngFor="let build of building" class="add_box_item animate__animated animate__fadeInUp duration">
       <div class="head_box">
         <span>مميز</span>
-        <img src="../../assets/images/img_card1.png" alt="">
+        <img [src]="build?.images[0] ?? '../../../assets/images/buildplaceholder.png'" alt="">
       </div>
       <div class="body_content">
         <div class="body_head">
           <p>
             <ion-icon slot="start" name="location"></ion-icon>
-            بغداد/شارع التحرير
+            {{build?.address}}
           </p>
-          <p>يناير 2021</p>
+          <p>{{build?.createdAt| date}}</p>
         </div>
         <div class="center_content">
           <p class="body_title">
-            شقة مفروشة بحي بغداد
+            {{build?.title}}
           </p>
           <div class="price">
-            1315 د.ع
+            {{build?.price |number}} د.ع
           </div>
         </div>
         <div class="footer_content">
           <p>
             <img src="../../assets/images/size.svg" alt="">
-            210م2
+            {{build?.area}}م
           </p>
-          <p>
+          <p *ngIf="build?.bedsNumber">
             <img src="../../assets/images/bed.svg" alt="">
-            3
+            {{build?.bedsNumber}}
           </p>
           <p>
             <img src="../../assets/images/bath_room.svg" alt="">
-            2
+            {{build?.bathroomNumber}}
           </p>
         </div>
       </div>
     </div>
-    <div class="add_box_item  animate__animated animate__fadeInUp duration">
-      <div class="head_box">
-        <span>مميز</span>
-        <img src="../../assets/images/img_card1.png" alt="">
-      </div>
-      <div class="body_content">
-        <div class="body_head">
-          <p>
-            <ion-icon slot="start" name="location"></ion-icon>
-            بغداد/شارع التحرير
-          </p>
-          <p>يناير 2021</p>
-        </div>
-        <div class="center_content">
-          <p class="body_title">
-            شقة مفروشة بحي بغداد
-          </p>
-          <div class="price">
-            1315 د.ع
-          </div>
-        </div>
-        <div class="footer_content">
-          <p>
-            <img src="../../assets/images/size.svg" alt="">
-            210م2
-          </p>
-          <p>
-            <img src="../../assets/images/bed.svg" alt="">
-            3
-          </p>
-          <p>
-            <img src="../../assets/images/bath_room.svg" alt="">
-            2
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="add_box_item animate__animated animate__fadeInUp duration">
-      <div class="head_box">
-        <span>مميز</span>
-        <img src="../../assets/images/img_card1.png" alt="">
-      </div>
-      <div class="body_content">
-        <div class="body_head">
-          <p>
-            <ion-icon slot="start" name="location"></ion-icon>
-            بغداد/شارع التحرير
-          </p>
-          <p>يناير 2021</p>
-        </div>
-        <div class="center_content">
-          <p class="body_title">
-            شقة مفروشة بحي بغداد
-          </p>
-          <div class="price">
-            1315 د.ع
-          </div>
-        </div>
-        <div class="footer_content">
-          <p>
-            <img src="../../assets/images/size.svg" alt="">
-            210م2
-          </p>
-          <p>
-            <img src="../../assets/images/bed.svg" alt="">
-            3
-          </p>
-          <p>
-            <img src="../../assets/images/bath_room.svg" alt="">
-            2
-          </p>
-        </div>
-      </div>
+
+  </div>
+
+
+  <!-- error View && Loading  -->
+  <div *ngIf="loading" class="loading">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <div *ngIf="emptyView" class="error-view">
+    <div class="content">
+      <ion-icon name="happy-outline"></ion-icon>
+      <ion-text color="medium">
+        <p>لا يوجد اعلانات حاليا</p>
+      </ion-text>
     </div>
   </div>
 
-  <ion-fab vertical="bottom" dir="rtl" horizontal="end" slot="fixed">
+  <div *ngIf="errorView" class="error-view">
+    <div class="content">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <ion-text color="medium">
+        <p>خطأ بالشبكة يرجي المحاولة لاحقاً</p>
+      </ion-text>
+    </div>
+  </div>
+
+
+  <ion-fab *ngIf="building.length" vertical="bottom" dir="rtl" horizontal="end" slot="fixed">
     <ion-fab-button id="open-modal" mode="ios">
       <ion-icon name="options"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
 
   <ion-modal #modal mode="ios" trigger="open-modal" [initialBreakpoint]="0.35" [breakpoints]="[0, 0.25, 0.5, 0.75]">
     <ng-template>

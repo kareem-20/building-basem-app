@@ -9,61 +9,129 @@
   </div>
   <swiper #mySlide dir="rtl" [pagination]="{
     type: 'fraction'
-  }" [navigation]="false" class="mySwiper">
+  }" [navigation]="false" class="mySwiper addSlide">
     <ng-template swiperSlide>
-      <img src="../../../assets/images/add-img.svg" alt="">
+      <img (click)="selectImage()" src="../../../assets/images/add-img.svg" alt="">
+    </ng-template>
+    <ng-template *ngFor="let img of images" swiperSlide>
+      <img [src]="img.data" alt="">
     </ng-template>
   </swiper>
 
   <div class="container">
-    <p>اسم / عنوان الرئيسي</p>
-    <div class="item_box">
-      <ion-input placeholder="ادخل العنوان">
-      </ion-input>
-    </div>
+    <form [formGroup]="form">
 
-    <p>النوع</p>
-    <div class="item_box">
-      <ion-select interface="popover" placeholder="الشقق">
-        <ion-select-option value="peperoni">Peperoni</ion-select-option>
-        <ion-select-option value="hawaii">Hawaii</ion-select-option>
-      </ion-select>
-    </div>
+      <p>اسم / عنوان الرئيسي</p>
+      <div class="item_box">
+        <ion-input formControlName="title" placeholder="ادخل العنوان">
+        </ion-input>
+      </div>
 
-    <p>السعر</p>
-    <div class="item_box">
-      <ion-input placeholder="ادخل السعر">
-      </ion-input>
-    </div>
+      <p>المحافظة</p>
+      <div class="item_box">
+        <ion-select mode="ios" placeholder="الشقق" formControlName="city">
+          <ion-select-option *ngFor="let city of citys" [value]="city._id">{{city.name}}</ion-select-option>
+        </ion-select>
+      </div>
 
-    <p>العنوان</p>
-    <div class="item_box">
-      <ion-input placeholder="ادخل العنوان">
-      </ion-input>
-    </div>
+      <p>نوع العقار</p>
+      <div class="item_box">
+        <ion-select mode="ios" placeholder="الشقق" formControlName="buildType">
+          <ion-select-option *ngFor="let type of buildTypes" [value]="type._id">{{type.name}}</ion-select-option>
+        </ion-select>
+      </div>
 
-
-    <p>الغرف</p>
-    <div class="item_box">
-      <ion-input placeholder="ادخل العنوان">
-      </ion-input>
-    </div>
+      <p>جنس السند</p>
+      <div class="item_box">
+        <ion-select mode="ios" placeholder="الشقق" formControlName="bondType">
+          <ion-select-option *ngFor="let type of bondTypes" [value]="type._id">{{type.name}}</ion-select-option>
+        </ion-select>
+      </div>
 
 
-    <p>الغرف</p>
-    <div class="item_box">
-      <ion-input placeholder="ادخل العنوان">
-      </ion-input>
-    </div>
+      <p>جنس الاعلان</p>
+      <div class="item_box">
+        <ion-select mode="ios" placeholder="الشقق" formControlName="adGender">
+          <ion-select-option *ngFor="let type of adGender" [value]="type._id">{{type.name}}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <p>نوع الاعلان</p>
+      <div class="item_box">
+        <ion-select mode="ios" placeholder="الشقق" formControlName="adType">
+          <ion-select-option *ngFor="let type of adTypes" [value]="type._id">{{type.name}}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <p>حالة العرض</p>
+      <div class="item_box">
+        <ion-select mode="ios" placeholder="الشقق" formControlName="adStatus">
+          <ion-select-option *ngFor="let type of adStatus" [value]="type._id">{{type.name}}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <p>العنوان</p>
+      <div class="item_box">
+        <ion-input formControlName="address" placeholder="ادخل العنوان">
+        </ion-input>
+      </div>
+
+      <p>المساحة</p>
+      <div class="item_box">
+        <ion-input formControlName="area" placeholder="ادخل المساحة">
+        </ion-input>
+      </div>
+
+      <p>السعر</p>
+      <div class="item_box">
+        <ion-input type="number" formControlName="price" placeholder="ادخل السعر">
+        </ion-input>
+      </div>
+
+      <p>عدد الغرف</p>
+      <div class="item_box">
+        <ion-input type="number" formControlName="roomsNumber" placeholder="ادخل العدد">
+        </ion-input>
+      </div>
 
 
+      <p>عدد الحمامات</p>
+      <div class="item_box">
+        <ion-input type="number" formControlName="bathroomNumber" placeholder="ادخل العدد">
+        </ion-input>
+      </div>
 
+
+      <p>سنة البناء</p>
+      <div class="item_box">
+        <ion-input type="number" formControlName="buildYear" placeholder="ادخل السنة">
+        </ion-input>
+      </div>
+
+      <p>الوصف</p>
+      <div class="item_box">
+        <ion-input type="text" formControlName="description" placeholder="ادخل العدد">
+        </ion-input>
+      </div>
+
+      <p>رقم الهاتف</p>
+      <div class="item_box">
+        <ion-input type="tel" formControlName="phoneCall" placeholder="ادخل الهاتف">
+        </ion-input>
+      </div>
+
+      <p>رقم الوتساب</p>
+      <div class="item_box">
+        <ion-input type="tel" formControlName="whatsapp" placeholder="ادخل الهاتف">
+        </ion-input>
+      </div>
+    </form>
   </div>
 </ion-content>
 
 <ion-footer mode="ios">
   <ion-toolbar>
-    <ion-button expand="block" fill="solid">
+    <ion-button [disabled]="!form.valid" (click)="submit()" expand="block" fill="solid">
       نشر الإعلان
     </ion-button>
   </ion-toolbar>
