@@ -1,6 +1,7 @@
 import { DataService } from './../../services/data/data.service';
-import { NavController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { IonModal, NavController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -9,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryPage implements OnInit {
 
+  @ViewChild('modal') filterModal: IonModal;
   typeBuild: any;
   loading: boolean = true
   errorView: boolean = false
@@ -18,6 +20,23 @@ export class CategoryPage implements OnInit {
   skip: number = 0;
   building: any[] = []
   searchbarShow = true;
+
+  /// filter data
+  bondTypes: any[] = []
+  adTypes: any[] = []
+  adStatuss: any[] = []
+  adGenders: any[] = []
+  citys: any[] = [];
+
+  /// filter values
+  city: string | null = null;
+  adStatus: string | null = null;
+  adGender: string | null = null;
+  adType: string | null = null;
+  bondType: string | null = null;
+  roomsNumber: number | null = null;
+  bathroomNumber: number | null = null;
+  buildYear: number | null = null;
   constructor(
     private navCtrl: NavController,
     private dataService: DataService
@@ -25,7 +44,8 @@ export class CategoryPage implements OnInit {
 
   ngOnInit() {
     this.typeBuild = this.dataService.myParams.type;
-    this.getBuilds()
+    this.getdataFilters();
+    this.getBuilds();
   }
 
   getBuilds(ev?: any) {
@@ -40,6 +60,24 @@ export class CategoryPage implements OnInit {
       })
   }
 
+
+  getdataFilters() {
+    forkJoin([
+      this.dataService.getData('/citys'),
+      this.dataService.getData('/bondType'),
+      this.dataService.getData('/adType'),
+      this.dataService.getData('/adStatus'),
+      this.dataService.getData('/adGender'),
+    ]).subscribe((res: any[]) => {
+      console.log(res);
+      this.citys = res[0]
+      this.bondTypes = res[1]
+      this.adTypes = res[2]
+      this.adStatuss = res[3]
+      this.adGenders = res[4]
+    })
+  }
+
   back() {
     this.navCtrl.back()
   }
@@ -49,7 +87,14 @@ export class CategoryPage implements OnInit {
     let url = '/build/'
     url += `&buildType=${this.typeBuild._id}`
     if (this.skip) url += `&skip=${this.skip}`;
-    // if (this.date) url += `&date=${this.date}`;
+    if (this.city) url += `&city=${this.city}`;
+    if (this.adStatus) url += `&adStatus=${this.adStatus}`;
+    if (this.adGender) url += `&adGender=${this.adGender}`;
+    if (this.adType) url += `&adType=${this.adType}`;
+    if (this.bondType) url += `&bondType=${this.bondType}`;
+    if (this.roomsNumber) url += `&roomsNumber=${this.roomsNumber}`;
+    if (this.bathroomNumber) url += `&bathroomNumber=${this.bathroomNumber}`;
+    if (this.buildYear) url += `&buildYear=${this.buildYear}`;
     // if (this.from) url += `&from=${new Date(this.from).getTime()}`;
     // if (this.from && this.to) url += `&to=${new Date(this.to).getTime()}`;
     // url
@@ -59,6 +104,11 @@ export class CategoryPage implements OnInit {
     console.log(ev);
     console.log(this.searchQuery);
     this.getBuilds()
+  }
+
+
+  async openFilterModal() {
+    await this.filterModal.present()
   }
   trackFu(build: any) {
     return build?._id
@@ -96,6 +146,16 @@ export class CategoryPage implements OnInit {
     if (ev) ev.target.complete();
   }
 
+  clearFilter() {
+    this.adGender = null;
+    this.adStatus = null;
+    this.adType = null;
+    this.bondType = null;
+    this.buildYear = null;
+    this.city = null;
+    this.filterModal.dismiss();
+    this.getBuilds();
+  }
   ionViewDidLeave() {
     this.dataService.addParams = {}
   }

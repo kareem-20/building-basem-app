@@ -140,12 +140,14 @@ ion-modal {
     --padding-top: 30px;
     --padding-start: 16px;
     --padding-end: 16px;
-    --padding-bottom: 16px;
+    --padding-bottom: 260px;
 
     color: var(--dark-text);
 
-    h1 {
-      margin-bottom: 24px;
+    .headerModalFilter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .filter_body {

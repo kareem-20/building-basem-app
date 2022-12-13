@@ -85,50 +85,86 @@
   </div>
 
 
-  <ion-fab *ngIf="building.length" vertical="bottom" dir="rtl" horizontal="end" slot="fixed">
-    <ion-fab-button id="open-modal" mode="ios">
+  <ion-fab *ngIf="!errorView" vertical="bottom" dir="rtl" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openFilterModal()" mode="ios">
       <ion-icon name="options"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <ion-modal #modal mode="ios" trigger="open-modal" [initialBreakpoint]="0.35" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+  <ion-modal #modal mode="ios" trigger="open-modal" [initialBreakpoint]="0.35"
+    [breakpoints]="[0, 0.25,0.35, 0.5, 0.75,1]">
     <ng-template>
       <ion-content>
-        <h1 class="title_category animate__animated animate__fadeInUp duration">التصنيف</h1>
+        <div class="headerModalFilter">
+          <h1 class="title_category animate__animated animate__fadeInUp duration">التصنيف</h1>
+          <ion-button (click)="clearFilter()" fill="clear" shape="round">
+            الغاء
+          </ion-button>
+        </div>
         <div class="filter_body">
-          <p>النوع</p>
+          <p>المحافظة</p>
           <div class="item_box">
-            <ion-select interface="popover" placeholder="الشقق">
-              <ion-select-option value="peperoni">Peperoni</ion-select-option>
-              <ion-select-option value="hawaii">Hawaii</ion-select-option>
+            <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="city">
+              <ion-select-option *ngFor="let city of citys" [value]="city._id">{{city.name}}</ion-select-option>
             </ion-select>
           </div>
 
-          <p>الموقع /المدينة</p>
+          <!-- <p>الموقع /المدينة</p>
           <div class="item_box">
             <ion-select interface="popover" placeholder="الشقق">
               <ion-select-option value="peperoni">Peperoni</ion-select-option>
               <ion-select-option value="hawaii">Hawaii</ion-select-option>
+            </ion-select>
+          </div> -->
+          <p>جنس السند</p>
+          <div class="item_box">
+            <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="bondType">
+              <ion-select-option *ngFor="let type of bondTypes" [value]="type._id">{{type.name}}</ion-select-option>
             </ion-select>
           </div>
 
-          <p>الغرف</p>
+
+          <p>جنس الاعلان</p>
           <div class="item_box">
-            <ion-select interface="popover" placeholder="الشقق">
-              <ion-select-option value="peperoni">Peperoni</ion-select-option>
-              <ion-select-option value="hawaii">Hawaii</ion-select-option>
+            <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="adGender">
+              <ion-select-option *ngFor="let type of adGenders" [value]="type._id">{{type.name}}</ion-select-option>
             </ion-select>
           </div>
+
+          <p>نوع الاعلان</p>
+          <div class="item_box">
+            <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="adType">
+              <ion-select-option *ngFor="let type of adTypes" [value]="type._id">{{type.name}}</ion-select-option>
+            </ion-select>
+          </div>
+
+          <p>حالة العرض</p>
+          <div class="item_box">
+            <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="adStatus">
+              <ion-select-option *ngFor="let type of adStatuss" [value]="type._id">{{type.name}}</ion-select-option>
+            </ion-select>
+          </div>
+          <p>عدد الغرف</p>
+          <div class="item_box">
+            <ion-input type="number" [(ngModel)]="roomsNumber" placeholder="ادخل العدد">
+            </ion-input>
+          </div>
+
+
+          <p>عدد الحمامات</p>
+          <div class="item_box">
+            <ion-input type="number" [(ngModel)]="bathroomNumber" placeholder="ادخل العدد">
+            </ion-input>
+          </div>
+
 
           <p>سنة البناء</p>
           <div class="item_box">
-            <ion-select interface="popover" placeholder="الشقق">
-              <ion-select-option value="peperoni">Peperoni</ion-select-option>
-              <ion-select-option value="hawaii">Hawaii</ion-select-option>
-            </ion-select>
+            <ion-input type="number" [(ngModel)]="buildYear" placeholder="ادخل السنة">
+            </ion-input>
           </div>
 
-          <ion-button expand="block" fill="solid">
+          <ion-button expand="block" fill="solid" (click)="getBuilds();filterModal.dismiss()">
             تصنيف
           </ion-button>
         </div>
