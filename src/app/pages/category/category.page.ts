@@ -100,7 +100,6 @@ export class CategoryPage implements OnInit, OnDestroy {
     return url.replace('&', '?');
   }
   onSearchChange(ev?: Event) {
-    console.log(this.searchQuery);
     this.getBuilds()
   }
 

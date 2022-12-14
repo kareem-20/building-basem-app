@@ -19,7 +19,6 @@
   <div class="container">
     <h1 class="title_category animate__animated animate__fadeInUp duration">{{typeBuild?.name}}</h1>
     <!-- <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p> -->
-
     <div *ngFor="let build of building;let i = index;trackBy:trackFu"
       class="add_box_item animate__animated animate__fadeInUp duration" (click)="details(build)">
       <div class="head_box">
