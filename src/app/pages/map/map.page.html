@@ -1,10 +1,11 @@
 <ion-header>
   <ion-toolbar color="light">
     <ion-title>الخريطة</ion-title>
-    <ion-button slot="end" (click)="close()" fill="outline" color="primary" shape="round">
+    <ion-button slot="end" (click)="sumbit()" fill="outline" color="primary" shape="round">
       حفظ
     </ion-button>
-    <ion-button slot="end" (click)="close()" fill="outline" color="danger" shape="round">
+    <ion-button style="margin-inline-start:30px" slot="end" (click)="close()" fill="outline" color="danger"
+      shape="round">
       الغاء
     </ion-button>
   </ion-toolbar>
@@ -12,11 +13,4 @@
 
 <ion-content>
   <capacitor-google-map #map id="map"></capacitor-google-map>
-  <ion-footer>
-    <ion-toolbar>
-      <ion-button expand="block" fill="clear">
-        حفظ
-      </ion-button>
-    </ion-toolbar>
-  </ion-footer>
 </ion-content>

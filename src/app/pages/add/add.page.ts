@@ -20,10 +20,6 @@ SwiperCore.use([Pagination, Navigation]);
   encapsulation: ViewEncapsulation.None,
 })
 export class AddPage implements OnInit {
-  @ViewChild('modal') modal: IonModal;
-  @ViewChild('map') mapRef: ElementRef;
-  map: GoogleMap;
-
   form: FormGroup = new FormGroup({});
   buildTypes: any[] = []
   bondTypes: any[] = []
@@ -34,6 +30,7 @@ export class AddPage implements OnInit {
   images: any[] = [];
   currentLocation: {} | null = null;
   locationType: string | null = null;
+  mapLocation: {} | null = null;
   constructor(
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
@@ -119,11 +116,14 @@ export class AddPage implements OnInit {
   }
 
   async submit() {
-    let images = await this.cameraService.uploadImages(this.images)
+    let images = await this.cameraService.uploadImages(this.images);
+    let location = this.location;
+    if (!location) return this.helper.presentToast('يجب تحديد موقع العقار')
     let body = {
       images,
       ...this.form.value,
-      user: this.authService.userData?._id
+      user: this.authService.userData?._id,
+      location
     }
     // console.log(body);
     this.dataService.postData('/build', body).subscribe((res) => {
@@ -132,6 +132,34 @@ export class AddPage implements OnInit {
       this.helper.presentToast('تم اضافة الاعلان بنجاح')
     })
   }
+
+  get location(): any {
+    let location = null
+    if (this.locationType == 'current' && this.currentLocation) location = this.currentLocation
+    if (this.locationType == 'map' && this.mapLocation) location = this.mapLocation
+    return location;
+  }
+  //########   Map Modal
+  async openMap() {
+    const modal = await this.modalController.create({
+      component: MapPage,
+      animated: true,
+      cssClass: 'modal-map',
+      enterAnimation: this.enterAnimation,
+      leaveAnimation: this.leaveAnimation
+    })
+    modal.present();
+
+    let data = (await modal.onDidDismiss())
+    if (data.data) {
+      this.mapLocation = data.data;
+      this.helper.presentToast('تم تحديد الموقع بنجاح')
+    } else {
+      this.locationType = null
+    }
+  }
+
+  /// animation modal
 
   enterAnimation = (baseEl: HTMLElement) => {
     const root = baseEl.shadowRoot;
@@ -160,19 +188,4 @@ export class AddPage implements OnInit {
   leaveAnimation = (baseEl: HTMLElement) => {
     return this.enterAnimation(baseEl).direction('reverse');
   };
-
-  async openMap() {
-    const modal = await this.modalController.create({
-      component: MapPage,
-      animated: true,
-      cssClass: 'modal-map',
-      enterAnimation: this.enterAnimation,
-      leaveAnimation: this.leaveAnimation
-    })
-    modal.present()
-  }
-
-  // closeModel() {
-  //   this.modal.dismiss();
-  // }
 }

@@ -11,6 +11,7 @@ import { GoogleMap, Marker } from '@capacitor/google-maps';
 export class MapPage implements OnInit {
   @ViewChild('map') mapRef: ElementRef;
   map: GoogleMap;
+  mapLocaion: { lat: number | null, lng: number | null } = { lat: null, lng: null };
   constructor(
     private modalCtrl: ModalController
   ) {
@@ -35,7 +36,7 @@ export class MapPage implements OnInit {
           lat: 30.5744705,
           lng: 31.5075989
         },
-        zoom: 5
+        zoom: 9
       }
     });
     this.addMarker()
@@ -59,11 +60,19 @@ export class MapPage implements OnInit {
     await this.map.addMarker(marker)
     this.map.setOnMarkerDragEndListener(async (marker) => {
       console.log(marker);
+      this.mapLocaion.lat = marker.latitude;
+      this.mapLocaion.lng = marker.longitude;
     })
   }
 
   close() {
+    console.log('close')
     this.modalCtrl.dismiss()
+  }
+
+  sumbit() {
+    console.log('submit')
+    this.modalCtrl.dismiss(this.mapLocaion)
   }
 
 }
