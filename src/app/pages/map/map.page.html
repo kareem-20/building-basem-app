@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar color="light">
     <ion-title>الخريطة</ion-title>
     <ion-button slot="end" (click)="sumbit()" fill="outline" color="primary" shape="round">
@@ -9,8 +9,18 @@
       الغاء
     </ion-button>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
   <capacitor-google-map #map id="map"></capacitor-google-map>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="sumbit()" expand="block" fill="solid" color="primary">
+      تأكيد
+    </ion-button>
+    <ion-button slot="end" (click)="close()" fill="solid" color="light">
+      الغاء
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

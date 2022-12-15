@@ -15,6 +15,8 @@ SwiperCore.use([Navigation, Pagination]);
   encapsulation: ViewEncapsulation.None,
 })
 export class HomePage implements OnInit {
+
+  userImage: string;
   @ViewChild('popover') popover: IonPopover;
   isOpen = false;
   buildTypes: any[] = []
@@ -37,6 +39,9 @@ export class HomePage implements OnInit {
     this.getBuilds()
   }
 
+  ionViewWillEnter() {
+    this.userImage = this.authService.userData.image;
+  }
   getTypes() {
     this.dataService.getData('/buildType')
       .subscribe((res: any) => {

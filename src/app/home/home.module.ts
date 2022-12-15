@@ -1,3 +1,4 @@
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -13,6 +14,7 @@ import { SwiperModule } from 'swiper/angular';
     CommonModule,
     FormsModule,
     IonicModule,
+    LazyLoadImageModule,
     HomePageRoutingModule,
     SwiperModule
   ],

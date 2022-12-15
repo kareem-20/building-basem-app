@@ -5,7 +5,8 @@
     </ion-button>
 
     <ion-avatar slot="end" (click)="profile()">
-      <img src="../../assets/images/userplaceholder.png" />
+      <img [lazyLoad]="userImage ||'../../../assets/images/userplaceholder.png'"
+        [errorImage]="'../../../assets/images/userplaceholder.png'" alt="">
     </ion-avatar>
   </ion-toolbar>
 </ion-header>

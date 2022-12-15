@@ -50,6 +50,7 @@ export class MapPage implements OnInit {
     const marker: Marker = {
       draggable: true,
       title: 'localhost',
+      iconUrl: '../../../assets/images/pin.svg',
       coordinate: {
         lat: 30.5744705,
         lng: 31.5075989

@@ -1,7 +1,13 @@
-ion-toolbar {
-  ion-button {
-    font-family: 'bold';
+ion-footer {
+  // padding: 16px;
 
+  ion-toolbar {
+    ion-button {
+      font-family: 'bold';
+      border-radius: 8px;
+      --border-radius: 8px;
+
+    }
   }
 }
 

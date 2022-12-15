@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+
+  userImage: string;
   userData: any;
   constructor(
     private navCtrl: NavController,
@@ -19,8 +21,12 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
   }
 
-  navigate() {
-    this.helper.navigateForward('myadds')
+  ionViewWillEnter() {
+    this.userImage = this.authService.userData.image;
+  }
+
+  navigate(route: string) {
+    this.helper.navigateForward(route)
   }
   back() {
     this.navCtrl.back()
