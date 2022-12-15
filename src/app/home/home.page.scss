@@ -289,3 +289,45 @@ h1 {
     height: 160px;
   }
 }
+
+ion-modal {
+  ion-content {
+    --padding-top: 30px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-bottom: 16px;
+
+    color: var(--dark-text);
+
+    .headerModalFilter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .filter_body {
+      p {
+        color: var(--dark-text);
+        font-family: 'bold';
+        margin-top: 0;
+      }
+
+      .item_box {
+        border: 1px solid #87899E;
+        border-radius: 8px;
+        margin-bottom: 24px;
+
+        ion-select {
+          --placeholder-color: var(--light-text);
+          --placeholder-opacity: 100%;
+        }
+      }
+
+      ion-button {
+        font-family: 'bold';
+        --border-radius: 25px;
+        border-radius: 25px;
+      }
+    }
+  }
+}

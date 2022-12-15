@@ -97,7 +97,7 @@ export class AddPage implements OnInit {
   selectImage() {
     console.log('clicked');
     this.cameraService.showActionSheet().then((val) => {
-      this.images.push(val)
+      if (val) this.images.push(val)
     })
   }
 

@@ -1,10 +1,11 @@
 import { AuthService } from './../services/auth/auth.service';
 import { DataService } from './../services/data/data.service';
 import { HelpersService } from 'src/app/services/helpers/helpers.service';
-import { IonPopover, NavController } from '@ionic/angular';
+import { IonModal, IonPopover, NavController } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SwiperComponent } from "swiper/angular";
 import SwiperCore, { Navigation, Pagination } from "swiper";
+import { forkJoin } from 'rxjs';
 SwiperCore.use([Navigation, Pagination]);
 
 
@@ -15,7 +16,7 @@ SwiperCore.use([Navigation, Pagination]);
   encapsulation: ViewEncapsulation.None,
 })
 export class HomePage implements OnInit {
-
+  @ViewChild('modal') filterModal: IonModal;
   userImage: string;
   @ViewChild('popover') popover: IonPopover;
   isOpen = false;
@@ -28,6 +29,21 @@ export class HomePage implements OnInit {
   disableInfinity: boolean = false;
   searchQuery: string = '';
 
+
+  /// filter data
+  bondTypes: any[] = []
+  adTypes: any[] = []
+  adStatuss: any[] = []
+  adGenders: any[] = []
+  citys: any[] = [];
+
+  /// filter values
+  city: string | null = null;
+  adStatus: string | null = null;
+  adGender: string | null = null;
+  adType: string | null = null;
+  bondType: string | null = null;
+
   constructor(
     private helper: HelpersService,
     private dataService: DataService,
@@ -36,7 +52,8 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getTypes();
-    this.getBuilds()
+    this.getBuilds();
+    this.getdataFilters();
   }
 
   ionViewWillEnter() {
@@ -61,11 +78,31 @@ export class HomePage implements OnInit {
       })
   }
 
-
+  getdataFilters() {
+    forkJoin([
+      this.dataService.getData('/citys'),
+      this.dataService.getData('/bondType'),
+      this.dataService.getData('/adType'),
+      this.dataService.getData('/adStatus'),
+      this.dataService.getData('/adGender'),
+    ]).subscribe((res: any[]) => {
+      console.log(res);
+      this.citys = res[0]
+      this.bondTypes = res[1]
+      this.adTypes = res[2]
+      this.adStatuss = res[3]
+      this.adGenders = res[4]
+    })
+  }
   get endPoint(): string {
     let url = '/build/'
     if (this.skip) url += `&skip=${this.skip}`;
     if (this.searchQuery) url += `&searchText=${this.searchQuery}`;
+    if (this.city) url += `&city=${this.city}`;
+    if (this.adStatus) url += `&adStatus=${this.adStatus}`;
+    if (this.adGender) url += `&adGender=${this.adGender}`;
+    if (this.adType) url += `&adType=${this.adType}`;
+    if (this.bondType) url += `&bondType=${this.bondType}`;
     return url.replace('&', '?');
   }
 
@@ -142,6 +179,20 @@ export class HomePage implements OnInit {
   presentPopover(e: Event) {
     this.popover.event = e;
     this.isOpen = true;
+  }
+
+  async filter() {
+    await this.filterModal.present()
+  }
+
+  clearFilter() {
+    this.adGender = null;
+    this.adStatus = null;
+    this.adType = null;
+    this.bondType = null;
+    this.city = null;
+    this.filterModal.dismiss();
+    this.getBuilds();
   }
 
 
