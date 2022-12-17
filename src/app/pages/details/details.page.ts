@@ -20,9 +20,20 @@ export class DetailsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.build = this.dataService.myParams.build
+    this.build = this.dataService.myParams.build;
+    console.log(this.build);
   }
 
+  call(number: any) {
+    window.open(`https://tel:${number}`)
+  }
+
+  whatsapp(number: any) {
+    window.open(`https://wa.me/${number}`, 'blank')
+  }
+  openMap() {
+
+  }
   back() {
     this.navCtrl.back()
   }
