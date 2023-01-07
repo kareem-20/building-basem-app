@@ -51,6 +51,14 @@ const routes: Routes = [
     path: 'me',
     loadChildren: () => import('./pages/me/me.module').then( m => m.MePageModule)
   },
+  {
+    path: 'otp',
+    loadChildren: () => import('./pages/otp/otp.module').then( m => m.OtpPageModule)
+  },
+  {
+    path: 'otp-vertify',
+    loadChildren: () => import('./pages/otp-vertify/otp-vertify.module').then( m => m.OtpVertifyPageModule)
+  },
 ];
 
 @NgModule({

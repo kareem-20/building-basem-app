@@ -107,3 +107,22 @@ ion-header {
   width: 100%;
   z-index: 99999;
 }
+
+ng-otp-input>div {
+  direction: unset;
+  text-align: center;
+}
+
+.otp-input {
+  border-radius: 50%;
+  border: 1px solid var(--ion-color-primary);
+  direction: ltr;
+  color: var(--ion-color-primary);
+  font-family: 'bold';
+  width: 48px !important;
+  font-size: 25px !important;
+  height: 48px !important;
+  line-height: 48px !important;
+  margin-bottom: 24px !important;
+
+}

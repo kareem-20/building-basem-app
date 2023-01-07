@@ -13,7 +13,7 @@ import { HelpersService } from 'src/app/services/helpers/helpers.service';
 export class RegisterPage implements OnInit {
 
   form!: FormGroup;
-
+  phone: any;
   // userTypes:[]<userType> =[]
   userTypes: any[] = []
   constructor(
@@ -28,15 +28,21 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     this.getuserTypes();
+    this.phone = localStorage.getItem('vertifiedNumber')
     console.log(this.authService.userData);
+    console.log(this.phone);
+
   }
 
   createForm() {
     this.form = this.fb.group({
-      username: ['', Validators.required],
+      fullName: [''],
+      // phone: ['', Validators.required],
+      userType: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      userType: ['', Validators.required]
+      password_confirmation: ['', Validators.required]
     })
+
   }
 
   back() {
@@ -56,11 +62,13 @@ export class RegisterPage implements OnInit {
   submit() {
     let body = this.form.value;
     console.log(this.authService.userData);
-
+    if (this.form.value.password_confirmation != this.form.value.password) return this.helper.presentToast('كلمة المرور غير متطابقة')
+    delete body.password_confirmation;
+    body.phone = this.phone;
     if (this.authService.userData) {
-      this.authService.updateUser(body)
+      return this.authService.updateUser(body)
     } else {
-      this.authService.register(body)
+      return this.authService.register(body)
     }
 
   }

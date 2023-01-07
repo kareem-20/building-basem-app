@@ -1,43 +1,63 @@
 <ion-content [fullscreen]="true">
   <div class="container">
 
-    <div class="content animate__animated animate__fadeInBottomLeft duration">
+    <div class="header_box animate__animated animate__fadeInBottomLeft duration">
       <ion-button class="backBtn" fill="clear" (click)="back()">
         <img src="../../../assets/images/back.svg" alt="">
       </ion-button>
-      <img class="logo" src="../../../assets/images/logo_blue.svg" alt="">
-      <h2>تطبيق عقارك</h2>
-      <h5>أهلا بك</h5>
+      <h1>حساب جديد</h1>
     </div>
 
     <form [formGroup]="form">
 
-      <div class="userTypes">
-        <div *ngFor="let type of userTypes" class="selectionBox animate__animated animate__fadeInBottomLeft duration"
-          [ngClass]="{'active': form.value.userType == type?._id }" (click)="form.patchValue({ userType: type?._id })">
-          {{type.name}}
-        </div>
+
+      <div class="item_box animate__animated animate__fadeInBottomLeft duration">
+        <p class="item_title">الإسم</p>
+        <ion-item class=" ">
+          <ion-input formControlName="fullName" type="text" placeholder="اسم المستخدم"></ion-input>
+        </ion-item>
       </div>
 
-      <ion-item class="animate__animated animate__fadeInBottomLeft duration">
-        <ion-label>
-          <img src="../../../assets/images/user.svg" alt="">
-        </ion-label>
-        <ion-input formControlName="username" type="text" placeholder="اسم المستخدم"></ion-input>
-      </ion-item>
+      <div class="item_box animate__animated animate__fadeInBottomLeft duration">
+        <p class="item_title">نوع الحساب</p>
+        <!-- <ion-item> -->
+        <div class="userTypes">
+          <div *ngFor="let type of userTypes" class="selectionBox  animate__animated animate__fadeInBottomLeft duration"
+            [ngClass]="{'active': form.value.userType == type?._id }"
+            (click)="form.patchValue({ userType: type?._id })">
+            {{type.name}}
+          </div>
+        </div>
+        <!-- </ion-item> -->
+      </div>
 
-      <ion-item class="animate__animated animate__fadeInBottomLeft duration">
-        <ion-label>
-          <img src="../../../assets/images/pass.svg" alt="">
-        </ion-label>
-        <ion-input formControlName="password" type="text" placeholder="كلمة المرور"></ion-input>
-      </ion-item>
+      <!-- <div class="item_box animate__animated animate__fadeInBottomLeft duration">
 
+        <p class="item_title">رقم الهاتف</p>
+        <ion-item>
+          <ion-input disabled="true" formControlName="phone" type="text" placeholder=""></ion-input>
+        </ion-item>
+      </div> -->
+
+      <div class="item_box animate__animated animate__fadeInBottomLeft duration">
+        <p class="item_title">كلمة المرور</p>
+        <ion-item>
+          <ion-input formControlName="password" type="text" placeholder="كلمة المرور"></ion-input>
+        </ion-item>
+
+      </div>
+
+      <div class="item_box animate__animated animate__fadeInBottomLeft duration">
+        <p class="item_title">تأكيد كلمة المرور</p>
+        <ion-item>
+          <ion-input formControlName="password_confirmation" type="text" placeholder="كلمة المرور"></ion-input>
+        </ion-item>
+      </div>
+      <ion-button mode="ios" class="submit animate__animated animate__fadeInBottomLeft duration" expand="block"
+        fill="solid" [disabled]="!form.valid" (click)="submit()">
+        انشاء حساب
+      </ion-button>
     </form>
-    <ion-button mode="ios" class="submit animate__animated animate__fadeInBottomLeft duration" expand="block"
-      fill="solid" [disabled]="!form.valid" (click)="submit()">
-      انشاء حساب
-    </ion-button>
 
   </div>
 </ion-content>

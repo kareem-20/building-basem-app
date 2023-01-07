@@ -10,7 +10,7 @@ const BASE_URL = 'taboor_url'
 export class DataService {
 
   private params: any = {};
-  baseURL: string = 'http://localhost:5600';
+  baseURL: string = 'http://209.250.237.58:5600';
 
   constructor(
     private http: HttpClient,
@@ -43,6 +43,11 @@ export class DataService {
     return this.http.delete(this.baseURL + endPoint).pipe(take(1));
   }
 
+  postOtp(endPoint: string, body: any) {
+    return this.http
+      .post('http://209.250.237.58:3016/otp' + endPoint, body)
+      .pipe(take(1));
+  }
   // changeBaseUrl(url) {
   //   this.baseURL = url;
   //   this.storage.set(BASE_URL, url)

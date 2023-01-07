@@ -37,7 +37,8 @@ export class AppComponent {
     if (user) {
       this.helper.navigateRoot('/home')
     } else {
-      this.helper.navigateRoot('/welcome')
+      if (localStorage.getItem('verified') == 'true') this.helper.navigateRoot('/register')
+      else this.helper.navigateRoot('/welcome')
     }
   }
 
