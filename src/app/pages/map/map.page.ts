@@ -1,3 +1,4 @@
+import { LocationService } from './../../services/location/location.service';
 import { ModalController } from '@ionic/angular';
 import { environment } from './../../../environments/environment';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -11,9 +12,11 @@ import { GoogleMap, Marker } from '@capacitor/google-maps';
 export class MapPage implements OnInit {
   @ViewChild('map') mapRef: ElementRef;
   map: GoogleMap;
+  myLocation: any;
   mapLocaion: { lat: number | null, lng: number | null } = { lat: null, lng: null };
   constructor(
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private locationService: LocationService
   ) {
 
   }
@@ -33,8 +36,8 @@ export class MapPage implements OnInit {
       // forceCreate: true,
       config: {
         center: {
-          lat: 30.5744705,
-          lng: 31.5075989
+          lat: this.myLocation.lat,
+          lng: this.myLocation.lng
         },
         zoom: 9
       }
@@ -43,21 +46,22 @@ export class MapPage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.myLocation = this.locationService.currentLocation
   }
 
   async addMarker() {
     const marker: Marker = {
       draggable: true,
       title: 'localhost',
-      iconUrl: '../../../assets/images/pin.svg',
+      // iconUrl: '../../../assets/images/pin.svg',
       coordinate: {
-        lat: 30.5744705,
-        lng: 31.5075989
+        lat: this.myLocation.lat,
+        lng: this.myLocation.lng
       },
       snippet: "my Home",
-
     }
+    console.log(this.myLocation);
+
     await this.map.addMarker(marker)
     this.map.setOnMarkerDragEndListener(async (marker) => {
       console.log(marker);

@@ -1,6 +1,6 @@
 import { DataService } from 'src/app/services/data/data.service';
 import { NavController } from '@ionic/angular';
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { SwiperComponent } from "swiper/angular";
 
 import SwiperCore, { Pagination, Navigation } from "swiper";
@@ -12,7 +12,7 @@ SwiperCore.use([Pagination, Navigation]);
   styleUrls: ['./details.page.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class DetailsPage implements OnInit {
+export class DetailsPage implements OnInit, OnDestroy {
   build: any;
   constructor(
     private navCtrl: NavController,
@@ -25,7 +25,7 @@ export class DetailsPage implements OnInit {
   }
 
   call(number: any) {
-    window.open(`https://tel:${number}`)
+    window.open(`tel:${number}`)
   }
 
   whatsapp(number: any) {
@@ -36,5 +36,8 @@ export class DetailsPage implements OnInit {
   }
   back() {
     this.navCtrl.back()
+  }
+  ngOnDestroy(): void {
+    this.dataService.addParams = {}
   }
 }

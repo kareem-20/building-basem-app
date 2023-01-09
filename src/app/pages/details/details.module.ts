@@ -1,3 +1,4 @@
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import { SwiperModule } from 'swiper/angular';
     FormsModule,
     IonicModule,
     DetailsPageRoutingModule,
+    LazyLoadImageModule,
     SwiperModule
   ],
   declarations: [DetailsPage]

@@ -1,7 +1,7 @@
 <ion-header mode="md">
   <ion-toolbar>
-    <ion-button slot="start" fill="clear" (click)="presentPopover($event)">
-      <img src="../../assets/images/menue.png">
+    <ion-button slot="start" fill="clear">
+      <img src="../../assets/images/logo_home.svg">
     </ion-button>
 
     <ion-avatar slot="end" (click)="profile()">
@@ -12,6 +12,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="container">
 
     <h1 class="animate__animated animate__fadeInBottomLeft fast">
@@ -31,7 +34,7 @@
         <div *ngFor="let type of buildTypes" class="category animate__animated animate__fadeInBottomLeft duration"
           (click)="detailsType(type)">
           <div class="overflow"></div>
-          <img [src]="type?.image" alt="">
+          <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="type?.image" alt="">
           <div class="content">
             <h4>{{type?.name}}</h4>
             <!-- <p>546 شقة</p> -->
@@ -214,7 +217,7 @@
       class="add_box_item animate__animated animate__fadeInUp duration" (click)="detailsBuild(build)">
       <div class="head_box">
         <span>{{build?.adType?.name}}</span>
-        <img [src]="build?.images[0] ?? '../../../assets/images/buildplaceholder.png'" alt="">
+        <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="build?.images[0]" alt="">
       </div>
       <div class="body_content">
         <div class="body_head">
@@ -248,20 +251,28 @@
         </div>
       </div>
     </div>
+    <div *ngIf="builds.length ==0" style="top:100px" class="error-view">
+      <div class="content">
+        <ion-icon name="happy-outline"></ion-icon>
+        <ion-text color="medium">
+          <p>لا يوجد اعلانات حاليا</p>
+        </ion-text>
+      </div>
+    </div>
   </div>
   <!-- error View && Loading  -->
   <div *ngIf="loading" class="loading">
     <ion-spinner></ion-spinner>
   </div>
 
-  <div *ngIf="emptyView" class="error-view">
+  <!-- <div *ngIf="emptyView" class="error-view">
     <div class="content">
       <ion-icon name="happy-outline"></ion-icon>
       <ion-text color="medium">
         <p>لا يوجد اعلانات حاليا</p>
       </ion-text>
     </div>
-  </div>
+  </div> -->
 
   <div *ngIf="errorView" class="error-view">
     <div class="content">

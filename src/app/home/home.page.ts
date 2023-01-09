@@ -1,3 +1,4 @@
+import { LocationService } from './../services/location/location.service';
 import { AuthService } from './../services/auth/auth.service';
 import { DataService } from './../services/data/data.service';
 import { HelpersService } from 'src/app/services/helpers/helpers.service';
@@ -47,13 +48,15 @@ export class HomePage implements OnInit {
   constructor(
     private helper: HelpersService,
     private dataService: DataService,
-    private authService: AuthService
+    private authService: AuthService,
+    private locationService: LocationService
   ) { }
 
   ngOnInit() {
     this.getTypes();
     this.getBuilds();
     this.getdataFilters();
+    this.locationService.getCurrentLocation()
   }
 
   ionViewWillEnter() {
@@ -158,7 +161,7 @@ export class HomePage implements OnInit {
     this.helper.navigateForward('details')
   }
   addBuild() {
-    if (this.authService.userData?.username) {
+    if (this.authService.userData?.phone) {
       this.helper.navigateForward('add')
 
     } else {
@@ -168,7 +171,7 @@ export class HomePage implements OnInit {
   }
 
   profile() {
-    if (this.authService.userData?.username) {
+    if (this.authService.userData?.phone) {
       this.helper.navigateForward('profile')
     } else {
       this.helper.presentToast('يجب تسجيل بياناتك اولا')

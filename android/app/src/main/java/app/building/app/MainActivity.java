@@ -1,4 +1,4 @@
-package app.3kark.app;
+package app.building.app;
 
 import com.getcapacitor.BridgeActivity;
 

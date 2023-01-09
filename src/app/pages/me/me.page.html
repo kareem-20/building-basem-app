@@ -35,10 +35,10 @@
 
         <div class="item_box animate__animated animate__fadeInBottomLeft duration">
           <div class="name">
-            <p>اسم المستخدم</p>
+            <p>العنوان</p>
           </div>
           <ion-item>
-            <ion-input [value]="userData.username" type="text" placeholder="مثال : iraqsoft" disabled>
+            <ion-input formControlName="address" type="text" placeholder="مثال : iraqsoft">
             </ion-input>
           </ion-item>
         </div>
@@ -50,7 +50,7 @@
             <p>رقم الهاتف</p>
           </div>
           <ion-item>
-            <ion-input formControlName="phone" placeholder="X X X X X X X X X X" type="tel">
+            <ion-input [value]="userData.phone" placeholder="X X X X X X X X X X" type="tel" disabled>
             </ion-input>
             <div class="phone" slot="end">
               <span>964+</span>

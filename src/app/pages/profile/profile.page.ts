@@ -19,9 +19,12 @@ export class ProfilePage implements OnInit {
   ) { }
 
   ngOnInit() {
+
+
   }
 
   ionViewWillEnter() {
+    this.userData = this.authService.userData
     this.userImage = this.authService.userData.image;
   }
 

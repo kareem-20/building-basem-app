@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      username: ['', Validators.required],
+      phone: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
     })
   }

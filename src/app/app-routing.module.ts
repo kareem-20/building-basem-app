@@ -59,6 +59,10 @@ const routes: Routes = [
     path: 'otp-vertify',
     loadChildren: () => import('./pages/otp-vertify/otp-vertify.module').then( m => m.OtpVertifyPageModule)
   },
+  {
+    path: 'qr-code',
+    loadChildren: () => import('./pages/qr-code/qr-code.module').then( m => m.QrCodePageModule)
+  },
 ];
 
 @NgModule({

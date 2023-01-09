@@ -27,6 +27,15 @@
       </div>
     </div>
 
+    <div class="item_box animate__animated animate__fadeInBottomLeft duration" (click)="navigate('qr-code')">
+      <div class="image">
+        <img src="../../../assets/images/profile.svg" alt="">
+      </div>
+      <div class="name">
+        كود الـ QR
+      </div>
+    </div>
+
     <div class="item_box animate__animated animate__fadeInBottomLeft duration" (click)="navigate('myadds')">
       <div class="image">
         <img src="../../../assets/images/list-ads.svg" alt="">
@@ -53,7 +62,7 @@
         تواصل مع الدعم
       </div>
     </div>
-    <div class="item_box animate__animated animate__fadeInBottomLeft duration">
+    <div class="item_box animate__animated animate__fadeInBottomLeft duration" (click)="logOut()">
       <div class="image">
         <img src="../../../assets/images/out.svg" alt="">
       </div>

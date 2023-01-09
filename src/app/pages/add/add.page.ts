@@ -7,7 +7,7 @@ import { DataService } from 'src/app/services/data/data.service';
 import { forkJoin } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { AnimationController, IonModal, ModalController, NavController } from '@ionic/angular';
+import { AlertController, AnimationController, IonModal, ModalController, NavController } from '@ionic/angular';
 import SwiperCore, { Pagination, Navigation } from "swiper";
 import { GoogleMap } from '@capacitor/google-maps';
 import { environment } from 'src/environments/environment';
@@ -29,8 +29,9 @@ export class AddPage implements OnInit {
   citys: any[] = []
   images: any[] = [];
   currentLocation: {} | null = null;
-  locationType: string | null = null;
+  locationType: string | null = 'map';
   mapLocation: {} | null = null;
+  step: number = 1;
   constructor(
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
@@ -40,7 +41,8 @@ export class AddPage implements OnInit {
     private authService: AuthService,
     private animationCtrl: AnimationController,
     private locationService: LocationService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertCtrl: AlertController
   ) {
     this.createForm()
   }
@@ -158,6 +160,31 @@ export class AddPage implements OnInit {
       this.locationType = null
     }
   }
+
+  async deleteImage(img: any, index: number) {
+    const alert = await this.alertCtrl.create({
+      header: "حذف الصورة",
+      message: "متأكد من حذف هذة الصورة",
+      mode: 'ios',
+      buttons: [
+        {
+          text: "حذف",
+          handler: () => {
+            this.images.splice(index, 1)
+          },
+          cssClass: "danger"
+        },
+        {
+          text: "الغاء",
+          role: "cancel",
+          cssClass: "dark"
+        }
+      ]
+    })
+    await alert.present()
+  }
+
+
 
   /// animation modal
 

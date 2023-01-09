@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +24,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    Clipboard, SocialSharing,
 
   ],
   bootstrap: [AppComponent],

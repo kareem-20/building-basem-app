@@ -28,8 +28,8 @@ export class MePage implements OnInit {
   }
   createFrom() {
     this.form = this.fb.group({
-      fullName: ['', Validators.required],
-      phone: ['', Validators.required]
+      fullName: [''],
+      address: ['']
     })
   }
 
