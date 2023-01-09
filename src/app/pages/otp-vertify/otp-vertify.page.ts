@@ -33,7 +33,7 @@ export class OtpVertifyPage implements OnInit {
   }
 
   back() {
-    this.navCtrl.pop()
+    this.navCtrl.navigateBack('/otp')
   }
   sendCode() {
     let ver = {

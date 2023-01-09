@@ -87,5 +87,10 @@ ion-footer {
   .register {
     text-align: center;
     font-family: 'bold';
+
+    span {
+      text-decoration: underline;
+      color: var(--ion-color-primary);
+    }
   }
 }

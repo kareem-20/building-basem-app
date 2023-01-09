@@ -114,7 +114,7 @@ ng-otp-input>div {
 }
 
 .otp-input {
-  border-radius: 50%;
+  border-radius: 50% !important;
   border: 1px solid var(--ion-color-primary);
   direction: ltr;
   color: var(--ion-color-primary);

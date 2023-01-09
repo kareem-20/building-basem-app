@@ -21,7 +21,7 @@ export class OtpPage implements OnInit {
   }
 
   back() {
-    this.navCtrl.pop()
+    this.navCtrl.navigateBack('/welcome')
   }
 
   validPhoneNumber(number: string) {
@@ -30,14 +30,30 @@ export class OtpPage implements OnInit {
 
   sendOtp() {
     if (!this.validPhoneNumber(this.phone).isValid()) this.helper.presentToast('رقم الهاتف غير صالح')
-    else
-      this.dataService.postOtp('/send', { phone: this.phone })
+    else {
+      this.helper.showLoading();
+      this.dataService.getData(`/user/isValid/${this.phone}`)
         .subscribe((res: any) => {
-          this.dataService.addParams = { phone: this.phone }
-          localStorage.setItem('otpId', res.verificationId);
-          this.helper.presentToast('تم ارسال الكود بنجاح')
-          this.navCtrl.navigateForward('/otp-vertify')
           console.log(res);
+          if (res.valid == true) this.submitSendingOtp();
+          else {
+            this.helper.dismissLoading();
+            this.helper.presentToast('هذا الرقم مستخدم من قبل')
+          }
         })
+
+    }
+  }
+
+  submitSendingOtp() {
+    this.dataService.postOtp('/send', { phone: this.phone })
+      .subscribe((res: any) => {
+        this.dataService.addParams = { phone: this.phone }
+        localStorage.setItem('otpId', res.verificationId);
+        this.helper.dismissLoading();
+        this.helper.presentToast('تم ارسال الكود بنجاح')
+        this.navCtrl.navigateForward('/otp-vertify')
+        console.log(res);
+      })
   }
 }
