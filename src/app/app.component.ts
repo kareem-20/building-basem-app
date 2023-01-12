@@ -1,3 +1,4 @@
+import { LocationService } from './services/location/location.service';
 import { AuthService } from './services/auth/auth.service';
 import { Platform } from '@ionic/angular';
 import { HelpersService } from './services/helpers/helpers.service';
@@ -18,7 +19,8 @@ export class AppComponent {
     private storage: Storage,
     private helper: HelpersService,
     private platform: Platform,
-    private authService: AuthService
+    private authService: AuthService,
+    private locationService: LocationService
   ) {
     this.initializeApp()
   }
@@ -28,6 +30,9 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       await this.checkUser()
       // this.authService.userStatus()
+      this.locationService.getCurrentLocation().then(val => {
+        console.log(val);
+      })
       if (Capacitor.getPlatform() != 'web') await this.setLightStatusBar();
     })
   }
@@ -47,11 +52,11 @@ export class AppComponent {
       await SplashScreen.hide();
       StatusBar.setOverlaysWebView({ overlay: true });
       await StatusBar.setStyle({ style: Style.Light })
-      await StatusBar.setBackgroundColor({ color: "#ffffff" })
+      await StatusBar.setBackgroundColor({ color: "#f8f9fb" })
     } else {
       StatusBar.setOverlaysWebView({ overlay: false });
       await StatusBar.setStyle({ style: Style.Light })
-      await StatusBar.setBackgroundColor({ color: "#ffffff" })
+      await StatusBar.setBackgroundColor({ color: "#f8f9fb" })
     }
     await SplashScreen.hide();
   }

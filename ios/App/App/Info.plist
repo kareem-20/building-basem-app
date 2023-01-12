@@ -45,13 +45,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-
-
-    <key>NSLocationAlwaysUsageDescription</key>
+   <key>NSLocationAlwaysUsageDescription</key>
     <string>we want to track you</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>we want your current postion</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>To show your location</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>$PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>$PHOTO_LIBRARY_USAGE_DESCRIPTION</string>
 </dict>
 </plist>

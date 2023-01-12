@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AlertController, AnimationController, IonModal, ModalController, NavController } from '@ionic/angular';
 import SwiperCore, { Pagination, Navigation } from "swiper";
-import { GoogleMap } from '@capacitor/google-maps';
+import { GoogleMap, Marker } from '@capacitor/google-maps';
 import { environment } from 'src/environments/environment';
 SwiperCore.use([Pagination, Navigation]);
 
@@ -32,6 +32,7 @@ export class AddPage implements OnInit {
   locationType: string | null = 'map';
   mapLocation: {} | null = null;
   step: number = 1;
+  mapOpened: boolean = false
   constructor(
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
@@ -52,6 +53,14 @@ export class AddPage implements OnInit {
     this.getTypes()
   }
 
+  ionViewWillEnter() {
+    console.log(this.dataService.myParams.mapLocation);
+
+    if (this.dataService.myParams.mapLocation) {
+      this.mapLocation = this.dataService.myParams.mapLocation;
+      this.helper.presentToast('تم تحديد الموقع بنجاح')
+    }
+  }
   getTypes() {
     forkJoin([
       this.dataService.getData('/buildType'),
@@ -118,9 +127,10 @@ export class AddPage implements OnInit {
   }
 
   async submit() {
-    let images = await this.cameraService.uploadImages(this.images);
+    this.helper.showLoading('جاري نشر الاعلان')
+    let images = (this.images.length) ? await this.cameraService.uploadImages(this.images) : [];
     let location = this.location;
-    if (!location) return this.helper.presentToast('يجب تحديد موقع العقار')
+    if (!location) return this.helper.presentToast('يجب تحديد موقع العقار'), this.helper.dismissLoading();
     let body = {
       images,
       ...this.form.value,
@@ -130,8 +140,12 @@ export class AddPage implements OnInit {
     // console.log(body);
     this.dataService.postData('/build', body).subscribe((res) => {
       console.log('res', res);
-      this.navCtrl.pop();
+      this.helper.dismissLoading()
+      this.navCtrl.navigateRoot('/home');
       this.helper.presentToast('تم اضافة الاعلان بنجاح')
+    }, (err) => {
+      this.helper.presentToast('خطأ برفع البيانات اعد المحاولة');
+      this.helper.dismissLoading()
     })
   }
 
@@ -143,22 +157,23 @@ export class AddPage implements OnInit {
   }
   //########   Map Modal
   async openMap() {
-    const modal = await this.modalController.create({
-      component: MapPage,
-      animated: true,
-      cssClass: 'modal-map',
-      enterAnimation: this.enterAnimation,
-      leaveAnimation: this.leaveAnimation
-    })
-    modal.present();
+    // const modal = await this.modalController.create({
+    //   component: MapPage,
+    //   animated: true,
+    //   cssClass: 'modal-map',
+    //   enterAnimation: this.enterAnimation,
+    //   leaveAnimation: this.leaveAnimation
+    // })
+    // modal.present();
 
-    let data = (await modal.onDidDismiss())
-    if (data.data) {
-      this.mapLocation = data.data;
-      this.helper.presentToast('تم تحديد الموقع بنجاح')
-    } else {
-      this.locationType = null
-    }
+    // let data = (await modal.onDidDismiss())
+    // if (data.data) {
+    //   this.mapLocation = data.data;
+    //   this.helper.presentToast('تم تحديد الموقع بنجاح')
+    // } else {
+    //   this.locationType = null
+    // }
+    this.navCtrl.navigateForward('/map')
   }
 
   async deleteImage(img: any, index: number) {

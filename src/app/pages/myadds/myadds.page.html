@@ -21,12 +21,15 @@
     <!-- <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p> -->
 
     <div *ngFor="let build of building;let i = index;trackBy:trackFu"
-      class="add_box_item animate__animated animate__fadeInUp duration" (click)="details(build)">
+      class="add_box_item animate__animated animate__fadeInUp duration">
       <div class="head_box">
         <span>{{build?.adType?.name}}</span>
+        <ion-button fill="clear" (click)="optionsPopOver($event,build)">
+          <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>
+        </ion-button>
         <img [src]="build?.images[0] ?? '../../../assets/images/buildplaceholder.png'" alt="">
       </div>
-      <div class="body_content">
+      <div class="body_content" (click)="details(build)">
         <div class="body_head">
           <p>
             <ion-icon slot="start" name="location"></ion-icon>
@@ -174,4 +177,22 @@
       </ion-content>
     </ng-template>
   </ion-modal>
+
+  <ion-popover #popover [dismissOnSelect]="true" [isOpen]="isOpen" (didDismiss)="isOpen = false" mode="ios">
+    <ng-template>
+      <ion-content class="popOver">
+        <ion-list>
+          <ion-item button>
+            <ion-label color="dark">تعديل</ion-label>
+          </ion-item>
+          <ion-item button>
+            <ion-label color="dark">تم البيع</ion-label>
+          </ion-item>
+          <ion-item button>
+            <ion-label color="dark">توقيف مؤقتا</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
 </ion-content>

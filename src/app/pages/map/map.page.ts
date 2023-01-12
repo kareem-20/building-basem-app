@@ -1,5 +1,6 @@
+import { DataService } from './../../services/data/data.service';
 import { LocationService } from './../../services/location/location.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { environment } from './../../../environments/environment';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, Marker } from '@capacitor/google-maps';
@@ -16,7 +17,9 @@ export class MapPage implements OnInit {
   mapLocaion: { lat: number | null, lng: number | null } = { lat: null, lng: null };
   constructor(
     private modalCtrl: ModalController,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private navCtrl: NavController,
+    private dataService: DataService
   ) {
 
   }
@@ -33,7 +36,7 @@ export class MapPage implements OnInit {
       id: 'map',
       apiKey: environment.mapskey,
       element: this.mapRef.nativeElement,
-      // forceCreate: true,
+      forceCreate: true,
       config: {
         center: {
           lat: this.myLocation.lat,
@@ -41,7 +44,11 @@ export class MapPage implements OnInit {
         },
         zoom: 9
       }
-    });
+    }, (err) => {
+      console.log(err);
+
+    })
+
     this.addMarker()
   }
 
@@ -72,12 +79,19 @@ export class MapPage implements OnInit {
 
   close() {
     console.log('close')
-    this.modalCtrl.dismiss()
+    // this.modalCtrl.dismiss()
+    this.navCtrl.navigateBack('/add');
+    this.map.destroy()
+
   }
 
   sumbit() {
     console.log('submit')
-    this.modalCtrl.dismiss(this.mapLocaion)
+    this.dataService.addParams = { mapLocation: this.mapLocaion }
+    this.navCtrl.navigateBack('/add')
+    this.map.destroy()
+
+    // this.modalCtrl.dismiss(this.mapLocaion)
   }
 
 }

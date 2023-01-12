@@ -118,7 +118,8 @@ export class HomePage implements OnInit {
   }
 
   doRefresh(ev: any) {
-    this.skip = 0
+    this.skip = 0;
+    this.filterReset();
     this.getBuilds(ev);
   }
 
@@ -170,9 +171,9 @@ export class HomePage implements OnInit {
     }
   }
 
-  profile() {
+  menu() {
     if (this.authService.userData?.phone) {
-      this.helper.navigateForward('profile')
+      this.helper.navigateForward('menu')
     } else {
       this.helper.presentToast('يجب تسجيل بياناتك اولا')
       this.helper.navigateForward('register')
@@ -182,6 +183,16 @@ export class HomePage implements OnInit {
   presentPopover(e: Event) {
     this.popover.event = e;
     this.isOpen = true;
+  }
+
+  filterReset() {
+    this.adGender = null;
+    this.adStatus = null;
+    this.adType = null;
+    this.city = null;
+    this.searchQuery = '';
+    this.bondType = null;
+    this.skip = 0
   }
 
   async filter() {

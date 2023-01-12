@@ -8,68 +8,60 @@
 
   <div class="body_content">
     <ion-avatar class="animate__animated animate__fadeInBottomLeft duration">
-      <img [lazyLoad]="userImage ||'../../../assets/images/userplaceholder.png'"
+      <img [lazyLoad]="userData?.image ||'../../../assets/images/userplaceholder.png'"
         [errorImage]="'../../../assets/images/userplaceholder.png'" alt="">
     </ion-avatar>
     <div class="info animate__animated animate__fadeInBottomLeft duration">
       <h1>{{userData?.fullName || '. . . . . .'}}</h1>
-      <p>15 إعلان . عضو منذ 15 أبريل 2018</p>
+      <p>{{builds.length}} إعلان . عضو منذ {{userData?.createdAt| date}}</p>
     </div>
 
+    <!-- <div class="container"> -->
+    <h1 class="title_category animate__animated animate__fadeInUp duration">الاعلانات</h1>
+    <!-- <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p> -->
+    <div *ngFor="let build of builds;let i = index;" class="add_box_item animate__animated animate__fadeInUp duration"
+      (click)="details(build)">
+      <div class="head_box">
+        <span>{{build?.adType?.name}}</span>
+        <img [src]="build?.images[0] ?? '../../../assets/images/buildplaceholder.png'" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            {{build?.address}}
+          </p>
+          <p>{{build?.createdAt| date}}</p>
+        </div>
+        <div class="center_content">
+          <p class="body_title">
+            {{build?.title}}
+          </p>
+          <div class="price">
+            {{build?.price |number}} د.ع
+          </div>
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            {{build?.area}}م
+          </p>
+          <p *ngIf="build?.bedsNumber">
+            <img src="../../assets/images/bed.svg" alt="">
+            {{build?.bedsNumber}}
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            {{build?.bathroomNumber}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
 
     <!-- <div class="list"> -->
-    <div class="item_box animate__animated animate__fadeInBottomLeft duration" (click)="navigate('me')">
-      <div class="image">
-        <img src="../../../assets/images/profile.svg" alt="">
-      </div>
-      <div class="name">
-        المعلومات الشخصية
-      </div>
-    </div>
 
-    <div class="item_box animate__animated animate__fadeInBottomLeft duration" (click)="navigate('qr-code')">
-      <div class="image">
-        <img src="../../../assets/images/profile.svg" alt="">
-      </div>
-      <div class="name">
-        كود الـ QR
-      </div>
-    </div>
 
-    <div class="item_box animate__animated animate__fadeInBottomLeft duration" (click)="navigate('myadds')">
-      <div class="image">
-        <img src="../../../assets/images/list-ads.svg" alt="">
-      </div>
-      <div class="name">
-        إعلاناتي
-      </div>
-    </div>
-
-    <div class="item_box animate__animated animate__fadeInBottomLeft duration">
-      <div class="image">
-        <img src="../../../assets/images/like-list.svg" alt="">
-      </div>
-      <div class="name">
-        رغباتي
-      </div>
-    </div>
-
-    <div class="item_box animate__animated animate__fadeInBottomLeft duration">
-      <div class="image">
-        <img src="../../../assets/images/connect.svg" alt="">
-      </div>
-      <div class="name">
-        تواصل مع الدعم
-      </div>
-    </div>
-    <div class="item_box animate__animated animate__fadeInBottomLeft duration" (click)="logOut()">
-      <div class="image">
-        <img src="../../../assets/images/out.svg" alt="">
-      </div>
-      <div class="name">
-        تسجيل الخروج
-      </div>
-    </div>
     <!-- </div> -->
   </div>
 </ion-content>

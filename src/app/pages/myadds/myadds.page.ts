@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth/auth.service';
 import { DataService } from './../../services/data/data.service';
-import { IonModal, NavController } from '@ionic/angular';
+import { IonModal, IonPopover, NavController } from '@ionic/angular';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { forkJoin } from 'rxjs';
 
@@ -13,6 +13,8 @@ export class MyaddsPage implements OnInit {
   // my ID
   myId: string;
   @ViewChild('modal') filterModal: IonModal;
+  @ViewChild('popover') popover: IonPopover;
+  isOpen = false;
   loading: boolean = true
   errorView: boolean = false
   emptyView: boolean = false
@@ -38,6 +40,8 @@ export class MyaddsPage implements OnInit {
   roomsNumber: number | null = null;
   bathroomNumber: number | null = null;
   buildYear: number | null = null;
+
+  selectedBuild: any;
   constructor(
     private navCtrl: NavController,
     private dataService: DataService,
@@ -74,7 +78,7 @@ export class MyaddsPage implements OnInit {
       console.log(res);
       this.citys = res[0]
       this.bondTypes = res[1]
-      this.adTypes = res[2]
+      this.adTypes = res[2];
       this.adStatuss = res[3]
       this.adGenders = res[4]
     })
@@ -163,5 +167,11 @@ export class MyaddsPage implements OnInit {
 
   ngOnDestroy() {
     this.dataService.addParams = {}
+  }
+
+  optionsPopOver(ev: any, build: any) {
+    this.selectedBuild = build
+    this.popover.event = ev;
+    this.isOpen = true;
   }
 }

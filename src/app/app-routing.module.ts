@@ -24,44 +24,48 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterPageModule)
   },
   {
-    path: 'profile',
+    path: 'profile/:id',
     loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'category',
-    loadChildren: () => import('./pages/category/category.module').then( m => m.CategoryPageModule)
+    loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryPageModule)
   },
   {
     path: 'details',
-    loadChildren: () => import('./pages/details/details.module').then( m => m.DetailsPageModule)
+    loadChildren: () => import('./pages/details/details.module').then(m => m.DetailsPageModule)
   },
   {
     path: 'add',
-    loadChildren: () => import('./pages/add/add.module').then( m => m.AddPageModule)
+    loadChildren: () => import('./pages/add/add.module').then(m => m.AddPageModule)
   },
   {
     path: 'myadds',
-    loadChildren: () => import('./pages/myadds/myadds.module').then( m => m.MyaddsPageModule)
+    loadChildren: () => import('./pages/myadds/myadds.module').then(m => m.MyaddsPageModule)
   },
   {
     path: 'map',
-    loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule)
+    loadChildren: () => import('./pages/map/map.module').then(m => m.MapPageModule)
   },
   {
     path: 'me',
-    loadChildren: () => import('./pages/me/me.module').then( m => m.MePageModule)
+    loadChildren: () => import('./pages/me/me.module').then(m => m.MePageModule)
   },
   {
     path: 'otp',
-    loadChildren: () => import('./pages/otp/otp.module').then( m => m.OtpPageModule)
+    loadChildren: () => import('./pages/otp/otp.module').then(m => m.OtpPageModule)
   },
   {
     path: 'otp-vertify',
-    loadChildren: () => import('./pages/otp-vertify/otp-vertify.module').then( m => m.OtpVertifyPageModule)
+    loadChildren: () => import('./pages/otp-vertify/otp-vertify.module').then(m => m.OtpVertifyPageModule)
   },
   {
     path: 'qr-code',
-    loadChildren: () => import('./pages/qr-code/qr-code.module').then( m => m.QrCodePageModule)
+    loadChildren: () => import('./pages/qr-code/qr-code.module').then(m => m.QrCodePageModule)
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('./pages/menu/menu.module').then(m => m.MenuPageModule)
   },
 ];
 

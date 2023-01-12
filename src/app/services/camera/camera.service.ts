@@ -74,7 +74,7 @@ export class CameraService {
 
   async selectImage(camera: boolean = true) {
     const options: ImageOptions = {
-      quality: 60,
+      quality: 50,
       allowEditing: false,
       resultType: CameraResultType.Uri,
       saveToGallery: true,
@@ -161,7 +161,7 @@ export class CameraService {
 
 
   async uploadImages(images: any[]) {
-    this.helper.showLoading();
+    // this.helper.showLoading();
     const promise = new Promise(async (resolve) => {
       const api = await this.getForkJoinApi(images);
       forkJoin(api)
@@ -171,7 +171,7 @@ export class CameraService {
           resolve(null)
         })
     })
-    this.helper.dismissLoading();
+    // this.helper.dismissLoading();
     return promise
   }
 
@@ -193,7 +193,7 @@ export class CameraService {
   }
 
   async formateImage(photo: any) {
-    const blob = await fromURL(photo.webPath, 60);
+    const blob = await fromURL(photo.webPath, 50);
 
     const data = await blobToURL(blob)
     const fileName = photo.webPath.slice((photo.webPath.lastIndexOf('/') + 1)) + '.' + photo.format;

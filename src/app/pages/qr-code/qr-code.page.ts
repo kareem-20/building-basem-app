@@ -38,7 +38,6 @@ export class QrCodePage implements OnInit {
   }
 
   async share() {
-
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'مشاركة الحساب',
       mode: 'ios',

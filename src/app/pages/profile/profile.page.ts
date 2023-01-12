@@ -1,7 +1,8 @@
-import { AuthService } from './../../services/auth/auth.service';
-import { HelpersService } from 'src/app/services/helpers/helpers.service';
-import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { DataService } from '../../services/data/data.service';
+import { HelpersService } from '../../services/helpers/helpers.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,37 +10,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
-  userImage: string;
+  userId: any;
   userData: any;
+  builds: any[] = [];
   constructor(
-    private navCtrl: NavController,
     private helper: HelpersService,
-    private authService: AuthService
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private navCtrl: NavController
   ) { }
 
-  ngOnInit() {
-
-
+  ngOnInit(): void {
+    this.userId = this.route.snapshot.params['id'];
+    // this.getDepartments(this.route.snapshot.params['id'])
+    this.getData()
+  }
+  getData() {
+    this.dataService.getData(`/build/${this.userId}`)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.userData = res['user']
+        this.builds = res['builds']
+      })
   }
 
-  ionViewWillEnter() {
-    this.userData = this.authService.userData
-    this.userImage = this.authService.userData.image;
-  }
-
-  navigate(route: string) {
-    this.helper.navigateForward(route)
+  details(build: any) {
+    this.dataService.addParams = { build }
+    this.navCtrl.navigateForward('details')
   }
   back() {
     this.navCtrl.back()
   }
-
-
-
-  logOut() {
-    this.authService.logOut()
-  }
-
 
 }

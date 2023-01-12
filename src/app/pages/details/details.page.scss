@@ -62,6 +62,7 @@
   width: 100%;
 
   ion-button {
+    margin-top: 20px;
     --background: rgba(0, 0, 0, .5);
     --border-radius: 50%;
     height: 32px;
@@ -145,8 +146,12 @@
 
   .options {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     margin-block: 12px;
+    flex-wrap: wrap;
+    row-gap: 16px;
+    column-count: 3;
+    column-gap: 16px;
 
     .option {
       background: #F4F4F5;
@@ -202,6 +207,36 @@
       color: #040920;
     }
 
+  }
+
+  .userProfile {
+    height: 80px;
+    overflow: hidden;
+    display: flex;
+    gap: 24px;
+    background: #F4F4F5;
+    border-radius: 12px;
+    padding: 10px;
+    align-items: center;
+
+    ion-avatar {
+      height: 50px;
+      width: 50px;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-family: 'bold';
+    }
+
+    ion-icon {
+      margin-inline-start: auto;
+      font-size: 28px;
+      margin-inline-end: 12px;
+      color: var(--ion-color-primary);
+      background: #fff;
+      border-radius: 50%;
+    }
   }
 }
 
