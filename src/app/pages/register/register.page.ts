@@ -65,11 +65,13 @@ export class RegisterPage implements OnInit {
     if (this.form.value.password_confirmation != this.form.value.password) return this.helper.presentToast('كلمة المرور غير متطابقة')
     delete body.password_confirmation;
     body.phone = this.phone;
+
     if (this.authService.userData) {
       return this.authService.updateUser(body)
     } else {
       return this.authService.register(body)
     }
+
 
   }
 

@@ -46,14 +46,14 @@ export class DetailsPage implements OnInit, OnDestroy {
   async openMap(location: any) {
     let currentLocation = this.locationService.currentLocation;
     // window.open(`https://www.google.com/maps/dir/${currentLocation.lat},${currentLocation.lng}/${location.lng},${location.lat}`, "_system")
-    await Browser.open({ url: `https://www.google.com/maps/dir/${currentLocation.lat},${currentLocation.lng}/${location.lat},${location.lng}` });
+    await Browser.open({ url: `https://www.google.com/maps/dir/${currentLocation.lat},${currentLocation.lng}/${location[1]},${location[0]}` });
   }
 
   back() {
     this.navCtrl.back()
   }
   ngOnDestroy(): void {
-    // this.dataService.addParams = {}
+    this.dataService.addParams = {}
   }
 
 

@@ -31,7 +31,7 @@ export class MenuPage implements OnInit {
     this.helper.navigateForward(route)
   }
   back() {
-    this.navCtrl.back()
+    this.navCtrl.navigateBack('/home')
   }
 
 

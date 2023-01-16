@@ -1,4 +1,3 @@
-import { MapPage } from './../map/map.page';
 import { LocationService } from './../../services/location/location.service';
 import { AuthService } from './../../services/auth/auth.service';
 import { HelpersService } from 'src/app/services/helpers/helpers.service';
@@ -6,11 +5,9 @@ import { CameraService } from './../../services/camera/camera.service';
 import { DataService } from 'src/app/services/data/data.service';
 import { forkJoin } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { AlertController, AnimationController, IonModal, ModalController, NavController } from '@ionic/angular';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { AlertController, NavController } from '@ionic/angular';
 import SwiperCore, { Pagination, Navigation } from "swiper";
-import { GoogleMap, Marker } from '@capacitor/google-maps';
-import { environment } from 'src/environments/environment';
 SwiperCore.use([Pagination, Navigation]);
 
 @Component({
@@ -19,7 +16,7 @@ SwiperCore.use([Pagination, Navigation]);
   styleUrls: ['./add.page.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class AddPage implements OnInit {
+export class AddPage implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
   buildTypes: any[] = []
   bondTypes: any[] = []
@@ -27,12 +24,14 @@ export class AddPage implements OnInit {
   adStatus: any[] = []
   adGender: any[] = []
   citys: any[] = []
-  images: any[] = [];
+  imagesFromDevice: any[] = [];
+  imagesToSubmit: any[] = []
   currentLocation: {} | null = null;
   locationType: string | null = 'map';
   mapLocation: {} | null = null;
   step: number = 1;
-  mapOpened: boolean = false
+  mapOpened: boolean = false;
+  editedBuild: any;
   constructor(
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
@@ -40,43 +39,58 @@ export class AddPage implements OnInit {
     private cameraService: CameraService,
     private helper: HelpersService,
     private authService: AuthService,
-    private animationCtrl: AnimationController,
     private locationService: LocationService,
-    private modalController: ModalController,
     private alertCtrl: AlertController
   ) {
     this.createForm()
   }
 
   ngOnInit() {
-
     this.getTypes()
   }
 
   ionViewWillEnter() {
-    console.log(this.dataService.myParams.mapLocation);
+    // console.log(this.dataService.myParams.mapLocation);
 
     if (this.dataService.myParams.mapLocation) {
       this.mapLocation = this.dataService.myParams.mapLocation;
       this.helper.presentToast('تم تحديد الموقع بنجاح')
     }
+    this.editedBuild = this.dataService.myParams.build
+    if (this.editedBuild) {
+      console.log(this.editedBuild);
+      this.patchMyForm(this.editedBuild)
+
+    }
+  }
+
+  patchMyForm(data: any) {
+    this.form.patchValue(this.editedBuild);
+    // this.mapLocation = this.editedBuild.location
+    this.imagesToSubmit = this.editedBuild.images;
+    this.form.patchValue({
+      city: data.city._id,
+      bondType: data.bondType._id,
+      adType: data.adType._id,
+      adGender: data.adGender._id,
+      buildType: data.buildType._id
+    })
   }
   getTypes() {
     forkJoin([
       this.dataService.getData('/buildType'),
       this.dataService.getData('/bondType'),
-      this.dataService.getData('/adType'),
-      this.dataService.getData('/adStatus'),
+      // this.dataService.getData('/adType'),
+      // this.dataService.getData('/adStatus'),
       this.dataService.getData('/adGender'),
       this.dataService.getData('/citys'),
     ]).subscribe((res: any[]) => {
-      console.log(res);
       this.buildTypes = res[0]
       this.bondTypes = res[1]
-      this.adTypes = res[2]
-      this.adStatus = res[3]
-      this.adGender = res[4]
-      this.citys = res[5]
+      // this.adTypes = res[2]
+      // this.adStatus = res[3]
+      this.adGender = res[2]
+      this.citys = res[3]
     })
   }
 
@@ -94,8 +108,11 @@ export class AddPage implements OnInit {
       phoneCall: [''],
       whatsapp: [''],
       bondType: [''],
-      adType: [''],
-      adStatus: [''],
+      interface: [''],
+      floorsNumber: [''],
+      depth: [''],
+      // adType: [''],
+      // adStatus: [''],
       adGender: [''],
       buildType: ['', Validators.required],
       city: ['']
@@ -106,9 +123,9 @@ export class AddPage implements OnInit {
     this.navCtrl.back()
   }
   selectImage() {
-    console.log('clicked');
+    // console.log('clicked');
     this.cameraService.showActionSheet().then((val) => {
-      if (val) this.images.push(val)
+      if (val) this.imagesFromDevice.push(val)
     })
   }
 
@@ -116,7 +133,6 @@ export class AddPage implements OnInit {
     this.locationType = 'current';
     this.locationService.getCurrentLocation().then(val => {
       this.currentLocation = val;
-      console.log(val);
       this.helper.presentToast('تم تحديد موقعك بنجاح')
     })
   }
@@ -128,18 +144,36 @@ export class AddPage implements OnInit {
 
   async submit() {
     this.helper.showLoading('جاري نشر الاعلان')
-    let images = (this.images.length) ? await this.cameraService.uploadImages(this.images) : [];
+    let uploadedImages = (this.imagesFromDevice.length) ? await this.cameraService.uploadImages(this.imagesFromDevice) : [];
+    this.imagesToSubmit = this.imagesToSubmit.concat(uploadedImages)
     let location = this.location;
-    if (!location) return this.helper.presentToast('يجب تحديد موقع العقار'), this.helper.dismissLoading();
+    if (!this.editedBuild && !location) return this.helper.presentToast('يجب تحديد موقع العقار'), this.helper.dismissLoading();
     let body = {
-      images,
+      images: this.imagesToSubmit,
       ...this.form.value,
-      user: this.authService.userData?._id,
-      location
+      user: this.authService.userData?._id
     }
-    // console.log(body);
+
+    if (this.location) body['location'] = { coordinates: [location.lng, location.lat] }
+    if (this.editedBuild) {
+      this.updateBuild(body)
+    } else {
+      this.addBuild(body)
+    }
+  }
+  updateBuild(body: any) {
+    this.dataService.updateData(`/build/${this.editedBuild._id}`, body).subscribe((res) => {
+      this.helper.dismissLoading()
+      this.navCtrl.navigateRoot('/home');
+      this.helper.presentToast('تم تعديل الاعلان بنجاح')
+    }, (err) => {
+      console.log(err);
+      this.helper.presentToast('خطأ برفع البيانات اعد المحاولة');
+      this.helper.dismissLoading()
+    })
+  }
+  addBuild(body: any) {
     this.dataService.postData('/build', body).subscribe((res) => {
-      console.log('res', res);
       this.helper.dismissLoading()
       this.navCtrl.navigateRoot('/home');
       this.helper.presentToast('تم اضافة الاعلان بنجاح')
@@ -148,7 +182,6 @@ export class AddPage implements OnInit {
       this.helper.dismissLoading()
     })
   }
-
   get location(): any {
     let location = null
     if (this.locationType == 'current' && this.currentLocation) location = this.currentLocation
@@ -157,26 +190,10 @@ export class AddPage implements OnInit {
   }
   //########   Map Modal
   async openMap() {
-    // const modal = await this.modalController.create({
-    //   component: MapPage,
-    //   animated: true,
-    //   cssClass: 'modal-map',
-    //   enterAnimation: this.enterAnimation,
-    //   leaveAnimation: this.leaveAnimation
-    // })
-    // modal.present();
-
-    // let data = (await modal.onDidDismiss())
-    // if (data.data) {
-    //   this.mapLocation = data.data;
-    //   this.helper.presentToast('تم تحديد الموقع بنجاح')
-    // } else {
-    //   this.locationType = null
-    // }
     this.navCtrl.navigateForward('/map')
   }
 
-  async deleteImage(img: any, index: number) {
+  async deleteImage(img: any, index: number, type: string) {
     const alert = await this.alertCtrl.create({
       header: "حذف الصورة",
       message: "متأكد من حذف هذة الصورة",
@@ -185,7 +202,8 @@ export class AddPage implements OnInit {
         {
           text: "حذف",
           handler: () => {
-            this.images.splice(index, 1)
+            if (type == 'device') this.imagesFromDevice.splice(index, 1)
+            else if (type == 'submit') this.imagesToSubmit.splice(index, 1)
           },
           cssClass: "danger"
         },
@@ -201,33 +219,7 @@ export class AddPage implements OnInit {
 
 
 
-  /// animation modal
-
-  enterAnimation = (baseEl: HTMLElement) => {
-    const root = baseEl.shadowRoot;
-
-    const backdropAnimation = this.animationCtrl
-      .create()
-      .addElement(root?.querySelector('ion-backdrop')!)
-      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
-
-    const wrapperAnimation = this.animationCtrl
-      .create()
-      .addElement(root?.querySelector('.modal-wrapper')!)
-      .keyframes([
-        { offset: 0, opacity: '0', transform: 'scale(0)' },
-        { offset: 1, opacity: '0.99', transform: 'scale(1)' },
-      ]);
-
-    return this.animationCtrl
-      .create()
-      .addElement(baseEl)
-      .easing('ease-out')
-      .duration(200)
-      .addAnimation([backdropAnimation, wrapperAnimation]);
-  };
-
-  leaveAnimation = (baseEl: HTMLElement) => {
-    return this.enterAnimation(baseEl).direction('reverse');
-  };
+  ngOnDestroy(): void {
+    this.dataService.addParams = {}
+  }
 }

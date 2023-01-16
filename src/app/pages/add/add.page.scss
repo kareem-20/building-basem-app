@@ -95,6 +95,7 @@ ion-header.add {
       border-radius: 8px;
       margin-bottom: 24px;
       height: 44px;
+      background-color: #fff;
 
       ion-select {
         --placeholder-color: var(--light-text);
@@ -165,12 +166,17 @@ ion-footer {
 //   --background: none !important;
 
 // ion-content.map-ion-content {
-  //   --background: none !important;
-  // }
+//   --background: none !important;
+// }
 
 capacitor-google-map {
   display: inline-block;
   z-index: 9999;
   width: 100%;
   height: 100%;
+}
+
+.items_multiBox {
+  display: flex;
+  gap: 12px;
 }

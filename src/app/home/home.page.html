@@ -1,9 +1,9 @@
 <ion-header mode="md">
   <ion-toolbar>
     <!-- <ion-button slot="start" fill="clear"> -->
-    <img class="logo" src="../../assets/images/logo_home.svg">
+    <img slot="start" class="logo" src="../../assets/images/logo_home.svg">
     <!-- </ion-button> -->
-
+    <ion-title color="primary">تطبيق عقارك</ion-title>
     <ion-avatar slot="end" (click)="menu()">
       <img [lazyLoad]="userImage ||'../../../assets/images/userplaceholder.png'"
         [errorImage]="'../../../assets/images/userplaceholder.png'" alt="">
@@ -17,16 +17,20 @@
   </ion-refresher>
   <div class="container">
 
-    <h1 class="animate__animated animate__fadeInBottomLeft fast">
+    <!-- <h1 class="animate__animated animate__fadeInBottomLeft fast">
       أهلا بك <br>
+      في
       في تطبيق عقارك
-    </h1>
+    </h1> -->
 
     <div class="search animate__animated animate__fadeInBottomLeft fast">
-      <img slot="start" src="../../assets/images/search.png">
+      <img slot="start" src="../../assets/images/search.svg">
       <ion-input [(ngModel)]="searchQuery" (ionChange)="onSearchChange($event)" type="search" name="search" id=""
         placeholder="المدينة , الحي أو الشارع"></ion-input>
-      <img slot="end" class="filter" src="../../assets/images/filter_.png" alt="" (click)="filter()">
+      <ion-button (click)="filter()" class="filter" fill="outline" shape="round">
+        فلتر
+      </ion-button>
+      <!-- <img slot="end" class="filter" src="../../assets/images/filter_.png" alt="" (click)=""> -->
     </div>
 
     <div class="categories">
@@ -43,16 +47,17 @@
       </div>
     </div>
 
-    <!-- <div class="item_head animate__animated animate__fadeInBottomLeft fast">
+    <div *ngIf="offersBuilding.length" class="item_head animate__animated animate__fadeInBottomLeft fast">
       <h2>عقارات مميزة</h2>
-      <div class="end_head">
+      <!-- <div class="end_head">
         <p> المزيد</p>
         <img src="../../assets/images/arrow_more.svg" alt="">
-      </div>
-    </div> -->
+      </div> -->
+    </div>
   </div>
 
-  <!-- <swiper dir="rtl" [slidesPerView]="4/3" [spaceBetween]="20" [freeMode]="true" [breakpoints]="{
+  <swiper *ngIf="offersBuilding.length" dir="rtl" [slidesPerView]="4/3" [spaceBetween]="20" [freeMode]="true"
+    [breakpoints]="{
       '640': {
         slidesPerView: 2.5,
         spaceBetween: 20
@@ -66,147 +71,69 @@
         spaceBetween: 50
       }
     }" class="mySwiper homeSlider animate__animated animate__fadeInLeft duration">
-    <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
-      <div class="head_box" (click)="navigate('details')">
-        <span>مميز</span>
-        <img src="../../assets/images/img_card.png" alt="">
+    <ng-template *ngFor="let build of offersBuilding" swiperSlide
+      class="animate__animated animate__fadeInLeft duration">
+      <div class="head_box" (click)="detailsBuild(build)">
+        <span *ngIf="build.adType._id !='63b978f98aca1c524a92466e'"
+          style="top: 30px; background: var(--ion-color-primary);">{{build?.adType?.name}}</span>
+        <span>{{build?.adGender?.name}}</span>
+        <div *ngIf="build.adStatus._id=='63b97b698aca1c524a924685'" class="stoped">
+          <p>تم البيع</p>
+        </div>
+        <div *ngIf="build.adStatus._id=='63b97b628aca1c524a924683'" class="stoped">
+          <p>موقف مؤقتاً</p>
+        </div>
+        <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="build?.images[0]" alt="">
       </div>
-      <div class="body_content">
+      <div class="body_content" (click)="detailsBuild(build)">
         <div class="body_head">
           <p>
             <ion-icon slot="start" name="location"></ion-icon>
-            بغداد/شارع التحرير
+            {{build?.address}}
           </p>
-          <p>يناير 2021</p>
+          <p>{{build?.createdAt| date}}</p>
         </div>
         <p class="body_title">
-          شقة مفروشة بحي بغداد
+          {{build?.title}}
         </p>
         <div class="price">
-          1315 د.ع
+          {{build?.price |number}} د.ع
         </div>
         <div class="footer_content">
-          <p>
+          <p *ngIf="build?.area">
             <img src="../../assets/images/size.svg" alt="">
-            210م2
+            {{build?.area}}م
           </p>
-          <p>
+          <p *ngIf="build?.interface">
+            الواجهه
+            <!-- <img src="../../assets/images/size.svg" alt=""> -->
+            {{build?.interface}}م
+          </p>
+          <p *ngIf="build?.depth">
+            النزال
+            <!-- <img src="../../assets/images/size.svg" alt=""> -->
+            {{build?.depth}}م
+          </p>
+          <p *ngIf="build?.floorsNumber">
+            الطوابق
+            <!-- <img src="../../assets/images/size.svg" alt=""> -->
+            {{build?.floorsNumber}}
+          </p>
+          <p *ngIf="build?.bedsNumber">
             <img src="../../assets/images/bed.svg" alt="">
-            3
+            {{build?.bedsNumber}}
           </p>
-          <p>
+          <p *ngIf="build?.bathroomNumber">
             <img src="../../assets/images/bath_room.svg" alt="">
-            2
+            {{build?.bathroomNumber}}
           </p>
         </div>
       </div>
     </ng-template>
-    <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
-      <div class="head_box">
-        <span>مميز</span>
-        <img src="../../assets/images/img_card.png" alt="">
-      </div>
-      <div class="body_content">
-        <div class="body_head">
-          <p>
-            <ion-icon slot="start" name="location"></ion-icon>
-            بغداد/شارع التحرير
-          </p>
-          <p>يناير 2021</p>
-        </div>
-        <p class="body_title">
-          شقة مفروشة بحي بغداد
-        </p>
-        <div class="price">
-          1315 د.ع
-        </div>
-        <div class="footer_content">
-          <p>
-            <img src="../../assets/images/size.svg" alt="">
-            210م2
-          </p>
-          <p>
-            <img src="../../assets/images/bed.svg" alt="">
-            3
-          </p>
-          <p>
-            <img src="../../assets/images/bath_room.svg" alt="">
-            2
-          </p>
-        </div>
-      </div>
-    </ng-template>
-    <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
-      <div class="head_box">
-        <span>مميز</span>
-        <img src="../../assets/images/img_card.png" alt="">
-      </div>
-      <div class="body_content">
-        <div class="body_head">
-          <p>
-            <ion-icon slot="start" name="location"></ion-icon>
-            بغداد/شارع التحرير
-          </p>
-          <p>يناير 2021</p>
-        </div>
-        <p class="body_title">
-          شقة مفروشة بحي بغداد
-        </p>
-        <div class="price">
-          1315 د.ع
-        </div>
-        <div class="footer_content">
-          <p>
-            <img src="../../assets/images/size.svg" alt="">
-            210م2
-          </p>
-          <p>
-            <img src="../../assets/images/bed.svg" alt="">
-            3
-          </p>
-          <p>
-            <img src="../../assets/images/bath_room.svg" alt="">
-            2
-          </p>
-        </div>
-      </div>
-    </ng-template>
-    <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
-      <div class="head_box">
-        <span>مميز</span>
-        <img src="../../assets/images/img_card.png" alt="">
-      </div>
-      <div class="body_content">
-        <div class="body_head">
-          <p>
-            <ion-icon slot="start" name="location"></ion-icon>
-            بغداد/شارع التحرير
-          </p>
-          <p>يناير 2021</p>
-        </div>
-        <p class="body_title">
-          شقة مفروشة بحي بغداد
-        </p>
-        <div class="price">
-          1315 د.ع
-        </div>
-        <div class="footer_content">
-          <p>
-            <img src="../../assets/images/size.svg" alt="">
-            210م2
-          </p>
-          <p>
-            <img src="../../assets/images/bed.svg" alt="">
-            3
-          </p>
-          <p>
-            <img src="../../assets/images/bath_room.svg" alt="">
-            2
-          </p>
-        </div>
-      </div>
-    </ng-template>
-  </swiper> -->
+
+
+
+  </swiper>
   <div class="container">
     <div class="item_head animate__animated animate__fadeInUp fast">
       <h2>مضاف حديثا</h2>
@@ -216,7 +143,15 @@
     <div *ngFor="let build of builds;let i = index;trackBy:trackFu"
       class="add_box_item animate__animated animate__fadeInUp duration" (click)="detailsBuild(build)">
       <div class="head_box">
-        <span>{{build?.adType?.name}}</span>
+        <span *ngIf="build.adType._id !='63b978f98aca1c524a92466e'"
+          style="top: 30px; background: var(--ion-color-primary);">{{build?.adType?.name}}</span>
+        <span>{{build?.adGender?.name}}</span>
+        <div *ngIf="build.adStatus._id=='63b97b698aca1c524a924685'" class="stoped">
+          <p>تم البيع</p>
+        </div>
+        <div *ngIf="build.adStatus._id=='63b97b628aca1c524a924683'" class="stoped">
+          <p>موقف مؤقتاً</p>
+        </div>
         <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="build?.images[0]" alt="">
       </div>
       <div class="body_content">
@@ -236,22 +171,37 @@
           </div>
         </div>
         <div class="footer_content">
-          <p>
+          <p *ngIf="build?.area">
             <img src="../../assets/images/size.svg" alt="">
             {{build?.area}}م
+          </p>
+          <p *ngIf="build?.interface">
+            الواجهه
+            <!-- <img src="../../assets/images/size.svg" alt=""> -->
+            {{build?.interface}}م
+          </p>
+          <p *ngIf="build?.depth">
+            النزال
+            <!-- <img src="../../assets/images/size.svg" alt=""> -->
+            {{build?.depth}}م
+          </p>
+          <p *ngIf="build?.floorsNumber">
+            الطوابق
+            <!-- <img src="../../assets/images/size.svg" alt=""> -->
+            {{build?.floorsNumber}}
           </p>
           <p *ngIf="build?.bedsNumber">
             <img src="../../assets/images/bed.svg" alt="">
             {{build?.bedsNumber}}
           </p>
-          <p>
+          <p *ngIf="build?.bathroomNumber">
             <img src="../../assets/images/bath_room.svg" alt="">
             {{build?.bathroomNumber}}
           </p>
         </div>
       </div>
     </div>
-    <div *ngIf="builds.length ==0" style="top:100px" class="error-view">
+    <div *ngIf="!loading&&builds.length ==0" style="top:100px" class="error-view">
       <div class="content">
         <ion-icon name="happy-outline"></ion-icon>
         <ion-text color="medium">
@@ -283,17 +233,7 @@
     </div>
   </div>
 
-  <ion-popover #popover [dismissOnSelect]="true" [isOpen]="isOpen" (didDismiss)="isOpen = false" mode="ios">
-    <ng-template>
-      <ion-content class="popOver">
-        <ion-list>
-          <ion-item button (click)="logOut()">
-            <ion-label color="danger">تسجيل خروج</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-popover>
+
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
     <ion-fab-button mode="ios" (click)="addBuild()">
       <ion-icon name="add"></ion-icon>
@@ -321,7 +261,7 @@
             </ion-select>
           </div>
 
-          <p>جنس السند</p>
+          <p>نوع ملكيه السند</p>
           <div class="item_box">
             <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="bondType">
               <ion-select-option *ngFor="let type of bondTypes" [value]="type._id">{{type.name}}</ion-select-option>
@@ -329,14 +269,14 @@
           </div>
 
 
-          <p>جنس الاعلان</p>
+          <p>نوع الاعلان</p>
           <div class="item_box">
             <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="adGender">
               <ion-select-option *ngFor="let type of adGenders" [value]="type._id">{{type.name}}</ion-select-option>
             </ion-select>
           </div>
 
-          <p>نوع الاعلان</p>
+          <p>فئة الاعلان</p>
           <div class="item_box">
             <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="adType">
               <ion-select-option *ngFor="let type of adTypes" [value]="type._id">{{type.name}}</ion-select-option>

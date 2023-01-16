@@ -23,6 +23,7 @@ export class HomePage implements OnInit {
   isOpen = false;
   buildTypes: any[] = []
   builds: any[] = [];
+  offersBuilding: any[] = [];
   skip: number = 0;
   loading: boolean = true
   errorView: boolean = false
@@ -53,14 +54,16 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getTypes();
-    this.getBuilds();
-    this.getdataFilters();
-    this.locationService.getCurrentLocation()
+
   }
 
   ionViewWillEnter() {
-    this.userImage = this.authService.userData.image;
+    this.userImage = this.authService.userData?.image;
+    this.getTypes();
+    this.getBuilds();
+    this.getOffers();
+    this.getdataFilters();
+    if (!this.locationService.currentLocation) this.locationService.getCurrentLocation()
   }
   getTypes() {
     this.dataService.getData('/buildType')
@@ -68,7 +71,14 @@ export class HomePage implements OnInit {
         this.buildTypes = res
       })
   }
+  getOffers() {
+    this.dataService.getData(`/build/?adType=63b978e28aca1c524a924668`)
+      .subscribe((res: any) => {
+        console.log('offers ===>', res);
 
+        this.offersBuilding = res
+      })
+  }
   getBuilds(ev?: any) {
     this.dataService.getData(this.endPoint)
       .subscribe((res: any) => {
@@ -158,8 +168,11 @@ export class HomePage implements OnInit {
     this.helper.navigateForward('category')
   }
   detailsBuild(build: any) {
-    this.dataService.addParams = { build }
-    this.helper.navigateForward('details')
+    if (build.adStatus._id != '63b97b708aca1c524a924687') this.helper.presentToast(`هذا العقار ${build.adStatus.name}`)
+    else {
+      this.dataService.addParams = { build }
+      this.helper.navigateForward('details')
+    }
   }
   addBuild() {
     if (this.authService.userData?.phone) {

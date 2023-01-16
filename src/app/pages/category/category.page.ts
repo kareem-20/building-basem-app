@@ -1,5 +1,6 @@
+import { LocationService } from './../../services/location/location.service';
 import { DataService } from './../../services/data/data.service';
-import { IonModal, NavController } from '@ionic/angular';
+import { IonModal, IonPopover, NavController } from '@ionic/angular';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { forkJoin } from 'rxjs';
 
@@ -9,7 +10,8 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./category.page.scss'],
 })
 export class CategoryPage implements OnInit, OnDestroy {
-
+  @ViewChild('popover') popover: IonPopover;
+  isOpen = false;
   @ViewChild('modal') filterModal: IonModal;
   typeBuild: any;
   loading: boolean = true
@@ -37,9 +39,11 @@ export class CategoryPage implements OnInit, OnDestroy {
   roomsNumber: number | null = null;
   bathroomNumber: number | null = null;
   buildYear: number | null = null;
+  sort: boolean = false
   constructor(
     private navCtrl: NavController,
-    private dataService: DataService
+    private dataService: DataService,
+    private locationService: LocationService
   ) { }
 
   ngOnInit() {
@@ -84,10 +88,12 @@ export class CategoryPage implements OnInit, OnDestroy {
 
 
   get endPoint(): string {
+    let location = this.locationService.currentLocation
     let url = '/build/'
     url += `&buildType=${this.typeBuild._id}`
     if (this.skip) url += `&skip=${this.skip}`;
     if (this.city) url += `&city=${this.city}`;
+    if (this.sort) url += `&sort=${this.sort}&lng=${location.lng}&lat=${location.lat}`;
     if (this.adStatus) url += `&adStatus=${this.adStatus}`;
     if (this.adGender) url += `&adGender=${this.adGender}`;
     if (this.adType) url += `&adType=${this.adType}`;
@@ -156,7 +162,10 @@ export class CategoryPage implements OnInit, OnDestroy {
     this.filterModal.dismiss();
     this.getBuilds();
   }
-
+  presentPopover(e: Event) {
+    this.popover.event = e;
+    this.isOpen = true;
+  }
   ngOnDestroy() {
     this.dataService.addParams = {}
   }

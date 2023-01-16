@@ -39,7 +39,7 @@
         <p>الموقع</p>
         <p>{{build?.address}}</p>
       </div>
-      <div class="map" *ngIf="build?.location.lat" (click)="openMap(build?.location)">
+      <div class="map" *ngIf="build.location?.coordinates[0]" (click)="openMap(build?.location.coordinates)">
         <img src="../../../assets/images/map_i.svg" alt="">
       </div>
     </div>
@@ -51,11 +51,32 @@
           <p>{{build?.area}} م2</p>
         </div>
       </div>
+      <div class="option" *ngIf="build?.interface">
+        <img src="../../../assets/images/size.svg" alt="">
+        <div class="content">
+          <p>الواجهه</p>
+          <p>{{build?.interface}} م2</p>
+        </div>
+      </div>
+      <div class="option" *ngIf="build?.depth">
+        <img src="../../../assets/images/size.svg" alt="">
+        <div class="content">
+          <p>النزال</p>
+          <p>{{build?.depth}} م2</p>
+        </div>
+      </div>
       <div class="option" *ngIf="build?.roomsNumber">
         <img src="../../../assets/images/bed.svg" alt="">
         <div class="content">
           <p>الغرف</p>
           <p>{{build?.roomsNumber}} غرف</p>
+        </div>
+      </div>
+      <div class="option" *ngIf="build?.floorsNumber">
+        <!-- <img src="../../../assets/images/bed.svg" alt=""> -->
+        <div class="content">
+          <p>عدد الطوابق</p>
+          <p>{{build?.floorsNumber}} طابق</p>
         </div>
       </div>
       <div class="option" *ngIf="build?.bathroomNumber">
@@ -77,13 +98,6 @@
         <div class="content">
           <p>جنس الاعلان</p>
           <p>{{build?.adGender?.name  }}</p>
-        </div>
-      </div>
-      <div class="option" *ngIf="build?.bondType">
-        <!-- <img src="../../../assets/images/bath_room.svg" alt=""> -->
-        <div class="content">
-          <p>نوع السند</p>
-          <p>{{build?.bondType?.name  }}</p>
         </div>
       </div>
       <div class="option" *ngIf="build?.bondType">
@@ -124,10 +138,10 @@
       <ion-avatar slot="start">
         <img [defaultImage]="'../../../assets/images/userplaceholder.png'" [lazyLoad]="build.userId?.image" />
       </ion-avatar>
-      <!-- <ion-label> -->
-      <h2>{{build.userId?.fullName||'....'}}</h2>
-      <!-- <p></p> -->
-      <!-- </ion-label> -->
+      <ion-label>
+        <h2>{{build.userId?.fullName||'....'}}</h2>
+        <p>{{build.userId?.countAdds |number}} اعلان</p>
+      </ion-label>
       <ion-icon slot="end" name="chevron-back-circle-outline"></ion-icon>
 
     </div>

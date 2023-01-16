@@ -30,7 +30,9 @@ export class QrCodePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.value = `${this.dataService.baseURL}/profile/${this.authService.userData._id}`
+    this.value = `${this.dataService.baseURL}/profile/home/${this.authService.userData._id}`;
+    console.log(this.value);
+
   }
 
   back() {
@@ -83,7 +85,7 @@ export class QrCodePage implements OnInit {
   }
 
   copyLink() {
-    console.log('clicked');
+    console.log('clickedd');
     this.clipboard.copy(`${this.dataService.baseURL}/profile/home/${this.authService.userData._id}`).then((val) => {
       this.helper.presentToast('تم نسخ الرابط')
     });

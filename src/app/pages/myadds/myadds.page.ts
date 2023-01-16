@@ -1,3 +1,4 @@
+import { HelpersService } from './../../services/helpers/helpers.service';
 import { AuthService } from './../../services/auth/auth.service';
 import { DataService } from './../../services/data/data.service';
 import { IonModal, IonPopover, NavController } from '@ionic/angular';
@@ -45,7 +46,8 @@ export class MyaddsPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private dataService: DataService,
-    private authService: AuthService
+    private authService: AuthService,
+    private helper: HelpersService
   ) { }
 
   ngOnInit() {
@@ -75,17 +77,19 @@ export class MyaddsPage implements OnInit {
       this.dataService.getData('/adStatus'),
       this.dataService.getData('/adGender'),
     ]).subscribe((res: any[]) => {
-      console.log(res);
+      // console.log(res);
       this.citys = res[0]
       this.bondTypes = res[1]
       this.adTypes = res[2];
       this.adStatuss = res[3]
+      console.log(this.adStatuss);
+
       this.adGenders = res[4]
     })
   }
 
   back() {
-    this.navCtrl.back()
+    this.navCtrl.navigateBack('/menu')
   }
 
 
@@ -111,6 +115,21 @@ export class MyaddsPage implements OnInit {
     this.getBuilds()
   }
 
+  segmentChanged(ev: any) {
+    console.log(ev.detail.value);
+    this.getBuilds()
+  }
+  updateStatus(id: string) {
+    this.dataService.updateData(`/build/${this.selectedBuild._id}`, {
+      adStatus: id
+    })
+      .subscribe((res) => {
+        console.log(res);
+        this.helper.presentToast('تم تعديل الحالة بنجاح')
+        this.getBuilds()
+
+      })
+  }
 
   async openFilterModal() {
     await this.filterModal.present()
@@ -173,5 +192,10 @@ export class MyaddsPage implements OnInit {
     this.selectedBuild = build
     this.popover.event = ev;
     this.isOpen = true;
+  }
+
+  edit() {
+    this.dataService.addParams = { build: this.selectedBuild }
+    this.navCtrl.navigateForward('/add')
   }
 }

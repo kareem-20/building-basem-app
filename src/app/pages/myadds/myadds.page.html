@@ -4,8 +4,8 @@
       <img src="../../assets/images/back.svg">
     </ion-button>
     <ion-searchbar class="animate__animated animate__fadeInLeft" style="padding-bottom: 0;" [hidden]="searchbarShow"
-      [(ngModel)]="searchQuery" mode="ios" placeholder="بحث بالاسم" inputmode="decimal" type="text"
-      (ionChange)="onSearchChange($event)" (ionBlur)="searchbarShow=true" [debounce]="250"></ion-searchbar>
+      [(ngModel)]="searchQuery" mode="ios" placeholder="بحث بالاسم" type="text" (ionChange)="onSearchChange($event)"
+      (ionBlur)="searchbarShow=true" [debounce]="250"></ion-searchbar>
     <ion-button slot="end" fill="clear" (click)="searchbarShow = !searchbarShow">
       <img src="../../assets/images/search.png">
     </ion-button>
@@ -18,12 +18,28 @@
   </ion-refresher>
   <div class="container">
     <h1 class="title_category animate__animated animate__fadeInUp duration">إعلاناتي</h1>
+    <ion-segment mode="ios" color="primary" [(ngModel)]="adStatus" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="">
+        <ion-label>الكل</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="63b97b708aca1c524a924687">
+        <ion-label>فعال</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="63b97b698aca1c524a924685">
+        <ion-label>تم البيع</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="63b97b628aca1c524a924683">
+        <ion-label>موقف مؤقتا</ion-label>
+      </ion-segment-button>
+    </ion-segment>
     <!-- <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p> -->
 
     <div *ngFor="let build of building;let i = index;trackBy:trackFu"
       class="add_box_item animate__animated animate__fadeInUp duration">
       <div class="head_box">
-        <span>{{build?.adType?.name}}</span>
+        <span style="top: 30px; background: var(--ion-color-primary);"
+          *ngIf="build.adType._id !='63b978f98aca1c524a92466e'">{{build?.adType?.name}}</span>
+        <span>{{build?.adStatus?.name}}</span>
         <ion-button fill="clear" (click)="optionsPopOver($event,build)">
           <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>
         </ion-button>
@@ -46,15 +62,30 @@
           </div>
         </div>
         <div class="footer_content">
-          <p>
+          <p *ngIf="build?.area">
             <img src="../../assets/images/size.svg" alt="">
             {{build?.area}}م
+          </p>
+          <p *ngIf="build?.interface">
+            الواجهه
+            <!-- <img src="../../assets/images/size.svg" alt=""> -->
+            {{build?.interface}}م
+          </p>
+          <p *ngIf="build?.depth">
+            النزال
+            <!-- <img src="../../assets/images/size.svg" alt=""> -->
+            {{build?.depth}}م
+          </p>
+          <p *ngIf="build?.floorsNumber">
+            الطوابق
+            <!-- <img src="../../assets/images/size.svg" alt=""> -->
+            {{build?.floorsNumber}}
           </p>
           <p *ngIf="build?.bedsNumber">
             <img src="../../assets/images/bed.svg" alt="">
             {{build?.bedsNumber}}
           </p>
-          <p>
+          <p *ngIf="build?.bathroomNumber">
             <img src="../../assets/images/bath_room.svg" alt="">
             {{build?.bathroomNumber}}
           </p>
@@ -97,7 +128,7 @@
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  <ion-modal #modal mode="ios" trigger="open-modal" [initialBreakpoint]="0.35"
+  <ion-modal #modal mode="ios" trigger="open-modal" [initialBreakpoint]="0.75"
     [breakpoints]="[0, 0.25,0.35, 0.5, 0.75,1]">
     <ng-template>
       <ion-content>
@@ -122,7 +153,7 @@
               <ion-select-option value="hawaii">Hawaii</ion-select-option>
             </ion-select>
           </div> -->
-          <p>جنس السند</p>
+          <p>نوع ملكيه السند</p>
           <div class="item_box">
             <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="bondType">
               <ion-select-option *ngFor="let type of bondTypes" [value]="type._id">{{type.name}}</ion-select-option>
@@ -182,13 +213,19 @@
     <ng-template>
       <ion-content class="popOver">
         <ion-list>
-          <ion-item button>
+          <ion-item button (click)="edit()">
             <ion-label color="dark">تعديل</ion-label>
           </ion-item>
-          <ion-item button>
+          <ion-item button *ngIf="selectedBuild.adStatus._id !='63b97b708aca1c524a924687'"
+            (click)="updateStatus('63b97b708aca1c524a924687')">
+            <ion-label color="dark">فعال</ion-label>
+          </ion-item>
+          <ion-item button *ngIf="selectedBuild.adStatus._id !='63b97b698aca1c524a924685'"
+            (click)="updateStatus('63b97b698aca1c524a924685')">
             <ion-label color="dark">تم البيع</ion-label>
           </ion-item>
-          <ion-item button>
+          <ion-item button *ngIf="selectedBuild.adStatus._id !='63b97b628aca1c524a924683'"
+            (click)="updateStatus('63b97b628aca1c524a924683')">
             <ion-label color="dark">توقيف مؤقتا</ion-label>
           </ion-item>
         </ion-list>

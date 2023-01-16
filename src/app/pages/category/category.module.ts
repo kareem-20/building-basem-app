@@ -1,3 +1,4 @@
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,8 +14,9 @@ import { CategoryPage } from './category.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    LazyLoadImageModule,
     CategoryPageRoutingModule
   ],
   declarations: [CategoryPage]
 })
-export class CategoryPageModule {}
+export class CategoryPageModule { }

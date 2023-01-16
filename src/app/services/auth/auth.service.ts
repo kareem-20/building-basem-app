@@ -81,6 +81,8 @@ export class AuthService {
           await this.storage.set(REFRESH_TOKEN, user.refreshToken);
           localStorage.setItem(ACCESS_TOKEN, user.accessToken);
           this.helper.dismissLoading();
+          localStorage.removeItem('verified');
+          localStorage.removeItem('vertifiedNumber')
           this.navCtrl.navigateForward('/home');
         },
         (err) => {
@@ -101,6 +103,8 @@ export class AuthService {
           await this.storage.set(REFRESH_TOKEN, user.refreshToken);
           localStorage.setItem(ACCESS_TOKEN, user.accessToken);
           this.helper.dismissLoading();
+          localStorage.removeItem('verified');
+          localStorage.removeItem('vertifiedNumber')
           this.navCtrl.navigateForward('/home');
         },
         (err) => {
