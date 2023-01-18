@@ -1,3 +1,4 @@
+import { FcmService } from './../fcm/fcm.service';
 import { HelpersService } from './../helpers/helpers.service';
 import { Injectable } from '@angular/core';
 import { NavController } from '@ionic/angular';
@@ -20,6 +21,7 @@ export class AuthService {
     private storage: Storage,
     private helper: HelpersService,
     private navCtrl: NavController,
+    private fcmService: FcmService
   ) { }
 
   getAccessToken() {
@@ -61,6 +63,7 @@ export class AuthService {
         localStorage.setItem(ACCESS_TOKEN, user.accessToken);
         this.helper.dismissLoading();
         this.navCtrl.navigateForward('/home');
+        await this.fcmService.notificationsOne()
       },
       (err) => {
         this.helper.dismissLoading();
@@ -84,6 +87,7 @@ export class AuthService {
           localStorage.removeItem('verified');
           localStorage.removeItem('vertifiedNumber')
           this.navCtrl.navigateForward('/home');
+          await this.fcmService.notificationsOne()
         },
         (err) => {
           this.helper.dismissLoading();

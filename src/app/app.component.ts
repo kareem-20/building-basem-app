@@ -1,3 +1,4 @@
+import { FcmService } from './services/fcm/fcm.service';
 import { LocationService } from './services/location/location.service';
 import { AuthService } from './services/auth/auth.service';
 import { Platform } from '@ionic/angular';
@@ -20,6 +21,7 @@ export class AppComponent {
     private helper: HelpersService,
     private platform: Platform,
     private authService: AuthService,
+    private fcmService: FcmService,
     private locationService: LocationService
   ) {
     this.initializeApp()
@@ -39,8 +41,10 @@ export class AppComponent {
   async checkUser() {
     const user = await this.storage.get('BuildingUserData');
     this.authService.userData = user
+    await this.fcmService.initPush()
     if (user) {
       this.helper.navigateRoot('/home')
+      await this.fcmService.notificationsOne()
     } else {
       if (localStorage.getItem('verified') == 'true') this.helper.navigateRoot('/register')
       else this.helper.navigateRoot('/welcome')

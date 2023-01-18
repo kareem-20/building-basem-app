@@ -97,7 +97,7 @@ export class DetailsPage implements OnInit, OnDestroy {
 
   copyLink() {
     console.log('clicked');
-    this.clipboard.copy(`${this.dataService.baseURL}/details/home/${this.build._id}`).then((val) => {
+    this.clipboard.copy(`${this.dataService.baseURL}/build/details/${this.build._id}`).then((val) => {
       this.helper.presentToast('تم نسخ الرابط')
     });
   }

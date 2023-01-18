@@ -18,6 +18,7 @@ export class HelpersService {
     await this.loadingCtrl
       .create({
         message: message,
+        mode: 'ios'
       })
       .then((loading) => {
         loading.present().then((_) => {

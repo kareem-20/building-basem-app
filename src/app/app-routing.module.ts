@@ -67,6 +67,22 @@ const routes: Routes = [
     path: 'menu',
     loadChildren: () => import('./pages/menu/menu.module').then(m => m.MenuPageModule)
   },
+  {
+    path: 'wishlist',
+    loadChildren: () => import('./pages/wishlist/wishlist.module').then( m => m.WishlistPageModule)
+  },
+  {
+    path: 'add-wishlist',
+    loadChildren: () => import('./pages/add-wishlist/add-wishlist.module').then( m => m.AddWishlistPageModule)
+  },
+  {
+    path: 'builds',
+    loadChildren: () => import('./pages/builds/builds.module').then( m => m.BuildsPageModule)
+  },
+  {
+    path: 'wish-detail',
+    loadChildren: () => import('./pages/wish-detail/wish-detail.module').then( m => m.WishDetailPageModule)
+  },
 ];
 
 @NgModule({
