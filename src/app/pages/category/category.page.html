@@ -19,12 +19,20 @@
   <div class="container">
     <h1 class="title_category animate__animated animate__fadeInUp duration">
       {{typeBuild?.name}}
-
-
       <ion-chip (click)="presentPopover($event)" color="primary" mode="ios" outline="true">
         <ion-label>ترتيب</ion-label>
       </ion-chip>
     </h1>
+
+    <ion-segment scrollable="true" mode="md" color="primary" [(ngModel)]="adGender"
+      (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="">
+        <ion-label>الكل</ion-label>
+      </ion-segment-button>
+      <ion-segment-button *ngFor="let gender of adGenders" [value]="gender?._id">
+        <ion-label>{{gender?.name}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
     <!-- <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p> -->
     <div *ngFor="let build of building;let i = index;trackBy:trackFu"
       class="add_box_item animate__animated animate__fadeInUp duration" (click)="details(build)">

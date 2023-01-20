@@ -28,6 +28,23 @@
 
 ion-segment {
   margin-bottom: 12px;
+
+  ion-segment-button {
+    margin-inline-end: 6px;
+    font-family: 'bold';
+    font-weight: 800;
+    background: #fff;
+    border-radius: 8px;
+  }
+
+  ion-segment-button.segment-button-checked {
+    border: 1px solid var(--ion-color-primary);
+    background: rgb(42 111 219 / 6%);
+  }
+
+  ion-segment-button.md::part(indicator-background) {
+    height: 0px;
+  }
 }
 
 ion-segment::-webkit-scrollbar {

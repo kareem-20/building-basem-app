@@ -84,6 +84,11 @@ export class CategoryPage implements OnInit, OnDestroy {
     })
   }
 
+  segmentChanged(ev: any) {
+    console.log(ev.detail.value);
+    this.getBuilds()
+  }
+
   back() {
     this.navCtrl.back()
   }
