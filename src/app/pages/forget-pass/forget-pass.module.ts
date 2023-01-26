@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { OtpVertifyPageRoutingModule } from './otp-vertify-routing.module';
+import { ForgetPassPageRoutingModule } from './forget-pass-routing.module';
 
-import { OtpVertifyPage } from './otp-vertify.page';
+import { ForgetPassPage } from './forget-pass.page';
 import { NgOtpInputModule } from 'ng-otp-input';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     FormsModule,
     IonicModule,
     NgOtpInputModule,
-    OtpVertifyPageRoutingModule
+    ForgetPassPageRoutingModule
   ],
-  declarations: [OtpVertifyPage]
+  declarations: [ForgetPassPage]
 })
-export class OtpVertifyPageModule { }
+export class ForgetPassPageModule { }

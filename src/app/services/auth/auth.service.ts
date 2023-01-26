@@ -154,6 +154,26 @@ export class AuthService {
         }
       );
   }
-
+  changePassword(body: any) {
+    this.helper.showLoading();
+    this.dataService.postData(`/user/changePass`, body)
+      .subscribe(
+        async (user: any) => {
+          this.userData = await this.storage.set(USER, user);
+          await this.storage.set(REFRESH_TOKEN, user.refreshToken);
+          localStorage.setItem(ACCESS_TOKEN, user.accessToken);
+          this.helper.dismissLoading();
+          // localStorage.removeItem('verified');
+          // localStorage.removeItem('vertifiedNumber')
+          this.navCtrl.navigateForward('/home');
+        },
+        (err) => {
+          this.helper.dismissLoading();
+          if (err.status == 404) return this.helper.presentToast('خطأ برقم الهاتف او كلمة المرور');
+          if (err.status == 409) return this.helper.presentToast('اسم المستخدم موجود بالفعل ');
+          return this.helper.presentToast('خطأ بالشبكة');
+        }
+      );
+  }
 
 }

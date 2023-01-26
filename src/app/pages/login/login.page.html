@@ -24,6 +24,9 @@
         <ion-input formControlName="password" type="password" placeholder="كلمة المرور"></ion-input>
       </ion-item>
     </form>
+    <ion-text color="danger" (click)="forgetPassword()">
+      نسيت كلمة المرور
+    </ion-text>
     <ion-button mode="ios" class="submit animate__animated animate__fadeInBottomLeft duration" expand="block"
       fill="solid" [disabled]="!form.valid" (click)="submit()">
       تسجيل الدخول

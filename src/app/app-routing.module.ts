@@ -87,6 +87,10 @@ const routes: Routes = [
     path: 'notification',
     loadChildren: () => import('./pages/notification/notification.module').then(m => m.NotificationPageModule)
   },
+  {
+    path: 'forget-pass',
+    loadChildren: () => import('./pages/forget-pass/forget-pass.module').then( m => m.ForgetPassPageModule)
+  },
 ];
 
 @NgModule({

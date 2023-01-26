@@ -55,5 +55,7 @@
     <string>$PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>$PHOTO_LIBRARY_USAGE_DESCRIPTION</string>
+    <key>NSCameraUsageDescription</key>
+    <string>$PHOTO_LIBRARY_USAGE_DESCRIPTION</string>
 </dict>
 </plist>
