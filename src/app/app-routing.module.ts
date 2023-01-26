@@ -69,19 +69,23 @@ const routes: Routes = [
   },
   {
     path: 'wishlist',
-    loadChildren: () => import('./pages/wishlist/wishlist.module').then( m => m.WishlistPageModule)
+    loadChildren: () => import('./pages/wishlist/wishlist.module').then(m => m.WishlistPageModule)
   },
   {
     path: 'add-wishlist',
-    loadChildren: () => import('./pages/add-wishlist/add-wishlist.module').then( m => m.AddWishlistPageModule)
+    loadChildren: () => import('./pages/add-wishlist/add-wishlist.module').then(m => m.AddWishlistPageModule)
   },
   {
     path: 'builds',
-    loadChildren: () => import('./pages/builds/builds.module').then( m => m.BuildsPageModule)
+    loadChildren: () => import('./pages/builds/builds.module').then(m => m.BuildsPageModule)
   },
   {
     path: 'wish-detail',
-    loadChildren: () => import('./pages/wish-detail/wish-detail.module').then( m => m.WishDetailPageModule)
+    loadChildren: () => import('./pages/wish-detail/wish-detail.module').then(m => m.WishDetailPageModule)
+  },
+  {
+    path: 'notification',
+    loadChildren: () => import('./pages/notification/notification.module').then(m => m.NotificationPageModule)
   },
 ];
 

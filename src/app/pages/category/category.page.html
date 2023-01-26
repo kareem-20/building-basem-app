@@ -37,13 +37,13 @@
     <div *ngFor="let build of building;let i = index;trackBy:trackFu"
       class="add_box_item animate__animated animate__fadeInUp duration" (click)="details(build)">
       <div class="head_box">
-        <span *ngIf="build.adType._id !='63b978f98aca1c524a92466e'"
+        <span *ngIf="build.adType?._id !='63b978f98aca1c524a92466e'"
           style="top: 30px; background: var(--ion-color-primary);">{{build?.adType?.name}}</span>
         <span>{{build?.adGender?.name}}</span>
-        <div *ngIf="build.adStatus._id=='63b97b698aca1c524a924685'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='63cfad757fbccb084be60734'" class="stoped">
           <p>تم البيع</p>
         </div>
-        <div *ngIf="build.adStatus._id=='63b97b628aca1c524a924683'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='63cfad827fbccb084be60737'" class="stoped">
           <p>موقف مؤقتاً</p>
         </div>
         <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="build?.images[0]" alt="">
@@ -184,7 +184,7 @@
               <ion-select-option *ngFor="let type of adStatuss" [value]="type._id">{{type.name}}</ion-select-option>
             </ion-select>
           </div>
-          <p>عدد الغرف</p>
+          <!-- <p>عدد الغرف</p>
           <div class="item_box">
             <ion-input type="number" [(ngModel)]="roomsNumber" placeholder="ادخل العدد">
             </ion-input>
@@ -202,7 +202,7 @@
           <div class="item_box">
             <ion-input type="number" [(ngModel)]="buildYear" placeholder="ادخل السنة">
             </ion-input>
-          </div>
+          </div> -->
 
           <ion-button expand="block" fill="solid" (click)="getBuilds();filterModal.dismiss()">
             تصنيف

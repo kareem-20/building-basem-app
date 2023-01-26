@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
   }
 
   back() {
-    this.navCtrl.back()
+    this.navCtrl.navigateBack('/welcome')
   }
 
   navigate(route: string) {

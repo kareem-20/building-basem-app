@@ -34,7 +34,7 @@
 // animation
 @for $i from 1 through 25 {
   .duration:nth-child(#{$i}) {
-    animation-duration: (0.2s * $i);
+    animation-duration: (0.1s * $i);
   }
 }
 
@@ -80,7 +80,7 @@ ion-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90%;
+  height: 85%;
   width: 100%;
   z-index: 99999;
 

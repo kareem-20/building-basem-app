@@ -74,13 +74,13 @@
     <ng-template *ngFor="let build of offersBuilding" swiperSlide
       class="animate__animated animate__fadeInLeft duration">
       <div class="head_box" (click)="detailsBuild(build)">
-        <span *ngIf="build.adType._id !='63b978f98aca1c524a92466e'"
+        <span *ngIf="build?.adType?._id !='63b978f98aca1c524a92466e'"
           style="top: 30px; background: var(--ion-color-primary);">{{build?.adType?.name}}</span>
         <span>{{build?.adGender?.name}}</span>
-        <div *ngIf="build.adStatus._id=='63b97b698aca1c524a924685'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='63b97b698aca1c524a924685'" class="stoped">
           <p>تم البيع</p>
         </div>
-        <div *ngIf="build.adStatus._id=='63b97b628aca1c524a924683'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='63b97b628aca1c524a924683'" class="stoped">
           <p>موقف مؤقتاً</p>
         </div>
         <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="build?.images[0]" alt="">
@@ -143,13 +143,13 @@
     <div *ngFor="let build of builds;let i = index;trackBy:trackFu"
       class="add_box_item animate__animated animate__fadeInUp duration" (click)="detailsBuild(build)">
       <div class="head_box">
-        <span *ngIf="build.adType._id !='63b978f98aca1c524a92466e'"
+        <span *ngIf="build.adType?._id !='63b978f98aca1c524a92466e'"
           style="top: 30px; background: var(--ion-color-primary);">{{build?.adType?.name}}</span>
         <span>{{build?.adGender?.name}}</span>
-        <div *ngIf="build.adStatus._id=='63b97b698aca1c524a924685'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='63cfad757fbccb084be60734'" class="stoped">
           <p>تم البيع</p>
         </div>
-        <div *ngIf="build.adStatus._id=='63b97b628aca1c524a924683'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='63cfad827fbccb084be60737'" class="stoped">
           <p>موقف مؤقتاً</p>
         </div>
         <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="build?.images[0]" alt="">

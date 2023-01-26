@@ -119,7 +119,7 @@ export class BuildsPage implements OnInit {
     if (ev) ev.target.complete();
   }
   details(build: any) {
-    if (build.adStatus._id != '63b97b708aca1c524a924687') this.helper.presentToast(`هذا العقار ${build.adStatus.name}`)
+    if (build.adStatus._id != '63cfb3527fbccb084be60c1e') this.helper.presentToast(`هذا العقار ${build.adStatus.name}`)
     else {
       this.dataService.addParams = { build }
       this.helper.navigateForward('details')

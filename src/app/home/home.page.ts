@@ -72,7 +72,7 @@ export class HomePage implements OnInit {
       })
   }
   getOffers() {
-    this.dataService.getData(`/build/?adType=63b978e28aca1c524a924668`)
+    this.dataService.getData(`/build/?adType=63cfad6b7fbccb084be6072f`)
       .subscribe((res: any) => {
         console.log('offers ===>', res);
 
@@ -168,14 +168,14 @@ export class HomePage implements OnInit {
     this.helper.navigateForward('category')
   }
   detailsBuild(build: any) {
-    if (build.adStatus._id != '63b97b708aca1c524a924687') this.helper.presentToast(`هذا العقار ${build.adStatus.name}`)
+    if (build.adStatus._id != '63cfb3527fbccb084be60c1e') this.helper.presentToast(`هذا العقار ${build.adStatus.name}`)
     else {
       this.dataService.addParams = { build }
       this.helper.navigateForward('details')
     }
   }
   addBuild() {
-    if (this.authService.userData?.phone) {
+    if (this.authService.userData?.phone && this.authService.userData?.phone != 'visitor') {
       this.helper.navigateForward('add')
 
     } else {
@@ -185,7 +185,7 @@ export class HomePage implements OnInit {
   }
 
   menu() {
-    if (this.authService.userData?.phone) {
+    if (this.authService.userData?.phone && this.authService.userData?.phone != 'visitor') {
       this.helper.navigateForward('menu')
     } else {
       this.helper.presentToast('يجب تسجيل بياناتك اولا')

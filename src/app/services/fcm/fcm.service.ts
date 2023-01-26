@@ -26,7 +26,7 @@ export class FcmService {
     if (Capacitor.getPlatform() == 'web') return;
     await PushNotifications.requestPermissions();
     await PushNotifications.register();
-    // this.notificationsAll();
+    this.notificationsAll();
     // this.notificationsOne()
   }
 

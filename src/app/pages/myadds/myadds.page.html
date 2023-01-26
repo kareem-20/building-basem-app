@@ -22,13 +22,13 @@
       <ion-segment-button value="">
         <ion-label>الكل</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="63b97b708aca1c524a924687">
+      <ion-segment-button value="63cfb3527fbccb084be60c1e">
         <ion-label>فعال</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="63b97b698aca1c524a924685">
+      <ion-segment-button value="63cfad757fbccb084be60734">
         <ion-label>تم البيع</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="63b97b628aca1c524a924683">
+      <ion-segment-button value="63cfad827fbccb084be60737">
         <ion-label>موقف مؤقتا</ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -38,7 +38,7 @@
       class="add_box_item animate__animated animate__fadeInUp duration">
       <div class="head_box">
         <span style="top: 30px; background: var(--ion-color-primary);"
-          *ngIf="build.adType._id !='63b978f98aca1c524a92466e'">{{build?.adType?.name}}</span>
+          *ngIf="build.adType?._id !='63b978f98aca1c524a92466e'">{{build?.adType?.name}}</span>
         <span>{{build?.adStatus?.name}}</span>
         <ion-button fill="clear" (click)="optionsPopOver($event,build)">
           <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>
@@ -181,7 +181,7 @@
               <ion-select-option *ngFor="let type of adStatuss" [value]="type._id">{{type.name}}</ion-select-option>
             </ion-select>
           </div>
-          <p>عدد الغرف</p>
+          <!-- <p>عدد الغرف</p>
           <div class="item_box">
             <ion-input type="number" [(ngModel)]="roomsNumber" placeholder="ادخل العدد">
             </ion-input>
@@ -199,7 +199,7 @@
           <div class="item_box">
             <ion-input type="number" [(ngModel)]="buildYear" placeholder="ادخل السنة">
             </ion-input>
-          </div>
+          </div> -->
 
           <ion-button expand="block" fill="solid" (click)="getBuilds();filterModal.dismiss()">
             تصنيف
@@ -216,16 +216,16 @@
           <ion-item button (click)="edit()">
             <ion-label color="dark">تعديل</ion-label>
           </ion-item>
-          <ion-item button *ngIf="selectedBuild.adStatus._id !='63b97b708aca1c524a924687'"
-            (click)="updateStatus('63b97b708aca1c524a924687')">
+          <ion-item button *ngIf="selectedBuild?.adStatus?._id !='63cfb3527fbccb084be60c1e'"
+            (click)="updateStatus('63cfb3527fbccb084be60c1e')">
             <ion-label color="dark">فعال</ion-label>
           </ion-item>
-          <ion-item button *ngIf="selectedBuild.adStatus._id !='63b97b698aca1c524a924685'"
-            (click)="updateStatus('63b97b698aca1c524a924685')">
+          <ion-item button *ngIf="selectedBuild?.adStatus?._id !='63cfad757fbccb084be60734'"
+            (click)="updateStatus('63cfad757fbccb084be60734')">
             <ion-label color="dark">تم البيع</ion-label>
           </ion-item>
-          <ion-item button *ngIf="selectedBuild.adStatus._id !='63b97b628aca1c524a924683'"
-            (click)="updateStatus('63b97b628aca1c524a924683')">
+          <ion-item button *ngIf="selectedBuild?.adStatus?._id !='63cfad827fbccb084be60737'"
+            (click)="updateStatus('63cfad827fbccb084be60737')">
             <ion-label color="dark">توقيف مؤقتا</ion-label>
           </ion-item>
         </ion-list>
