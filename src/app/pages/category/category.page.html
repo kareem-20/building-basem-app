@@ -24,7 +24,7 @@
       </ion-chip>
     </h1>
 
-    <ion-segment scrollable="true" mode="md" color="primary" [(ngModel)]="adGender"
+    <ion-segment *ngIf="adGenders.length" scrollable="true" mode="md" color="primary" [(ngModel)]="adGender"
       (ionChange)="segmentChanged($event)">
       <ion-segment-button value="">
         <ion-label>الكل</ion-label>

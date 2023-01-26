@@ -28,18 +28,18 @@ export class ProfilePage implements OnInit {
   ngOnInit(): void {
     this.userId = this.route.snapshot.params['id'];
     // this.getDepartments(this.route.snapshot.params['id'])
-    this.getaddGender()
+    // this.getaddGender()
     this.getData()
   }
 
-  getaddGender() {
-    this.dataService.getData('/adGender')
-      .subscribe((res: any) => {
-        console.log(res);
-        this.adGenders = res;
-        // this.adGender = this.adGenders[0]._id
-      })
-  }
+  // getaddGender() {
+  //   this.dataService.getData('/adGender')
+  //     .subscribe((res: any) => {
+  //       console.log(res);
+  //       this.adGenders = res;
+  //       // this.adGender = this.adGenders[0]._id
+  //     })
+  // }
 
   get endPoint(): string {
     let url = `/build/${this.userId}`
@@ -53,6 +53,7 @@ export class ProfilePage implements OnInit {
         console.log(res);
         this.userData = res['user']
         this.builds = res['builds']
+        this.adGenders = res['adgenders']
       })
   }
   segmentChanged(ev: any) {

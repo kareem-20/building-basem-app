@@ -73,14 +73,14 @@ export class CategoryPage implements OnInit, OnDestroy {
       this.dataService.getData('/bondType'),
       this.dataService.getData('/adType'),
       this.dataService.getData('/adStatus'),
-      this.dataService.getData('/adGender'),
+      this.dataService.getData(`/adGender?buildType=${this.typeBuild._id}`),
     ]).subscribe((res: any[]) => {
       console.log(res);
       this.citys = res[0]
       this.bondTypes = res[1]
       this.adTypes = res[2]
       this.adStatuss = res[3]
-      this.adGenders = res[4]
+      this.adGenders = res[4].filter((item: any) => item['countBuilds'] > 0)
     })
   }
 
