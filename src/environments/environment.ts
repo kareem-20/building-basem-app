@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  mapskey: "AIzaSyBk-jjPezVAZOH6uOXn267Q70Oc3xL3hRk"
+  mapskey: "AIzaSyCkpCfNDhFvSpj2HtoPhPCTl_GGjHXI-Y4"
 };
 
 /*

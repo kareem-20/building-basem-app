@@ -30,7 +30,7 @@
       <h1>{{build?.title}}</h1>
       <p slot="end">{{build?.createdAt |date}}</p>
     </div>
-    <p class="price">{{build?.price |number}} د.ع</p>
+    <p class="price">{{build?.price |number}} $</p>
     <div class="location" *ngIf="build?.location">
       <div class="img">
         <img src="../../../assets/images/map_i.svg" alt="">
@@ -129,12 +129,12 @@
         <p class="end">2021</p>
       </div>
     </div> -->
-    <div class="description">
+    <div class="description" *ngIf="build?.description">
       <h6>الوصف</h6>
       <p>{{build?.description}}</p>
     </div>
 
-    <div class="userProfile" (click)="toProfile()">
+    <div class="userProfile" (click)="toProfile()" *ngIf="build.userId">
       <ion-avatar slot="start">
         <img [defaultImage]="'../../../assets/images/userplaceholder.png'" [lazyLoad]="build.userId?.image" />
       </ion-avatar>

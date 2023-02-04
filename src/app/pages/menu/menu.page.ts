@@ -2,6 +2,8 @@ import { AuthService } from '../../services/auth/auth.service';
 import { HelpersService } from 'src/app/services/helpers/helpers.service';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { Browser } from '@capacitor/browser';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
@@ -34,6 +36,9 @@ export class MenuPage implements OnInit {
     this.navCtrl.navigateBack('/home')
   }
 
+  async whatsapp() {
+    await Browser.open({ url: `https://wa.me/+9647732284555` });
+  }
 
 
   logOut() {

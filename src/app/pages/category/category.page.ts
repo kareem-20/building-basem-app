@@ -86,6 +86,10 @@ export class CategoryPage implements OnInit, OnDestroy {
 
   segmentChanged(ev: any) {
     console.log(ev.detail.value);
+    this.building = []
+
+    this.adGender = ev.detail.value
+    this.skip = 0;
     this.getBuilds()
   }
 
@@ -113,6 +117,7 @@ export class CategoryPage implements OnInit, OnDestroy {
     return url.replace('&', '?');
   }
   onSearchChange(ev?: Event) {
+
     this.getBuilds()
   }
 

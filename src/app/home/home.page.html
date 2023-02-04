@@ -41,7 +41,7 @@
           <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="type?.image" alt="">
           <div class="content">
             <h4>{{type?.name}}</h4>
-            <!-- <p>546 شقة</p> -->
+            <p>{{type?.countBuilds}} اعلان</p>
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@
           {{build?.title}}
         </p>
         <div class="price">
-          {{build?.price |number}} د.ع
+          {{build?.price |number}} $
         </div>
         <div class="footer_content">
           <p *ngIf="build?.area">
@@ -167,7 +167,7 @@
             {{build?.title}}
           </p>
           <div class="price">
-            {{build?.price |number}} د.ع
+            {{build?.price |number}} $
           </div>
         </div>
         <div class="footer_content">

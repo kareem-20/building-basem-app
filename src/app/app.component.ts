@@ -46,8 +46,8 @@ export class AppComponent {
       this.helper.navigateRoot('/home')
       await this.fcmService.notificationsOne()
     } else {
-      if (localStorage.getItem('verified') == 'true') this.helper.navigateRoot('/register')
-      else this.helper.navigateRoot('/welcome')
+      // if (localStorage.getItem('verified') == 'true') this.helper.navigateRoot('/register')
+      this.helper.navigateRoot('/welcome')
     }
   }
 

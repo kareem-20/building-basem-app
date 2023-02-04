@@ -74,7 +74,7 @@ export class CameraService {
 
   async selectImage(camera: boolean = true) {
     const options: ImageOptions = {
-      quality: 50,
+      quality: 40,
       allowEditing: false,
       resultType: CameraResultType.Uri,
       saveToGallery: true,
@@ -185,7 +185,7 @@ export class CameraService {
   }
 
   async createFormData(image: any) {
-    let formData = new FormData()
+    let formData = new FormData();
     const response = await fetch(image.data);
     const blob = await response.blob();
     formData.append('image', blob, image.name)

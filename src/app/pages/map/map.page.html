@@ -12,7 +12,17 @@
 </ion-header> -->
 
 <ion-content class="map-ion-content">
-  <capacitor-google-map #map id="map"></capacitor-google-map>
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box" />
+  <div #map class="map"></div>
+
+  <!-- <capacitor-google-map #map id="map"></capacitor-google-map> -->
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-button fill="clear" class="myLocation" mode="ios" (click)="setCurrentLocation()">
+      <!-- <img src="../../../assets/Icon&Svg/8.my location/svg/my_location.svg" alt=""> -->
+      موقعي
+    </ion-button>
+  </ion-fab>
 </ion-content>
 <ion-footer>
   <ion-toolbar>

@@ -68,6 +68,8 @@ export class HomePage implements OnInit {
   getTypes() {
     this.dataService.getData('/buildType')
       .subscribe((res: any) => {
+        console.log(res);
+
         this.buildTypes = res
       })
   }
@@ -180,7 +182,7 @@ export class HomePage implements OnInit {
 
     } else {
       this.helper.presentToast('يجب تسجيل بياناتك اولا')
-      this.helper.navigateForward('register')
+      this.helper.navigateForward('welcome')
     }
   }
 
@@ -189,7 +191,7 @@ export class HomePage implements OnInit {
       this.helper.navigateForward('menu')
     } else {
       this.helper.presentToast('يجب تسجيل بياناتك اولا')
-      this.helper.navigateForward('register')
+      this.helper.navigateForward('welcome')
     }
   }
 

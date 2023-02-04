@@ -61,7 +61,7 @@
             {{build?.title}}
           </p>
           <div class="price">
-            {{build?.price |number}} د.ع
+            {{build?.price |number}} $
           </div>
         </div>
         <div class="footer_content">
@@ -127,7 +127,7 @@
       <ion-icon name="options"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-infinite-scroll threshold="25%" [disabled]="disableInfinity" position="bottom" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll threshold="25%" position="bottom" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
