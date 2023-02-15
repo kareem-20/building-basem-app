@@ -44,9 +44,12 @@ export class DetailsPage implements OnInit, OnDestroy {
   }
 
   async openMap(location: any) {
-    let currentLocation = this.locationService.currentLocation;
-    // window.open(`https://www.google.com/maps/dir/${currentLocation.lat},${currentLocation.lng}/${location.lng},${location.lat}`, "_system")
-    await Browser.open({ url: `https://www.google.com/maps/dir/${currentLocation.lat},${currentLocation.lng}/${location[1]},${location[0]}` });
+    // let currentLocation =
+    navigator.geolocation.getCurrentPosition(async (value) => {
+
+      await Browser.open({ url: `https://www.google.com/maps/dir/${value.coords.latitude},${value.coords.longitude}/${location[1]},${location[0]}` });
+    })
+    // this.locationService.currentLocation;
   }
 
   back() {

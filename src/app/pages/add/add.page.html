@@ -15,9 +15,7 @@
   <swiper *ngIf="step==1" #mySlide dir="rtl" [pagination]="{
     type: 'fraction'
   }" [navigation]="false" class="mySwiper addSlide">
-    <ng-template swiperSlide>
-      <img (click)="selectImage()" src="../../../assets/images/add-img.svg" alt="">
-    </ng-template>
+
     <ng-template *ngFor="let img of imagesFromDevice;let i =index" swiperSlide>
       <img class="deleteBtn" src="../../../assets/images/delete_button.svg" alt=""
         (click)="deleteImage(img,i,'device')">
@@ -27,6 +25,9 @@
       <img class="deleteBtn" src="../../../assets/images/delete_button.svg" alt=""
         (click)="deleteImage(img,i,'submit')">
       <img class="myImg" [src]="img" alt="">
+    </ng-template>
+    <ng-template swiperSlide>
+      <img (click)="selectImage()" src="../../../assets/images/add-img.svg" alt="">
     </ng-template>
   </swiper>
   <div class="container">

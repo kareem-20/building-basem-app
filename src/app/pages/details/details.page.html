@@ -131,10 +131,10 @@
     </div> -->
     <div class="description" *ngIf="build?.description">
       <h6>الوصف</h6>
-      <p>{{build?.description}}</p>
+      <p [innerText]="build?.description"></p>
     </div>
 
-    <div class="userProfile" (click)="toProfile()" *ngIf="build.userId">
+    <div class="userProfile" (click)="toProfile()" *ngIf="build?.userId?._id">
       <ion-avatar slot="start">
         <img [defaultImage]="'../../../assets/images/userplaceholder.png'" [lazyLoad]="build.userId?.image" />
       </ion-avatar>

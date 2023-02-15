@@ -25,7 +25,9 @@ export class LocationService {
   async getCurrentLocation() {
     // if (Capacitor.getPlatform() == 'web') return this.location
     await this.checkPermission();
-    const coordinates = await Geolocation.getCurrentPosition();
+    const coordinates = await Geolocation.getCurrentPosition({
+      enableHighAccuracy: true,
+    });
     if (coordinates.coords) {
       this.location.lat = coordinates.coords.latitude
       this.location.lng = coordinates.coords.longitude

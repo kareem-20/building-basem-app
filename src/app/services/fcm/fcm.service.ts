@@ -1,13 +1,12 @@
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { FCM } from '@capacitor-community/fcm';
-import { ActionPerformed, PushNotifications } from '@capacitor/push-notifications';
+import { PushNotifications } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
 import { Howl } from 'howler';
 import { ToastController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { HttpClient } from '@angular/common/http';
-import { take } from 'rxjs/operators';
+// import { take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,8 +16,6 @@ export class FcmService {
     private toastCtrl: ToastController,
     private navCtrl: NavController,
     private storage: Storage,
-    private router: Router,
-    private http: HttpClient
   ) { }
 
   async initPush() {

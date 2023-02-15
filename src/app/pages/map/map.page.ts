@@ -110,6 +110,8 @@ export class MapPage implements OnInit {
             lat: marker.getPosition().lat(),
             lng: marker.getPosition().lng(),
           }
+          console.log(marker.getPosition().lat(), marker.getPosition().lng());
+
         })
         markers.push(marker);
         if (place.geometry.viewport) {
@@ -149,6 +151,7 @@ export class MapPage implements OnInit {
         lat: marker.getPosition().lat(),
         lng: marker.getPosition().lng(),
       }
+      console.log(marker.getPosition().lat(), marker.getPosition().lng());
     })
 
 
@@ -193,6 +196,8 @@ export class MapPage implements OnInit {
   sumbit() {
     console.log('submit')
     this.dataService.addParams = { mapLocation: this.mapLocaion }
+    console.log(this.mapLocaion);
+
     this.navCtrl.navigateBack('/add')
     // this.map.destroy()
 
