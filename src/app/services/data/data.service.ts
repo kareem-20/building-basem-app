@@ -3,20 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs/operators';
 
-const BASE_URL = 'taboor_url'
+const BASE_URL = 'taboor_url';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-
   private params: any = {};
-  baseURL: string = 'http://209.250.237.58:5600';
+  baseURL: string = 'http://209.250.237.58:5638';
 
-  constructor(
-    private http: HttpClient,
-    // private storage: Storage
-  ) { }
-
+  constructor(private http: HttpClient) // private storage: Storage
+  {}
 
   set addParams(body: any) {
     this.params = body;
@@ -26,13 +22,14 @@ export class DataService {
     return this.params;
   }
 
-
   getData(endPoint: string) {
     return this.http.get(this.baseURL + endPoint).pipe(take(1));
   }
 
   postData(endPoint: string, body: any) {
-    return this.http.post(this.baseURL + endPoint, body, { reportProgress: true });
+    return this.http.post(this.baseURL + endPoint, body, {
+      reportProgress: true,
+    });
   }
 
   updateData(endPoint: string, body: any) {

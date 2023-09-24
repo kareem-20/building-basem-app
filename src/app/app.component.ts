@@ -15,7 +15,6 @@ import { SplashScreen } from '@capacitor/splash-screen';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-
   constructor(
     private storage: Storage,
     private helper: HelpersService,
@@ -24,43 +23,43 @@ export class AppComponent {
     private fcmService: FcmService,
     private locationService: LocationService
   ) {
-    this.initializeApp()
+    this.initializeApp();
   }
 
   async initializeApp() {
     await this.storage.create();
     this.platform.ready().then(async () => {
-      await this.checkUser()
+      await this.checkUser();
       // this.authService.userStatus()
-      this.locationService.getCurrentLocation().then(val => {
+      this.locationService.getCurrentLocation().then((val) => {
         console.log(val);
-      })
+      });
       if (Capacitor.getPlatform() != 'web') await this.setLightStatusBar();
-    })
+    });
   }
   async checkUser() {
     const user = await this.storage.get('BuildingUserData');
-    this.authService.userData = user
-    await this.fcmService.initPush()
+    this.authService.userData = user;
+    // await this.fcmService.initPush();
     if (user) {
-      this.helper.navigateRoot('/home')
-      await this.fcmService.notificationsOne()
+      this.helper.navigateRoot('/home');
+      // await this.fcmService.notificationsOne();
     } else {
       // if (localStorage.getItem('verified') == 'true') this.helper.navigateRoot('/register')
-      this.helper.navigateRoot('/welcome')
+      this.helper.navigateRoot('/welcome');
     }
   }
 
   async setLightStatusBar() {
-    if (this.platform.is("ios")) {
+    if (this.platform.is('ios')) {
       await SplashScreen.hide();
       StatusBar.setOverlaysWebView({ overlay: true });
-      await StatusBar.setStyle({ style: Style.Light })
-      await StatusBar.setBackgroundColor({ color: "#f8f9fb" })
+      await StatusBar.setStyle({ style: Style.Light });
+      await StatusBar.setBackgroundColor({ color: '#f8f9fb' });
     } else {
       StatusBar.setOverlaysWebView({ overlay: false });
-      await StatusBar.setStyle({ style: Style.Light })
-      await StatusBar.setBackgroundColor({ color: "#f8f9fb" })
+      await StatusBar.setStyle({ style: Style.Light });
+      await StatusBar.setBackgroundColor({ color: '#f8f9fb' });
     }
     await SplashScreen.hide();
   }

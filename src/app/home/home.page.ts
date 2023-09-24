@@ -4,11 +4,10 @@ import { DataService } from './../services/data/data.service';
 import { HelpersService } from 'src/app/services/helpers/helpers.service';
 import { IonModal, IonPopover, NavController } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { SwiperComponent } from "swiper/angular";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import { SwiperComponent } from 'swiper/angular';
+import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { forkJoin } from 'rxjs';
 SwiperCore.use([Navigation, Pagination]);
-
 
 @Component({
   selector: 'app-home',
@@ -18,25 +17,24 @@ SwiperCore.use([Navigation, Pagination]);
 })
 export class HomePage implements OnInit {
   @ViewChild('modal') filterModal: IonModal;
-  userImage: string;
+  userImage: string = '';
   @ViewChild('popover') popover: IonPopover;
   isOpen = false;
-  buildTypes: any[] = []
+  buildTypes: any[] = [];
   builds: any[] = [];
   offersBuilding: any[] = [];
   skip: number = 0;
-  loading: boolean = true
-  errorView: boolean = false
-  emptyView: boolean = false
+  loading: boolean = false;
+  errorView: boolean = false;
+  emptyView: boolean = false;
   disableInfinity: boolean = false;
   searchQuery: string = '';
 
-
   /// filter data
-  bondTypes: any[] = []
-  adTypes: any[] = []
-  adStatuss: any[] = []
-  adGenders: any[] = []
+  bondTypes: any[] = [];
+  adTypes: any[] = [];
+  adStatuss: any[] = [];
+  adGenders: any[] = [];
   citys: any[] = [];
 
   /// filter values
@@ -51,11 +49,9 @@ export class HomePage implements OnInit {
     private dataService: DataService,
     private authService: AuthService,
     private locationService: LocationService
-  ) { }
+  ) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
     this.userImage = this.authService.userData?.image;
@@ -63,34 +59,37 @@ export class HomePage implements OnInit {
     this.getBuilds();
     this.getOffers();
     this.getdataFilters();
-    if (!this.locationService.currentLocation) this.locationService.getCurrentLocation()
+    if (!this.locationService.currentLocation)
+      this.locationService.getCurrentLocation();
   }
   getTypes() {
-    this.dataService.getData('/buildType')
-      .subscribe((res: any) => {
-        console.log(res);
+    this.dataService.getData('/buildType').subscribe((res: any) => {
+      console.log(res);
 
-        this.buildTypes = res
-      })
+      this.buildTypes = res;
+    });
   }
   getOffers() {
-    this.dataService.getData(`/build/?adType=63cfad6b7fbccb084be6072f`)
+    this.dataService
+      .getData(`/build/?adType=64e5e2572fc638b85f5c2fb3`)
       .subscribe((res: any) => {
         console.log('offers ===>', res);
 
-        this.offersBuilding = res
-      })
+        this.offersBuilding = res;
+      });
   }
   getBuilds(ev?: any) {
-    this.dataService.getData(this.endPoint)
-      .subscribe((res: any) => {
+    this.dataService.getData(this.endPoint).subscribe(
+      (res: any) => {
         console.log(res);
         this.builds = this.skip ? this.builds.concat(res) : res;
         this.builds.length ? this.showContentView(ev) : this.showEmptyView(ev);
-        this.disableInfinity = res?.length != 20
-      }, (err) => {
-        this.showErrorView(ev)
-      })
+        this.disableInfinity = res?.length != 20;
+      },
+      (err) => {
+        this.showErrorView(ev);
+      }
+    );
   }
 
   getdataFilters() {
@@ -102,15 +101,15 @@ export class HomePage implements OnInit {
       this.dataService.getData('/adGender'),
     ]).subscribe((res: any[]) => {
       console.log(res);
-      this.citys = res[0]
-      this.bondTypes = res[1]
-      this.adTypes = res[2]
-      this.adStatuss = res[3]
-      this.adGenders = res[4]
-    })
+      this.citys = res[0];
+      this.bondTypes = res[1];
+      this.adTypes = res[2];
+      this.adStatuss = res[3];
+      this.adGenders = res[4];
+    });
   }
   get endPoint(): string {
-    let url = '/build/'
+    let url = '/build/';
     if (this.skip) url += `&skip=${this.skip}`;
     if (this.searchQuery) url += `&searchText=${this.searchQuery}`;
     if (this.city) url += `&city=${this.city}`;
@@ -122,21 +121,23 @@ export class HomePage implements OnInit {
   }
 
   onSearchChange(ev?: Event) {
-    this.getBuilds()
+    this.getBuilds();
   }
 
   trackFu(build: any) {
-    return build?._id
+    return build?._id;
   }
 
   doRefresh(ev: any) {
     this.skip = 0;
     this.filterReset();
+    this.getTypes();
+    this.getOffers();
     this.getBuilds(ev);
   }
 
   loadData(ev: any) {
-    this.skip += 1
+    this.skip += 1;
     this.getBuilds(ev);
   }
 
@@ -162,37 +163,43 @@ export class HomePage implements OnInit {
     if (ev) ev.target.complete();
   }
   navigate(route: string) {
-    this.helper.navigateForward(route)
+    this.helper.navigateForward(route);
   }
 
   detailsType(type: any) {
     this.dataService.addParams = { type };
-    this.helper.navigateForward('category')
+    this.helper.navigateForward('category');
   }
   detailsBuild(build: any) {
-    if (build.adStatus._id != '63cfb3527fbccb084be60c1e') this.helper.presentToast(`هذا العقار ${build.adStatus.name}`)
+    if (build.adStatus._id != '64e5e2a42fc638b85f5c2fcd')
+      this.helper.presentToast(`هذا العقار ${build.adStatus.name}`);
     else {
-      this.dataService.addParams = { build }
-      this.helper.navigateForward('details')
+      this.dataService.addParams = { build };
+      this.helper.navigateForward('details');
     }
   }
   addBuild() {
-    if (this.authService.userData?.phone && this.authService.userData?.phone != 'visitor') {
-      this.helper.navigateForward('add')
-
-    } else {
-      this.helper.presentToast('يجب تسجيل بياناتك اولا')
-      this.helper.navigateForward('welcome')
-    }
+    // if (
+    //   this.authService.userData?.phone &&
+    //   this.authService.userData?.phone != 'visitor'
+    // ) {
+    this.helper.navigateForward('add');
+    // } else {
+    //   this.helper.presentToast('يجب تسجيل بياناتك اولا');
+    //   this.helper.navigateForward('welcome');
+    // }
   }
 
   menu() {
-    if (this.authService.userData?.phone && this.authService.userData?.phone != 'visitor') {
-      this.helper.navigateForward('menu')
-    } else {
-      this.helper.presentToast('يجب تسجيل بياناتك اولا')
-      this.helper.navigateForward('welcome')
-    }
+    // if (
+    //   this.authService.userData?.phone &&
+    //   this.authService.userData?.phone != 'visitor'
+    // ) {
+    this.helper.navigateForward('menu');
+    // } else {
+    //   this.helper.presentToast('يجب تسجيل بياناتك اولا');
+    //   this.helper.navigateForward('welcome');
+    // }
   }
 
   presentPopover(e: Event) {
@@ -207,11 +214,11 @@ export class HomePage implements OnInit {
     this.city = null;
     this.searchQuery = '';
     this.bondType = null;
-    this.skip = 0
+    this.skip = 0;
   }
 
   async filter() {
-    await this.filterModal.present()
+    await this.filterModal.present();
   }
 
   clearFilter() {
@@ -224,10 +231,7 @@ export class HomePage implements OnInit {
     this.getBuilds();
   }
 
-
   logOut() {
-    this.authService.logOut()
+    this.authService.logOut();
   }
-
-
 }

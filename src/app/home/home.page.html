@@ -1,10 +1,10 @@
 <ion-header mode="md">
   <ion-toolbar>
     <!-- <ion-button slot="start" fill="clear"> -->
-    <img slot="start" class="logo" src="../../assets/images/logo_home.svg">
+    <img slot="start" class="logo" (click)="menu()" src="../../assets/images/menue.svg">
     <!-- </ion-button> -->
-    <ion-title color="primary">تطبيق عقارك</ion-title>
-    <ion-avatar slot="end" (click)="menu()">
+    <!-- <ion-title color="primary">تطبيق عقارك</ion-title> -->
+    <ion-avatar slot="end">
       <img [lazyLoad]="userImage ||'../../../assets/images/userplaceholder.png'"
         [errorImage]="'../../../assets/images/userplaceholder.png'" alt="">
     </ion-avatar>
@@ -17,17 +17,17 @@
   </ion-refresher>
   <div class="container">
 
-    <!-- <h1 class="animate__animated animate__fadeInBottomLeft fast">
+    <h1 class="animate__animated animate__fadeInBottomLeft fast">
       أهلا بك <br>
       في
-      في تطبيق عقارك
-    </h1> -->
+      تطبيق باسم الشمري
+    </h1>
 
     <div class="search animate__animated animate__fadeInBottomLeft fast">
       <img slot="start" src="../../assets/images/search.svg">
       <ion-input [(ngModel)]="searchQuery" (ionChange)="onSearchChange($event)" type="search" name="search" id=""
         placeholder="المدينة , الحي أو الشارع"></ion-input>
-      <ion-button (click)="filter()" class="filter" fill="outline" shape="round">
+      <ion-button class="filter" fill="outline" shape="round" (click)="filter()">
         فلتر
       </ion-button>
       <!-- <img slot="end" class="filter" src="../../assets/images/filter_.png" alt="" (click)=""> -->
@@ -77,10 +77,10 @@
         <span *ngIf="build?.adType?._id !='63b978f98aca1c524a92466e'"
           style="top: 30px; background: var(--ion-color-primary);">{{build?.adType?.name}}</span>
         <span>{{build?.adGender?.name}}</span>
-        <div *ngIf="build.adStatus?._id=='63b97b698aca1c524a924685'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='64e5e2b32fc638b85f5c2fd0'" class="stoped">
           <p>تم البيع</p>
         </div>
-        <div *ngIf="build.adStatus?._id=='63b97b628aca1c524a924683'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='64e5e30f2fc638b85f5c2fe2'" class="stoped">
           <p>موقف مؤقتاً</p>
         </div>
         <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="build?.images[0]" alt="">
@@ -97,7 +97,7 @@
           {{build?.title}}
         </p>
         <div class="price">
-          {{build?.price |number}} $
+          {{build?.price |number}} IQD
         </div>
         <div class="footer_content">
           <p *ngIf="build?.area">
@@ -106,17 +106,14 @@
           </p>
           <p *ngIf="build?.interface">
             الواجهه
-            <!-- <img src="../../assets/images/size.svg" alt=""> -->
             {{build?.interface}}م
           </p>
           <p *ngIf="build?.depth">
             النزال
-            <!-- <img src="../../assets/images/size.svg" alt=""> -->
             {{build?.depth}}م
           </p>
           <p *ngIf="build?.floorsNumber">
             الطوابق
-            <!-- <img src="../../assets/images/size.svg" alt=""> -->
             {{build?.floorsNumber}}
           </p>
           <p *ngIf="build?.bedsNumber">
@@ -130,10 +127,153 @@
         </div>
       </div>
     </ng-template>
-
-
-
   </swiper>
+
+  <!-- <swiper dir="rtl" [slidesPerView]="4/3" [spaceBetween]="20" [freeMode]="true" [breakpoints]="{
+      '640': {
+        slidesPerView: 2.5,
+        spaceBetween: 20
+      },
+      '768': {
+        slidesPerView: 3.2,
+        spaceBetween: 40
+      },
+      '1024': {
+        slidesPerView: 4.2,
+        spaceBetween: 50
+      }
+    }" class="mySwiper homeSlider animate__animated animate__fadeInLeft duration">
+    <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
+      <div class="head_box">
+
+        <span>{{"بيع"}}</span>
+
+        <img [defaultImage]="'../../../assets/images/buildplaceholder.png'"
+          [lazyLoad]="'../../../assets/images/img_card.png'" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            {{'test'}}
+          </p>
+          <p>{{33245234453| date}}</p>
+        </div>
+        <p class="body_title">
+          {{"شقة مفروشة بحي بغداد"}}
+        </p>
+        <div class="price">
+          {{124214|number}} IQD
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            {{150}}م
+          </p>
+          <p>
+            الواجهه
+            {{120}}م
+          </p>
+
+          <p>
+            <img src="../../assets/images/bed.svg" alt="">
+            {{6}}
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            {{3}}
+          </p>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
+      <div class="head_box">
+
+        <span>{{"بيع"}}</span>
+
+        <img [defaultImage]="'../../../assets/images/buildplaceholder.png'"
+          [lazyLoad]="'../../../assets/images/img_card.png'" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            {{'test'}}
+          </p>
+          <p>{{33245234453| date}}</p>
+        </div>
+        <p class="body_title">
+          {{"شقة مفروشة بحي بغداد"}}
+        </p>
+        <div class="price">
+          {{124214|number}} IQD
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            {{150}}م
+          </p>
+          <p>
+            الواجهه
+            {{120}}م
+          </p>
+
+          <p>
+            <img src="../../assets/images/bed.svg" alt="">
+            {{6}}
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            {{3}}
+          </p>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template swiperSlide class="animate__animated animate__fadeInLeft duration">
+      <div class="head_box">
+
+        <span>{{"بيع"}}</span>
+
+        <img [defaultImage]="'../../../assets/images/buildplaceholder.png'"
+          [lazyLoad]="'../../../assets/images/img_card.png'" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            {{'test'}}
+          </p>
+          <p>{{33245234453| date}}</p>
+        </div>
+        <p class="body_title">
+          {{"شقة مفروشة بحي بغداد"}}
+        </p>
+        <div class="price">
+          {{124214|number}} IQD
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            {{150}}م
+          </p>
+          <p>
+            الواجهه
+            {{120}}م
+          </p>
+
+          <p>
+            <img src="../../assets/images/bed.svg" alt="">
+            {{6}}
+          </p>
+          <p>
+            <img src="../../assets/images/bath_room.svg" alt="">
+            {{3}}
+          </p>
+        </div>
+      </div>
+    </ng-template>
+
+  </swiper> -->
   <div class="container">
     <div class="item_head animate__animated animate__fadeInUp fast">
       <h2>مضاف حديثا</h2>
@@ -143,13 +283,12 @@
     <div *ngFor="let build of builds;let i = index;trackBy:trackFu"
       class="add_box_item animate__animated animate__fadeInUp duration" (click)="detailsBuild(build)">
       <div class="head_box">
-        <span *ngIf="build.adType?._id !='63b978f98aca1c524a92466e'"
-          style="top: 30px; background: var(--ion-color-primary);">{{build?.adType?.name}}</span>
+        <span style="top: 30px; background: var(--ion-color-primary);">{{build?.adType?.name}}</span>
         <span>{{build?.adGender?.name}}</span>
-        <div *ngIf="build.adStatus?._id=='63cfad757fbccb084be60734'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='64e5e2b32fc638b85f5c2fd0'" class="stoped">
           <p>تم البيع</p>
         </div>
-        <div *ngIf="build.adStatus?._id=='63cfad827fbccb084be60737'" class="stoped">
+        <div *ngIf="build.adStatus?._id=='64e5e30f2fc638b85f5c2fe2'" class="stoped">
           <p>موقف مؤقتاً</p>
         </div>
         <img [defaultImage]="'../../../assets/images/buildplaceholder.png'" [lazyLoad]="build?.images[0]" alt="">
@@ -167,7 +306,7 @@
             {{build?.title}}
           </p>
           <div class="price">
-            {{build?.price |number}} $
+            {{build?.price |number}} IQD
           </div>
         </div>
         <div class="footer_content">
@@ -177,17 +316,14 @@
           </p>
           <p *ngIf="build?.interface">
             الواجهه
-            <!-- <img src="../../assets/images/size.svg" alt=""> -->
             {{build?.interface}}م
           </p>
           <p *ngIf="build?.depth">
             النزال
-            <!-- <img src="../../assets/images/size.svg" alt=""> -->
             {{build?.depth}}م
           </p>
           <p *ngIf="build?.floorsNumber">
             الطوابق
-            <!-- <img src="../../assets/images/size.svg" alt=""> -->
             {{build?.floorsNumber}}
           </p>
           <p *ngIf="build?.bedsNumber">
@@ -201,7 +337,81 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!loading&&builds.length ==0" style="top:100px" class="error-view">
+    <!-- <div (click)="navigate('details')" class="add_box_item animate__animated animate__fadeInUp duration">
+      <div class="head_box">
+
+        <span>{{"مميز"}}</span>
+
+        <img [defaultImage]="'../../../assets/images/buildplaceholder.png'"
+          [lazyLoad]="'../../../assets/images/img_card.png'" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            {{'egypt'}}
+          </p>
+          <p>{{3253425| date}}</p>
+        </div>
+        <div class="center_content">
+          <p class="body_title">
+            {{'شقة مفروشة بحي بغداد'}}
+          </p>
+          <div class="price">
+            {{56000 |number}} IQD
+          </div>
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            {{400}}م
+          </p>
+          <p>
+            الواجهه
+            {{300}}م
+          </p>
+
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="add_box_item animate__animated animate__fadeInUp duration">
+      <div class="head_box">
+
+        <span>{{"مميز"}}</span>
+
+        <img [defaultImage]="'../../../assets/images/buildplaceholder.png'"
+          [lazyLoad]="'../../../assets/images/img_card.png'" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            {{'egypt'}}
+          </p>
+          <p>{{3253425| date}}</p>
+        </div>
+        <div class="center_content">
+          <p class="body_title">
+            {{'شقة مفروشة بحي بغداد'}}
+          </p>
+          <div class="price">
+            {{56000 |number}} IQD
+          </div>
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            {{400}}م
+          </p>
+          <p>
+            الواجهه
+            {{300}}م
+          </p>
+
+        </div>
+      </div>
+    </div> -->
+    <div *ngIf="emptyView" style="top:100px" class="error-view">
       <div class="content">
         <ion-icon name="happy-outline"></ion-icon>
         <ion-text color="medium">
@@ -233,16 +443,16 @@
     </div>
   </div>
 
-
+  <!-- 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
     <ion-fab-button mode="ios" (click)="addBuild()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-  </ion-fab>
-  <ion-infinite-scroll threshold="25%" [disabled]="disableInfinity" position="bottom" (ionInfinite)="loadData($event)">
+  </ion-fab> -->
+  <!-- <ion-infinite-scroll threshold="25%" [disabled]="disableInfinity" position="bottom" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
   <ion-modal #modal mode="ios" trigger="open-modal" [initialBreakpoint]=".75"
     [breakpoints]="[0, 0.25,0.35, 0.5, 0.75,1]">
     <ng-template>

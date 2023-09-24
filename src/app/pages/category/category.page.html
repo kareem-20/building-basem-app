@@ -61,7 +61,7 @@
             {{build?.title}}
           </p>
           <div class="price">
-            {{build?.price |number}} $
+            {{build?.price |number}} IQD
           </div>
         </div>
         <div class="footer_content">
@@ -105,9 +105,11 @@
 
   <div *ngIf="emptyView" class="error-view">
     <div class="content">
-      <ion-icon name="happy-outline"></ion-icon>
+      <!-- <ion-icon name="happy-outline"></ion-icon> -->
+      <img src="../../../assets/images/bulding.svg" alt="">
       <ion-text color="medium">
-        <p>لا يوجد اعلانات حاليا</p>
+        <h5>لا يوجد اعلانات حاليا</h5>
+        <p>سيتم إضافة إعلانات جديدة في هذا القسم قريبا</p>
       </ion-text>
     </div>
   </div>

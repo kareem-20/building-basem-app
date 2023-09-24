@@ -22,7 +22,7 @@
     "@awesome-cordova-plugins/clipboard": "^6.3.0",
     "@awesome-cordova-plugins/social-sharing": "^6.3.0",
     "@capacitor-community/fcm": "^3.0.2",
-    "@capacitor/android": "4.6.2",
+    "@capacitor/android": "4.5.0",
     "@capacitor/app": "4.1.1",
     "@capacitor/browser": "^4.1.0",
     "@capacitor/camera": "^4.1.4",

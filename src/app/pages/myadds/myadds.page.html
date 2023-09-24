@@ -13,12 +13,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
     <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
+
   <div class="container">
     <h1 class="title_category animate__animated animate__fadeInUp duration">إعلاناتي</h1>
-    <ion-segment mode="ios" color="primary" [(ngModel)]="adStatus" (ionChange)="segmentChanged($event)">
+    <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p>
+
+    <ion-segment mode="ios" color="primary" [(ngModel)]="adStatus">
       <ion-segment-button value="">
         <ion-label>الكل</ion-label>
       </ion-segment-button>
@@ -32,9 +35,44 @@
         <ion-label>موقف مؤقتا</ion-label>
       </ion-segment-button>
     </ion-segment>
-    <!-- <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p> -->
+    <div class="add_box_item animate__animated animate__fadeInUp duration">
+      <div class="head_box">
 
-    <div *ngFor="let build of building;let i = index;trackBy:trackFu"
+        <span>{{"مميز"}}</span>
+
+        <img [defaultImage]="'../../../assets/images/buildplaceholder.png'"
+          [lazyLoad]="'../../../assets/images/img_card.png'" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            {{'egypt'}}
+          </p>
+          <p>{{3253425| date}}</p>
+        </div>
+        <div class="center_content">
+          <p class="body_title">
+            {{'شقة مفروشة بحي بغداد'}}
+          </p>
+          <div class="price">
+            {{56000 |number}} $
+          </div>
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            {{400}}م
+          </p>
+          <p>
+            الواجهه
+            {{300}}م
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <!-- <div *ngFor="let build of building;let i = index;trackBy:trackFu"
       class="add_box_item animate__animated animate__fadeInUp duration">
       <div class="head_box">
         <span style="top: 30px; background: var(--ion-color-primary);"
@@ -68,17 +106,14 @@
           </p>
           <p *ngIf="build?.interface">
             الواجهه
-            <!-- <img src="../../assets/images/size.svg" alt=""> -->
             {{build?.interface}}م
           </p>
           <p *ngIf="build?.depth">
             النزال
-            <!-- <img src="../../assets/images/size.svg" alt=""> -->
             {{build?.depth}}م
           </p>
           <p *ngIf="build?.floorsNumber">
             الطوابق
-            <!-- <img src="../../assets/images/size.svg" alt=""> -->
             {{build?.floorsNumber}}
           </p>
           <p *ngIf="build?.bedsNumber">
@@ -91,7 +126,8 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> -->
+
   </div>
 
 
@@ -124,10 +160,10 @@
       <ion-icon name="options"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-infinite-scroll threshold="25%" [disabled]="disableInfinity" position="bottom" (ionInfinite)="loadData($event)">
+  <!-- <ion-infinite-scroll threshold="25%" [disabled]="disableInfinity" position="bottom" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
   <ion-modal #modal mode="ios" trigger="open-modal" [initialBreakpoint]="0.75"
     [breakpoints]="[0, 0.25,0.35, 0.5, 0.75,1]">
     <ng-template>

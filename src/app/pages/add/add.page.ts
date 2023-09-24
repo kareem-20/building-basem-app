@@ -7,7 +7,7 @@ import { forkJoin } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
-import SwiperCore, { Pagination, Navigation } from "swiper";
+import SwiperCore, { Pagination, Navigation } from 'swiper';
 SwiperCore.use([Pagination, Navigation]);
 
 @Component({
@@ -18,14 +18,14 @@ SwiperCore.use([Pagination, Navigation]);
 })
 export class AddPage implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
-  buildTypes: any[] = []
-  bondTypes: any[] = []
-  adTypes: any[] = []
-  adStatus: any[] = []
-  adGender: any[] = []
-  citys: any[] = []
+  buildTypes: any[] = [];
+  bondTypes: any[] = [];
+  adTypes: any[] = [];
+  adStatus: any[] = [];
+  adGender: any[] = [];
+  citys: any[] = [];
   imagesFromDevice: any[] = [];
-  imagesToSubmit: any[] = []
+  imagesToSubmit: any[] = [];
   currentLocation: {} | null = null;
   locationType: string | null = 'map';
   mapLocation: {} | null = null;
@@ -42,11 +42,11 @@ export class AddPage implements OnInit, OnDestroy {
     private locationService: LocationService,
     private alertCtrl: AlertController
   ) {
-    this.createForm()
+    this.createForm();
   }
 
   ngOnInit() {
-    this.getTypes()
+    // this.getTypes()
   }
 
   ionViewWillEnter() {
@@ -54,13 +54,12 @@ export class AddPage implements OnInit, OnDestroy {
 
     if (this.dataService.myParams.mapLocation) {
       this.mapLocation = this.dataService.myParams.mapLocation;
-      this.helper.presentToast('تم تحديد الموقع بنجاح')
+      this.helper.presentToast('تم تحديد الموقع بنجاح');
     }
-    this.editedBuild = this.dataService.myParams.build
+    this.editedBuild = this.dataService.myParams.build;
     if (this.editedBuild) {
       console.log(this.editedBuild);
-      this.patchMyForm(this.editedBuild)
-
+      this.patchMyForm(this.editedBuild);
     }
   }
 
@@ -73,8 +72,8 @@ export class AddPage implements OnInit, OnDestroy {
       bondType: data.bondType._id,
       adType: data.adType._id,
       adGender: data.adGender._id,
-      buildType: data.buildType._id
-    })
+      buildType: data.buildType._id,
+    });
   }
   getTypes() {
     forkJoin([
@@ -85,13 +84,13 @@ export class AddPage implements OnInit, OnDestroy {
       this.dataService.getData('/adGender'),
       this.dataService.getData('/citys'),
     ]).subscribe((res: any[]) => {
-      this.buildTypes = res[0]
-      this.bondTypes = res[1]
+      this.buildTypes = res[0];
+      this.bondTypes = res[1];
       // this.adTypes = res[2]
       // this.adStatus = res[3]
-      this.adGender = res[2]
-      this.citys = res[3]
-    })
+      this.adGender = res[2];
+      this.citys = res[3];
+    });
   }
 
   createForm() {
@@ -115,111 +114,127 @@ export class AddPage implements OnInit, OnDestroy {
       // adStatus: [''],
       adGender: [''],
       buildType: ['', Validators.required],
-      city: ['']
-    })
+      city: [''],
+    });
   }
 
   back() {
-    this.navCtrl.back()
+    this.navCtrl.back();
   }
   selectImage() {
     // console.log('clicked');
     this.cameraService.showActionSheet().then((val) => {
-      if (val) this.imagesFromDevice.push(val)
-    })
+      if (val) this.imagesFromDevice.push(val);
+    });
   }
 
   async getCurrentLocation() {
     this.locationType = 'current';
-    this.locationService.getCurrentLocation().then(val => {
+    this.locationService.getCurrentLocation().then((val) => {
       this.currentLocation = val;
-      this.helper.presentToast('تم تحديد موقعك بنجاح')
-    })
+      this.helper.presentToast('تم تحديد موقعك بنجاح');
+    });
   }
-
 
   getMapLocation() {
     this.locationType = 'map';
   }
 
   async submit() {
-    this.helper.showLoading('جاري نشر الاعلان')
-    let uploadedImages = (this.imagesFromDevice.length) ? await this.cameraService.uploadImages(this.imagesFromDevice) : [];
-    this.imagesToSubmit = this.imagesToSubmit.concat(uploadedImages)
-    let location = this.location;
-    if (!this.editedBuild && !location) return this.helper.presentToast('يجب تحديد موقع العقار'), this.helper.dismissLoading();
-    let body = {
-      images: this.imagesToSubmit,
-      ...this.form.value,
-      user: this.authService.userData?._id
-    }
+    // this.helper.showLoading('جاري نشر الاعلان');
+    // let uploadedImages = this.imagesFromDevice.length
+    //   ? await this.cameraService.uploadImages(this.imagesFromDevice)
+    //   : [];
+    // this.imagesToSubmit = this.imagesToSubmit.concat(uploadedImages);
+    // let location = this.location;
+    // if (!this.editedBuild && !location)
+    //   return (
+    //     this.helper.presentToast('يجب تحديد موقع العقار'),
+    //     this.helper.dismissLoading()
+    //   );
+    // let body = {
+    //   images: this.imagesToSubmit,
+    //   ...this.form.value,
+    //   user: this.authService.userData?._id,
+    // };
 
-    if (this.location) body['location'] = { coordinates: [location.lng, location.lat] }
-    if (this.editedBuild) {
-      this.updateBuild(body)
-    } else {
-      this.addBuild(body)
-    }
+    // if (this.location)
+    //   body['location'] = { coordinates: [location.lng, location.lat] };
+    // if (this.editedBuild) {
+    //   this.updateBuild(body);
+    // } else {
+    //   this.addBuild(body);
+    // }
+    this.navCtrl.navigateRoot('/home');
+    this.helper.presentToast('تم اضافة الاعلان بنجاح');
   }
   updateBuild(body: any) {
-    this.dataService.updateData(`/build/${this.editedBuild._id}`, body).subscribe((res) => {
-      this.helper.dismissLoading()
-      this.navCtrl.navigateRoot('/home');
-      this.helper.presentToast('تم تعديل الاعلان بنجاح')
-    }, (err) => {
-      console.log(err);
-      this.helper.presentToast('خطأ برفع البيانات اعد المحاولة');
-      this.helper.dismissLoading()
-    })
+    this.dataService
+      .updateData(`/build/${this.editedBuild._id}`, body)
+      .subscribe(
+        (res) => {
+          this.helper.dismissLoading();
+          this.navCtrl.navigateRoot('/home');
+          this.helper.presentToast('تم تعديل الاعلان بنجاح');
+        },
+        (err) => {
+          console.log(err);
+          this.helper.presentToast('خطأ برفع البيانات اعد المحاولة');
+          this.helper.dismissLoading();
+        }
+      );
   }
   addBuild(body: any) {
-    this.dataService.postData('/build', body).subscribe((res) => {
-      this.helper.dismissLoading()
-      this.navCtrl.navigateRoot('/home');
-      this.helper.presentToast('تم اضافة الاعلان بنجاح')
-    }, (err) => {
-      this.helper.presentToast('خطأ برفع البيانات اعد المحاولة');
-      this.helper.dismissLoading()
-    })
+    this.dataService.postData('/build', body).subscribe(
+      (res) => {
+        this.helper.dismissLoading();
+        this.navCtrl.navigateRoot('/home');
+        this.helper.presentToast('تم اضافة الاعلان بنجاح');
+      },
+      (err) => {
+        this.helper.presentToast('خطأ برفع البيانات اعد المحاولة');
+        this.helper.dismissLoading();
+      }
+    );
   }
   get location(): any {
-    let location = null
-    if (this.locationType == 'current' && this.currentLocation) location = this.currentLocation
-    if (this.locationType == 'map' && this.mapLocation) location = this.mapLocation
+    let location = null;
+    if (this.locationType == 'current' && this.currentLocation)
+      location = this.currentLocation;
+    if (this.locationType == 'map' && this.mapLocation)
+      location = this.mapLocation;
     return location;
   }
   //########   Map Modal
   async openMap() {
-    this.navCtrl.navigateForward('/map')
+    this.navCtrl.navigateForward('/map');
   }
 
   async deleteImage(img: any, index: number, type: string) {
     const alert = await this.alertCtrl.create({
-      header: "حذف الصورة",
-      message: "متأكد من حذف هذة الصورة",
+      header: 'حذف الصورة',
+      message: 'متأكد من حذف هذة الصورة',
       mode: 'ios',
       buttons: [
         {
-          text: "حذف",
+          text: 'حذف',
           handler: () => {
-            if (type == 'device') this.imagesFromDevice.splice(index, 1)
-            else if (type == 'submit') this.imagesToSubmit.splice(index, 1)
+            if (type == 'device') this.imagesFromDevice.splice(index, 1);
+            else if (type == 'submit') this.imagesToSubmit.splice(index, 1);
           },
-          cssClass: "danger"
+          cssClass: 'danger',
         },
         {
-          text: "الغاء",
-          role: "cancel",
-          cssClass: "dark"
-        }
-      ]
-    })
-    await alert.present()
+          text: 'الغاء',
+          role: 'cancel',
+          cssClass: 'dark',
+        },
+      ],
+    });
+    await alert.present();
   }
 
-
-
   ngOnDestroy(): void {
-    this.dataService.addParams = {}
+    this.dataService.addParams = {};
   }
 }

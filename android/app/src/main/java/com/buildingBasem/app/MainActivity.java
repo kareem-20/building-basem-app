@@ -1,4 +1,4 @@
-package app.building.app;
+package com.buildingBasem.app;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { WishlistPageRoutingModule } from './wishlist-routing.module';
 
 import { WishlistPage } from './wishlist.page';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WishlistPageRoutingModule
+    LazyLoadImageModule,
+    WishlistPageRoutingModule,
   ],
-  declarations: [WishlistPage]
+  declarations: [WishlistPage],
 })
 export class WishlistPageModule {}

@@ -15,7 +15,10 @@ export class MapPage implements OnInit {
   // @ViewChild('map') mapRef: ElementRef;
   map: GoogleMap;
   myLocation: any;
-  mapLocaion: { lat: number | null, lng: number | null } = { lat: null, lng: null };
+  mapLocaion: { lat: number | null; lng: number | null } = {
+    lat: null,
+    lng: null,
+  };
 
   @ViewChild('map', { static: true }) mapRef: ElementRef;
 
@@ -24,51 +27,32 @@ export class MapPage implements OnInit {
     private locationService: LocationService,
     private navCtrl: NavController,
     private dataService: DataService
-  ) {
-
-  }
+  ) {}
 
   ionViewDidEnter() {
-    this.createMap()
+    this.createMap();
   }
-  ionViewDidLeave() {
-
-  }
+  ionViewDidLeave() {}
 
   async createMap() {
-    // this.map = await GoogleMap.create({
-    //   id: 'map',
-    //   apiKey: environment.mapskey,
-    //   element: this.mapRef.nativeElement,
-    //   forceCreate: true,
-    //   config: {
-    //     center: {
-    //       lat: this.myLocation.lat,
-    //       lng: this.myLocation.lng
-    //     },
-    //     zoom: 9
-    //   }
-    // }, (err) => {
-    //   console.log(err);
-    // })
-    // this.addMarker()
-
-    let latLng = new google.maps.LatLng(this.myLocation.lat, this.myLocation.lng);
+    let latLng = new google.maps.LatLng(
+      this.myLocation.lat,
+      this.myLocation.lng
+    );
     let options = {
       center: latLng,
       zoom: 15,
-      // mapTypeId: "roadmap",
-    }
+    };
     let markers: google.maps.Marker[] = [];
 
     let map = new google.maps.Map(this.mapRef.nativeElement, options);
-    const input = document.getElementById("pac-input") as HTMLInputElement;
+    const input = document.getElementById('pac-input') as HTMLInputElement;
     const searchBox = new google.maps.places.SearchBox(input);
 
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // searchBox.addListener
-    searchBox.addListener("places_changed", () => {
+    searchBox.addListener('places_changed', () => {
       const places = searchBox.getPlaces();
       console.log(places);
       if (places.length == 0) {
@@ -86,7 +70,7 @@ export class MapPage implements OnInit {
 
       places.forEach((place: any) => {
         if (!place.geometry || !place.geometry.location) {
-          console.log("Returned place contains no geometry");
+          console.log('Returned place contains no geometry');
           return;
         }
 
@@ -103,16 +87,15 @@ export class MapPage implements OnInit {
           title: place.name,
           position: place.geometry.location,
           draggable: true,
-        })
+        });
         // Create a marker for each place.
         marker.addListener('dragend', () => {
           this.mapLocaion = {
             lat: marker.getPosition().lat(),
             lng: marker.getPosition().lng(),
-          }
+          };
           console.log(marker.getPosition().lat(), marker.getPosition().lng());
-
-        })
+        });
         markers.push(marker);
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
@@ -124,17 +107,12 @@ export class MapPage implements OnInit {
       map.fitBounds(bounds);
     });
 
-
-
     // Bias the SearchBox results towards current map's viewport.
-    map.addListener("bounds_changed", () => {
-
+    map.addListener('bounds_changed', () => {
       searchBox.setBounds(map.getBounds() as google.maps.LatLngBounds);
-
     });
 
-    this.addMarker(map, latLng)
-
+    this.addMarker(map, latLng);
   }
   addMarker(map: any, position: any) {
     // const markImage = '../../../assets/Icon&Svg/8.my location/svg/pin_big.svg';
@@ -144,64 +122,34 @@ export class MapPage implements OnInit {
       position,
       draggable: true,
       // icon: markImage
-    })
+    });
 
     marker.addListener('dragend', () => {
       this.mapLocaion = {
         lat: marker.getPosition().lat(),
         lng: marker.getPosition().lng(),
-      }
+      };
       console.log(marker.getPosition().lat(), marker.getPosition().lng());
-    })
-
-
+    });
   }
-
 
   ngOnInit() {
-    this.myLocation = this.locationService.currentLocation
+    this.myLocation = this.locationService.currentLocation;
   }
-
-  // async addMarker() {
-  //   const marker: Marker = {
-  //     draggable: true,
-  //     title: 'localhost',
-  //     coordinate: {
-  //       lat: this.myLocation.lat,
-  //       lng: this.myLocation.lng
-  //     },
-  //     snippet: "my Home",
-  //   }
-  //   console.log(this.myLocation);
-
-  //   await this.map.addMarker(marker)
-  //   this.map.setOnMarkerDragEndListener(async (marker) => {
-  //     console.log(marker);
-  //     this.mapLocaion.lat = marker.latitude;
-  //     this.mapLocaion.lng = marker.longitude;
-  //   })
-  // }
 
   close() {
-    console.log('close')
+    console.log('close');
     // this.modalCtrl.dismiss()
     this.navCtrl.navigateBack('/add');
-    this.map.destroy()
-
+    this.map.destroy();
   }
   setCurrentLocation() {
-    this.mapLocaion = this.myLocation
-    this.sumbit()
+    this.mapLocaion = this.myLocation;
+    this.sumbit();
   }
   sumbit() {
-    console.log('submit')
-    this.dataService.addParams = { mapLocation: this.mapLocaion }
-    console.log(this.mapLocaion);
-
-    this.navCtrl.navigateBack('/add')
-    // this.map.destroy()
-
-    // this.modalCtrl.dismiss(this.mapLocaion)
+    console.log('submit');
+    this.dataService.addParams = { mapLocation: this.mapLocaion };
+    this.navCtrl.navigateBack('/add');
   }
-
 }

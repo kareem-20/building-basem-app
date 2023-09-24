@@ -21,42 +21,43 @@ export class MePage implements OnInit {
     private navCtrl: NavController,
     private cameraService: CameraService,
     private helper: HelpersService,
-    private authService: AuthService,
-
+    private authService: AuthService
   ) {
-    this.createFrom()
+    this.createFrom();
   }
   createFrom() {
     this.form = this.fb.group({
       fullName: [''],
-      address: ['']
-    })
+      address: [''],
+    });
   }
-
 
   ngOnInit() {
     this.userData = this.authService.userData;
-    this.form.patchValue(this.userData)
+    this.form.patchValue(this.userData);
   }
 
-
   back() {
-    this.navCtrl.back()
+    this.navCtrl.back();
   }
   selectImage() {
     console.log('clicked');
     this.cameraService.showActionSheet().then((val) => {
-      this.image = val
-    })
+      this.image = val;
+    });
   }
 
   async submit() {
-    let image = await this.cameraService.uploadOneImage(this.image);
+    let image;
+    if (this.image) {
+      image = await this.cameraService.uploadOneImage(this.image);
+    }
     let body = {
       image,
       ...this.form.value,
-    }
+    };
+    if (!this.image) delete body.image;
     console.log(body);
-    this.authService.updateUser(body)
+    this.authService.updateUser(body);
   }
 }

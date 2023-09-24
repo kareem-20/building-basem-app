@@ -7,16 +7,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
     <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
 
   <div class="container">
     <h1 class="title_category animate__animated animate__fadeInUp duration">رغباتي</h1>
+    <p class="sub_title animate__animated animate__fadeInUp duration">456 شقة مختلفة</p>
 
+    <!-- 
     <div class="wishlist" *ngFor="let wish of wishlists;let wishIndex =index">
       <div class="body-wish">
-        <h3>{{wish.title}}
+        <h3>{{wish?.title}}
           <ion-text color="primary" slot="end" (click)="optionsPopOver($event,wish,wishIndex)">
             <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>
           </ion-text>
@@ -25,14 +27,51 @@
           <div class="start">عدد الاعلانات</div>
           <div class="end">
             <p>
-              {{wish.count }}
+              {{wish?.count }}
             </p>
           </div>
         </div>
 
       </div>
-    </div>
+    </div> -->
 
+    <div class="add_box_item animate__animated animate__fadeInUp duration">
+      <div class="head_box">
+
+        <span>{{"مميز"}}</span>
+
+        <img [defaultImage]="'../../../assets/images/buildplaceholder.png'"
+          [lazyLoad]="'../../../assets/images/img_card.png'" alt="">
+      </div>
+      <div class="body_content">
+        <div class="body_head">
+          <p>
+            <ion-icon slot="start" name="location"></ion-icon>
+            {{'egypt'}}
+          </p>
+          <p>{{3253425| date}}</p>
+        </div>
+        <div class="center_content">
+          <p class="body_title">
+            {{'شقة مفروشة بحي بغداد'}}
+          </p>
+          <div class="price">
+            {{56000 |number}} $
+          </div>
+        </div>
+        <div class="footer_content">
+          <p>
+            <img src="../../assets/images/size.svg" alt="">
+            {{400}}م
+          </p>
+          <p>
+            الواجهه
+            {{300}}م
+          </p>
+
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -61,7 +100,7 @@
   </div>
 
 
-  <ion-fab *ngIf="!errorView" vertical="bottom" dir="rtl" horizontal="end" slot="fixed">
+  <!-- <ion-fab *ngIf="!errorView" vertical="bottom" dir="rtl" horizontal="end" slot="fixed">
     <ion-fab-button mode="ios" (click)="addWishList()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
@@ -69,7 +108,7 @@
   <ion-infinite-scroll threshold="25%" [disabled]="disableInfinity" position="bottom" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
 
 
   <ion-popover #popover [dismissOnSelect]="true" [isOpen]="isOpen" (didDismiss)="isOpen = false" mode="ios">
