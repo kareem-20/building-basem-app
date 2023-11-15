@@ -146,11 +146,17 @@
         <div class="filter_body">
           <p>المحافظة</p>
           <div class="item_box">
-            <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="city">
+            <ion-select mode="ios" placeholder="الشقق" [(ngModel)]="city" (ionChange)="getZones()">
               <ion-select-option *ngFor="let city of citys" [value]="city._id">{{city.name}}</ion-select-option>
             </ion-select>
           </div>
 
+          <p>المنطقة</p>
+          <div class="item_box">
+            <ion-select mode="ios" placeholder="" [(ngModel)]="subzone">
+              <ion-select-option *ngFor="let zone of subzones" [value]="zone._id">{{zone.name}}</ion-select-option>
+            </ion-select>
+          </div>
           <!-- <p>الموقع /المدينة</p>
           <div class="item_box">
             <ion-select interface="popover" placeholder="الشقق">

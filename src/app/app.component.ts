@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { DeepLinkService } from './services/deep-link/deep-link.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent {
     private platform: Platform,
     private authService: AuthService,
     private fcmService: FcmService,
+    private deepLink: DeepLinkService,
     private locationService: LocationService
   ) {
     this.initializeApp();
@@ -35,6 +37,7 @@ export class AppComponent {
         console.log(val);
       });
       if (Capacitor.getPlatform() != 'web') await this.setLightStatusBar();
+      this.deepLink.listenToDeepLinkOpen();
     });
   }
   async checkUser() {

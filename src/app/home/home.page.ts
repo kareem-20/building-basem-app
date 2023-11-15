@@ -36,14 +36,14 @@ export class HomePage implements OnInit {
   adStatuss: any[] = [];
   adGenders: any[] = [];
   citys: any[] = [];
-
+  subzones: any[] = [];
   /// filter values
   city: string | null = null;
   adStatus: string | null = null;
   adGender: string | null = null;
   adType: string | null = null;
   bondType: string | null = null;
-
+  subzone: string | null = null;
   constructor(
     private helper: HelpersService,
     private dataService: DataService,
@@ -117,9 +117,17 @@ export class HomePage implements OnInit {
     if (this.adGender) url += `&adGender=${this.adGender}`;
     if (this.adType) url += `&adType=${this.adType}`;
     if (this.bondType) url += `&bondType=${this.bondType}`;
+    if (this.subzone) url += `&subzone=${this.subzone}`;
+
     return url.replace('&', '?');
   }
-
+  getZones() {
+    this.dataService
+      .getData(`/subzone?city=${this.city}`)
+      .subscribe((res: any) => {
+        this.subzones = res;
+      });
+  }
   onSearchChange(ev?: Event) {
     this.getBuilds();
   }
@@ -175,7 +183,7 @@ export class HomePage implements OnInit {
       this.helper.presentToast(`هذا العقار ${build.adStatus.name}`);
     else {
       this.dataService.addParams = { build };
-      this.helper.navigateForward('details');
+      this.helper.navigateForward('details/' + build._id);
     }
   }
   addBuild() {
@@ -215,6 +223,7 @@ export class HomePage implements OnInit {
     this.searchQuery = '';
     this.bondType = null;
     this.skip = 0;
+    this.subzone = null;
   }
 
   async filter() {
@@ -227,6 +236,7 @@ export class HomePage implements OnInit {
     this.adType = null;
     this.bondType = null;
     this.city = null;
+    this.subzone = null;
     this.filterModal.dismiss();
     this.getBuilds();
   }

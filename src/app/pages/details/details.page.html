@@ -3,9 +3,9 @@
     <ion-button slot="start" (click)="back()">
       <img src="../../../assets/images/back2.svg" alt="">
     </ion-button>
-    <!-- <ion-button slot="end" (click)="share()">
+    <ion-button slot="end" (click)="directShare()">
       <img src="../../../assets/images/share.svg" alt="">
-    </ion-button> -->
+    </ion-button>
   </div>
   <swiper #mySlide dir="rtl" [pagination]="{
     type: 'fraction'
@@ -134,7 +134,7 @@
       <p [innerText]="build?.description"></p>
     </div>
 
-    <div class="userProfile" (click)="toProfile()" *ngIf="build?.userId?._id">
+    <!-- <div class="userProfile" (click)="toProfile()" *ngIf="build?.userId?._id">
       <ion-avatar slot="start">
         <img [defaultImage]="'../../../assets/images/userplaceholder.png'" [lazyLoad]="build.userId?.image" />
       </ion-avatar>
@@ -144,7 +144,7 @@
       </ion-label>
       <ion-icon slot="end" name="chevron-back-circle-outline"></ion-icon>
 
-    </div>
+    </div> -->
   </div>
 
 </ion-content>

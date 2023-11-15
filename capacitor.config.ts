@@ -13,6 +13,9 @@ const config: CapacitorConfig = {
     PushNotifications: {
       presentationOptions: ['badge', 'sound', 'alert'],
     },
+    CapacitorFirebaseDynamicLinks: {
+      webClientId: 'AIzaSyAtrzsFKs5my3BEsaHWoXVetSOM2Za6XEg',
+    },
   },
 };
 
