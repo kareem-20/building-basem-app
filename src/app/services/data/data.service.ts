@@ -9,10 +9,11 @@ const BASE_URL = 'taboor_url';
 })
 export class DataService {
   private params: any = {};
-  baseURL: string = 'http://209.250.237.58:5638';
+  baseURL: string = 'https://bassimalshamary.iraqsapp.com';
 
-  constructor(private http: HttpClient) // private storage: Storage
-  {}
+  constructor(
+    private http: HttpClient // private storage: Storage
+  ) {}
 
   set addParams(body: any) {
     this.params = body;
