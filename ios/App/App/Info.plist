@@ -46,17 +46,16 @@
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <true/>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>we want your current postion to get nearest data</string>
+    <string>We need to determine your current location to bring the closest properties to you</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>we want your current postion to get nearest data</string>
+    <string>We need to determine your current location to bring the closest properties to you</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>To show your location</string>
+    <string>We need to determine your current location to bring the closest properties to you</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>we need access your Library to take a photo to your profile picture</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>we need access your Library to take a photo to your profile picture</string>
     <key>NSCameraUsageDescription</key>
-    <string>we need access your Library to take a photo to your profile picture</string>
-    <key>NSAppTransportSecurity</key>
-
-  </plist>
+    <string>we need access your Camera to take a photo to your profile picture</string>
+  </dict>
+</plist>
